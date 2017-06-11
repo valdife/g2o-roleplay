@@ -1,0 +1,87 @@
+<items>
+
+	<item>
+		<instance>ITMI_GOLD</instance>
+	</item>
+	
+	<item>
+		<instance>ITFO_FISH</instance>
+	</item>
+	
+	<item>
+		<instance>ITFO_BREAD</instance>
+	</item>
+	
+	<item>
+		<instance>ITFO_HONEY</instance>
+	</item>
+	
+	<item>
+		<instance>ITFO_CHEESE</instance>
+	</item>
+	
+	<item>
+		<instance>ITPO_SPEED</instance>
+	</item>
+		
+	<item>
+		<instance>ITPO_HEALTH_01</instance>
+	</item>
+		
+	<item>
+		<instance>ITPO_HEALTH_03</instance>
+	</item>
+		
+	<item>
+		<instance>ITAR_VLK_L</instance>
+	</item>
+		
+	<item>
+		<instance>ITAR_LEATHER_L</instance>
+	</item>
+		
+	<item>
+		<instance>ITMW_1H_BAU_MACE</instance>
+	</item>
+		
+	<item>
+		<instance>ITMW_1H_MISC_AXE</instance>
+	</item>
+		
+	<item>
+		<instance>ITMW_1H_SWORD_L_03</instance>
+	</item>	
+		
+	<item>
+		<instance>ITRW_ARROW</instance>
+	</item>
+		
+	<item>
+		<instance>ITRW_BOLT</instance>
+	</item>
+		
+	<item>
+		<instance>ITRW_BOW_L_01</instance>
+	</item>
+		
+	<item>
+		<instance>ITRW_CROSSBOW_L_01</instance>
+	</item>
+	
+	<item>
+		<instance>ITAR_VLKBABE_H</instance>
+	</item>	
+	
+	<item>
+		<instance>ITAR_DIEGO</instance>
+	</item>	
+	
+	<item>
+		<instance>ITAR_FAKE_RANGER</instance>
+	</item>
+
+	<item>
+		<instance>ITFO_ADDON_SCHLAFHAMMER</instance>
+	</item>	
+	
+</items>	
