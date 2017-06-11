@@ -1,0 +1,4 @@
+<server>
+	<import src="server-scripts/config.xml" />
+	<import src="client-scripts/config.xml" />
+</server>
