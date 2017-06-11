@@ -8,5 +8,6 @@
 	<script src="inc/bank.nut" type="client" />
 	<script src="inc/lou.nut" type="client" />
 	<script src="inc/brothel.nut" type="client" />
+	<script src="inc/dialogbox.nut" type="client" />
 	<script src="callbacks.nut" type="client" />
 </server>
