@@ -417,13 +417,26 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 			}
 		break;
 
+		case "tppos":
+			if(player[pid].adminIsLogged){
+				local args = sscanf("dddd", params);
+				if(args){
+					if(player[args[0]].isLogged){
+						sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono pozycjê gracza. Gracz: (%d) %s.", args[0], getPlayerName(args[0]));
+						sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s zmieni³ Twoj¹ pozycjê.", pid, getPlayerName(pid)));
+						setPlayerPosition(args[0], args[1], args[2], args[3]);
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /tppos (id) (x) (y) (z)");
+			}
+		break;
+		
 		case "kick":
 			if(player[pid].adminIsLogged){
 				local args = sscanf("ds", params);
 				if(args){
 					if(isPlayerConnected(args[0])){
 						sendMessageToPlayer(pid, 128, 0, 0, format("Wyrzucono gracza. Gracz: (%d) %s, powód: %s.", args[0], getPlayerName(args[0]), args[1]));
-						sendMessageToAll(207, 41, 66, format("Supporter (%d) %s wyrzuci³ %s. Powód: %s", pid, getPlayerName(pid), getPlayerName(args[0]), args[1]));
+						sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s nada³ Ci ostrze¿enie. Powód: %s", pid, getPlayerName(pid), args[1]));
 						player[args[0]].active = 0; kick(args[0]);
 					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
 				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /kick (id) (reason)");
