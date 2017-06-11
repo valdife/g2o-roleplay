@@ -422,7 +422,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				local args = sscanf("dddd", params);
 				if(args){
 					if(player[args[0]].isLogged){
-						sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono pozycjê gracza. Gracz: (%d) %s.", args[0], getPlayerName(args[0]));
+						sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono pozycjê gracza. Gracz: (%d) %s.", args[0], getPlayerName(args[0])));
 						sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s zmieni³ Twoj¹ pozycjê.", pid, getPlayerName(pid)));
 						setPlayerPosition(args[0], args[1], args[2], args[3]);
 					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
