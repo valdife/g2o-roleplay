@@ -138,8 +138,8 @@ function player::showStats(pid){
       lvl += player[pid].skillWeapon[i];
     }
     sendMessageToPlayer(pid, 213, 173, 66, " ");
-    sendMessageToPlayer(pid, 213, 173, 66, format("(Minuter: %d) (Level: %d) (Maksymalne punkty trafieñ: %d), (Si³a: %d) (Zrêcznoœæ: %d)",
-    60-player[pid].minuter, lvl*0.01, player[pid].maxHealth, player[pid].strength, player[pid].dexterity));
+    sendMessageToPlayer(pid, 213, 173, 66, format("(Minuter: %d) (Level: %d) (PN: %d) (Maksymalne punkty trafieñ: %d), (Si³a: %d) (Zrêcznoœæ: %d)",
+    60-player[pid].minuter, lvl*0.01, player[pid].pn, player[pid].maxHealth, player[pid].strength, player[pid].dexterity));
     sendMessageToPlayer(pid, 213, 173, 66, format("(Broñ jednorêczna: %d) (Broñ dwurêczna: %d) (Kusze: %d), (£ucznictwo: %d)",
     player[pid].skillWeapon[0], player[pid].skillWeapon[1], player[pid].skillWeapon[2], player[pid].skillWeapon[3]));
     sendMessageToPlayer(pid, 213, 173, 66, " ");

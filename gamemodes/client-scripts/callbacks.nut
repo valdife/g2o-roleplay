@@ -70,20 +70,20 @@ addEventHandler("onKey", function(key){
 		}
 	}
 
-	if(key==KEY_B){
-		if(!chatInputIsOpen()){
+	if(!chatInputIsOpen()){
+		if(key==KEY_B){
 			if (Chat.visible){
 				chatInputOpen();
 				chatInputSetText("/b ");
 				disableControls(false);
 			}
 		}
-	}
-	else if(key==KEY_O){
-		callServerFunc("player.description", heroId);
-	}
-	else if(key==KEY_C){
-		callServerFunc("player.showStats", heroId);
+		else if(key==KEY_O){
+			callServerFunc("player.description", heroId);
+		}
+		else if(key==KEY_C){
+			callServerFunc("player.showStats", heroId);
+		}
 	}
 });
 
