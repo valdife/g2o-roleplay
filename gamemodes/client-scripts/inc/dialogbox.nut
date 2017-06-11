@@ -8,8 +8,6 @@ dialog <- {
 	position = 0
 }
 
-// 7 - drawPos 3
-
 function dialog::create(id, ...){
 	if(active!=null) destroy();
 	setFreeze(true);

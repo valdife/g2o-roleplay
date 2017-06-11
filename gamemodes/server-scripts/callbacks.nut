@@ -48,7 +48,8 @@ addEventHandler("onPlayerMessage", function(pid, message){
 			for(local i = 0; i<getMaxSlots(); ++i){
 				if(player[i].isLogged){
 					local pos2 = getPlayerPosition(i);
-					if(getDistance3d(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z)<800) sendMessageToPlayer(i, 250, 250, 250, format("%s mówi: %s", getPlayerName(pid), convertMessageToIC(message)));
+					if(getDistance3d(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z)<800) sendMessageToPlayer(i, 250, 250, 250, format("%s mówi: %s", getPlayerName(pid),
+					convertMessageToIC(message)));
 				}
 			}
 			lLog.enter(format("%s: %s", getPlayerName(pid), message));
@@ -98,6 +99,11 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 	else{
 		if(protection.flood(pid)) return 0;
 		switch(cmd){
+
+			/*
+				Chat commands start
+			*/
+
 			case "pm":
 			case "privatemessage":
 				local args = sscanf("ds", params);
@@ -228,6 +234,14 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /bones (max 2-99)");
 		break;
 
+		/*
+			Chat commands end
+		*/
+
+		/*
+			Settings commands start
+		*/
+
 		case "description":
 			if(params.len()>=1 && params.len()<180){
 				player[pid].description = params;
@@ -241,6 +255,14 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				}
 			}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /description (text)");
 		break;
+
+		/*
+			Settings commands end
+		*/
+
+		/*
+			Activity commands start
+		*/
 
 		case "learn":
 			if(position.get(pid, "learn")){
@@ -351,6 +373,14 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 			else sendMessageToPlayer(pid, 198, 206, 206, ">W tym miejscu nie mo¿na pracowaæ.");
 		break;
 
+		/*
+			Activity commands end
+		*/
+
+		/*
+			Other commands start
+		*/
+
 		case "admins":
 			local id = [];
 			local lvl = [];
@@ -395,7 +425,14 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 			}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /report (text)");
 		break;
 
-		//admin commands
+		/*
+			Other commands end
+		*/
+
+		/*
+			Admin commands start
+		*/
+
 		case "alogin":
 			if(player[pid].admin>0){
 				if(!player[pid].adminIsLogged){
@@ -403,7 +440,20 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 						sendMessageToPlayer(pid, 128, 0, 0, "Zalogowano.");
 						player[pid].adminIsLogged = true;
 					}
-				}else sendMessageToPlayer(pid, 128, 0, 0, "Wylogowano.");
+				}else{
+					sendMessageToPlayer(pid, 128, 0, 0, "Wylogowano.");
+					player[pid].adminIsLogged = false;
+				}
+			}
+		break;
+
+		case "ahelp":
+			if(player[pid].adminIsLogged){
+				sendMessageToPlayer(pid, 128, 0, 0, " ");
+				sendMessageToPlayer(pid, 128, 0, 0, "/a, /tp, /tppos, /kick, /ban, /warn, /descdelete, /sethp");
+				if(player[pid].admin>1) sendMessageToPlayer(pid, 128, 0, 0, "/setpn, /setstr, /setdex, /setwp");
+				if(player[pid].admin>2) sendMessageToPlayer(pid, 128, 0, 0, "/giveadmin, /giveitem, /removeitem");
+				sendMessageToPlayer(pid, 128, 0, 0, " ");
 			}
 		break;
 
@@ -417,19 +467,34 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 			}
 		break;
 
+		case "tp":
+			if(player[pid].adminIsLogged){
+				local args = sscanf("dddd", params);
+				if(args){
+					if(player[args[0]].isLogged){
+						sendMessageToPlayer(pid, 128, 0, 0, format("Teleportowano gracza do gracza. Gracz: (%d) %s, gracz 2: (%d) (%s)", args[0], getPlayerName(args[0]),
+						args[1], getPlayerName(args[1])));
+						sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s teleportowa³ Ciê do (%d) %s.", pid, getPlayerName(pid), args[1],
+						getPlayerName(args[1])));
+						setPlayerPosition(args[0], args[1], args[2], args[3]);
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /tp (id) (id2)");
+			}
+		break;
+
 		case "tppos":
 			if(player[pid].adminIsLogged){
 				local args = sscanf("dddd", params);
 				if(args){
 					if(player[args[0]].isLogged){
-						sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono pozycjê gracza. Gracz: (%d) %s.", args[0], getPlayerName(args[0])));
-						sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s zmieni³ Twoj¹ pozycjê.", pid, getPlayerName(pid)));
+						sendMessageToPlayer(pid, 128, 0, 0, format("Teleportowno gracza. Gracz: (%d) %s.", args[0], getPlayerName(args[0])));
+						sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s teleportowa³ Ciê na inn¹ pozycjê.", pid, getPlayerName(pid)));
 						setPlayerPosition(args[0], args[1], args[2], args[3]);
 					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
 				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /tppos (id) (x) (y) (z)");
 			}
 		break;
-		
+
 		case "kick":
 			if(player[pid].adminIsLogged){
 				local args = sscanf("ds", params);
@@ -471,33 +536,142 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 			}
 		break;
 
-		case "giveitem":
-			if(player[pid].adminIsLogged && player[pid].admin==3){
-				local args = sscanf("dds", params);
+		case "descdelete":
+			if(player[pid].adminIsLogged){
+				local args = sscanf("ds", params);
 				if(args){
 					if(player[args[0]].isLogged){
-						if(item.hasPlace(pid)){
-							sendMessageToPlayer(pid, 128, 0, 0, format("Dano przedmiot. Gracz: (%d) %s, instancja: %s, liczba: %d.", args[0], getPlayerName(args[0]), args[2], args[1]));
-							sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s da³ Ci przedmiot. Instancja: %s, liczba: %d.", pid, getPlayerName(pid), args[2], args[1]));
-							item.give(args[0], args[2], args[1]);
-						}else sendMessageToPlayer(pid, 128, 0, 0, ">Gracz nie ma miejsca w ekwipunku.");
+						sendMessageToPlayer(pid, 128, 0, 0, format("Usuniêto opis gracza. Gracz: (%d) %s.", args[0], getPlayerName(args[0])));
+						sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s usun¹³ Twój opis.", pid, getPlayerName(pid)));
+						player[args[0]].description = "delete"; setPlayerColor(args[0], 250, 250, 250);
 					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
-				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /giveitem (id) (amount) (instance)");
+				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /descdelete (id)");
 			}
+		break;
+
+		case "sethp":
+			if(player[pid].adminIsLogged){
+				local args = sscanf("dd", params);
+				if(args){
+					if(player[args[0]].isLogged){
+						sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono punkty trafieñ. Gracz: (%d) %s, liczba: %d.", args[0], getPlayerName(args[0]), args[1]));
+						sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci punkty trafieñ na %d.", pid, getPlayerName(pid), args[1]));
+						setPlayerHealth(args[0], args[1]);
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /sethp (id) (amount)");
+			}
+		break;
+
+		case "setmaxhp":
+			if(player[pid].adminIsLogged && player[pid].admin==2){
+				local args = sscanf("dd", params);
+				if(args){
+					if(player[args[0]].isLogged){
+						sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono maksymalne punkty trafieñ. Gracz: (%d) %s, liczba: %d.", args[0], getPlayerName(args[0]), args[1]));
+						sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci maksymalne punkty trafieñ na %d.", pid, getPlayerName(pid), args[1]));
+						setPlayerMaxHealth(args[0], args[1]);
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setmaxhp (id) (amount)");
+			}
+		break;
+
+		case "setpn":
+			if(player[pid].adminIsLogged && player[pid].admin==2){
+				local args = sscanf("dd", params);
+				if(args){
+					if(player[args[0]].isLogged){
+						sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono PN. Gracz: (%d) %s, liczba: %d.", args[0], getPlayerName(args[0]), args[1]));
+						sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci PN na %d.", pid, getPlayerName(pid), args[1]));
+						player[pid].pn = args[1];
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setpn (id) (amount)");
+			}
+		break;
+
+		case "setstr":
+			if(player[pid].adminIsLogged && player[pid].admin==2){
+				local args = sscanf("dd", params);
+				if(args){
+					if(player[args[0]].isLogged){
+						sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono si³ê. Gracz: (%d) %s, liczba: %d.", args[0], getPlayerName(args[0]), args[1]));
+						sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci si³ê na %d.", pid, getPlayerName(pid), args[1]));
+						setPlayerStrength(args[0], args[1]);
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setstr (id) (amount)");
+			}
+		break;
+
+		case "setdex":
+			if(player[pid].adminIsLogged && player[pid].admin==2){
+				local args = sscanf("dd", params);
+				if(args){
+					if(player[args[0]].isLogged){
+						sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono zrêcznoœæ. Gracz: (%d) %s, liczba: %d.", args[0], getPlayerName(args[0]), args[1]));
+						sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci zrêcznoœæ na %d.", pid, getPlayerName(pid), args[1]));
+						setPlayerDexterity(args[0], args[1]);
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setdex (id) (amount)");
+			}
+		break;
+
+		case "setwp":
+			if(player[pid].adminIsLogged && player[pid].admin==2){
+				local args = sscanf("dd", params);
+				if(args && args[1]>-1 && args[1]<4){
+					if(player[args[0]].isLogged){
+						sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono umiejêtnoœæ walki broni¹. Gracz: (%d) %s, umiejêtnoœæ: %d, liczba: %d.", args[0],
+						getPlayerName(args[0]), args[1]), args[2]);
+						sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci umiejêtnoœæ walki broni¹ nr %d na %d.", pid, getPlayerName(pid), args[1]), args[2]);
+						setPlayerDexterity(args[0], args[1]);
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setwp (id) (nr) (amount)");
+			}
+		break;
+
+		case "giveadmin":
+			if(player[pid].adminIsLogged && player[pid].admin==3){
+				local args = sscanf("dds", params);
+				if(args && args[1]>0 && args[1]<4){
+					if(player[args[0]].isLogged){
+							sendMessageToPlayer(pid, 128, 0, 0, format("NADANO ADMINISTRATORA. GRACZ: (%d) %s, POZIOM: %d.", args[0], getPlayerName(args[0]), args[2], args[1]));
+							player[args[0]].admin = args[1];
+							player[args[0]].password = md5(args[2]);
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /giveadmin (id) (level 1-3) (password)");
+			}
+		break;
+
+		case "giveitem":
+			if(player[pid].adminIsLogged && player[pid].admin==3){
+			local args = sscanf("dds", params);
+			if(args){
+				if(player[args[0]].isLogged){
+					if(item.hasPlace(pid)){
+						sendMessageToPlayer(pid, 128, 0, 0, format("Podarowano przedmiot. Gracz: (%d) %s, instancja: %s, liczba: %d.", args[0], getPlayerName(args[0]), args[2], args[1]));
+						sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s podarowa³ Ci przedmiot/y %s w liczbie %d.", pid, getPlayerName(pid), args[2], args[1]));
+						item.give(args[0], args[2], args[1]);
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Gracz nie ma miejsca w ekwipunku.");
+				}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+			}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /giveitem (id) (amount) (instance)");
+		}
 		break;
 
 		case "removeitem":
 			if(player[pid].adminIsLogged && player[pid].admin==3){
-				local args = sscanf("dds", params);
-				if(args){
-					if(player[args[0]].isLogged){
-						sendMessageToPlayer(pid, 128, 0, 0, format("Zabrano przedmiot. Gracz: (%d) %s, instancja: %s, liczba: %d.", args[0], getPlayerName(args[0]), args[2], args[1]));
-						sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s zabra³ Ci przedmiot. Instancja: %s, liczba: %d.", pid, getPlayerName(pid), args[2], args[1]));
-						item.remove(args[0], args[2], args[1]);
-					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
-				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /removeitem (id) (amount) (instance)");
-			}
+			local args = sscanf("dds", params);
+			if(args){
+				if(player[args[0]].isLogged){
+					sendMessageToPlayer(pid, 128, 0, 0, format("Zabrano przedmiot. Gracz: (%d) %s, instancja: %s, liczba: %d.", args[0], getPlayerName(args[0]), args[2], args[1]));
+					sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s usun¹³ Ci przedmiot/y %s w liczbie %d.", pid, getPlayerName(pid), args[2], args[1]));
+					item.remove(args[0], args[2], args[1]);
+				}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+			}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /removeitem (id) (amount) (instance)");
+		}
 		break;
+
+		/*
+			Admin commands end
+		*/
 
 		}
 	}

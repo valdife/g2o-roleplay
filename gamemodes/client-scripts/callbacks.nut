@@ -18,7 +18,6 @@ addEventHandler("onCommand", function(cmd, params){
 		break;
 
 		case "fps":
-			local eq = getEq();
 			Chat.print(194, 178, 128, getFpsRate());
 		break;
 
@@ -34,7 +33,7 @@ addEventHandler("onCommand", function(cmd, params){
 		case "help":
 			Chat.print(213, 173, 66, " ");
 			Chat.print(213, 173, 66, "Czaty: /w, /s, /ear, /me, /do, /try, /pm, /b, /report");
-			Chat.print(213, 173, 66, "Inne: /bones, /description, /anims, /admins");
+			Chat.print(213, 173, 66, "Inne: /bones, /description, /anims, /admins, /q");
 			Chat.print(213, 173, 66, "Dostêpne emotikony na czacie: :), :(");
 			Chat.print(213, 173, 66, "Payday w postaci PN i paru sztuk z³ota rozdawany jest co godzinê gry.");
 			Chat.print(213, 173, 66, "Gdy gracz posiada ró¿owy nick opisa³ swoj¹ postaæ. Aby odczytaæ - klawisz O.");
