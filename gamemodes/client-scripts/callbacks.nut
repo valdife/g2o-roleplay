@@ -1,6 +1,7 @@
 addEventHandler("onInit", function(){
 	Chat.print(194, 178, 128,  "U¿yj komendy /register (nick) (password), by zarejestrowaæ now¹ postaæ.");
 	Chat.print(194, 178, 128, "Jeœli ju¿ j¹ posiadasz, u¿yj /login (nick) (password)");
+	Chat.print(194, 178, 128, "Po zalogowaniu pamiêtaj o komendzie /help.");
 	disableKey(KEY_C, true);
 	disableKey(KEY_L, true);
 	setFreeze(true);

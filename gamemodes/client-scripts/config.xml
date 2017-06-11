@@ -4,6 +4,7 @@
 	<script src="inc/animations.nut" type="client" />
 	<script src="inc/draw3d.nut" type="client" />
 	<script src="inc/hello.nut" type="client" />
+	<script src="inc/dialogbox.nut" type="client" />
 	<script src="inc/work.nut" type="client" />
 	<script src="inc/bank.nut" type="client" />
 	<script src="inc/lou.nut" type="client" />

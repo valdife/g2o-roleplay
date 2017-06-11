@@ -80,14 +80,13 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				if(args){
 					local login = player.login(pid, args[0], args[1]);
 					if(login>=0 && login<4) sendMessageToPlayer(pid, 192, 192, 192, ">Nazwa postaci b¹dŸ has³o s¹ nieprawid³owe.");
-					else if(login==4) sendMessageToPlayer(pid, 192, 192, 192, "Konto jest nieaktywne.");
+					else if(login==4) sendMessageToPlayer(pid, 192, 192, 192, ">Konto jest nieaktywne.");
 					else if(login==5) {
 						sendMessageToPlayer(pid, 192, 192, 192, ">Tworzenie postaci nie zosta³o zakoñczone.");
 						callClientFunc(pid, "dialog.show", 0);
 					}else{
-						print("H");
+						sendMessageToPlayer(pid, 194, 178, 128, " ");
 						sendMessageToPlayer(pid, 194, 178, 128, "Pomyœlnie zalogowano. Mi³ej gry.");
-						print("H1");
 						item.login(pid);
 						bank.login(pid);
 						spawnPlayer(pid);
@@ -563,7 +562,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 		break;
 
 		case "setmaxhp":
-			if(player[pid].adminIsLogged && player[pid].admin==2){
+			if(player[pid].adminIsLogged && player[pid].admin>1){
 				local args = sscanf("dd", params);
 				if(args){
 					if(player[args[0]].isLogged){
@@ -576,7 +575,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 		break;
 
 		case "setpn":
-			if(player[pid].adminIsLogged && player[pid].admin==2){
+			if(player[pid].adminIsLogged && player[pid].admin>1){
 				local args = sscanf("dd", params);
 				if(args){
 					if(player[args[0]].isLogged){
@@ -589,7 +588,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 		break;
 
 		case "setstr":
-			if(player[pid].adminIsLogged && player[pid].admin==2){
+			if(player[pid].adminIsLogged && player[pid].admin>1){
 				local args = sscanf("dd", params);
 				if(args){
 					if(player[args[0]].isLogged){
@@ -602,7 +601,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 		break;
 
 		case "setdex":
-			if(player[pid].adminIsLogged && player[pid].admin==2){
+			if(player[pid].adminIsLogged && player[pid].admin>1){
 				local args = sscanf("dd", params);
 				if(args){
 					if(player[args[0]].isLogged){
@@ -615,7 +614,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 		break;
 
 		case "setwp":
-			if(player[pid].adminIsLogged && player[pid].admin==2){
+			if(player[pid].adminIsLogged && player[pid].admin>1){
 				local args = sscanf("dd", params);
 				if(args && args[1]>-1 && args[1]<4){
 					if(player[args[0]].isLogged){

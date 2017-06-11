@@ -25,7 +25,7 @@ local timer60s = setTimer(function(){
 									item.give(i, "ITMI_GOLD", lottery.budget);
 									sendMessageToPlayer(i, 184, 129, 238, format("#Pos³aniec przyniós³ Ci %d szt. z³. z wygranej loterii.", lottery.budget));
 								}
-							}else sendMessageToPlayer(i, 192, 192, 192, "Nie masz miejsca w ekwipunku, wiêc nie mo¿esz odebraæ nagrody.");
+							}else sendMessageToPlayer(i, 192, 192, 192, ">Nie masz miejsca w ekwipunku, wiêc nie mo¿esz odebraæ nagrody.");
 						}
 					}
 				}
