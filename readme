@@ -1,0 +1,5 @@
+Copy files to g2o folder and create:
+/database/logs/
+/database/logs/archive/
+/database/accounts/items/
+/database/accounts/bank/
