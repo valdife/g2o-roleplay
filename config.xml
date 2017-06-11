@@ -9,9 +9,6 @@
 	<import src="default/scripts.xml" />
 
 	<!-- Gamemode -->
-	<script src="lib/server-scripts/file.nut" type="server" />
-	<script src="lib/server-scripts/packets.nut" type="client" />
-	<script src="lib/client-scripts/packets.nut" type="server" />
 	<import src="gamemodes/config.xml" />
 	<items src="gmItems.xml" />
 	
