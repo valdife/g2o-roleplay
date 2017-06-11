@@ -1,4 +1,4 @@
-Copy files to g2o folder and create:
+Skopiuj pliki do folderu z serwerem i utwórz foldery:
 /database/logs/
 /database/logs/archive/
 /database/accounts/items/
