@@ -1,0 +1,15 @@
+<server>
+	<script src="inc/Log.nut" type="server" />
+	<script src="inc/functions.nut" type="server" />
+	<script src="inc/player.nut" type="server" />
+	<script src="inc/animations.nut" type="server" />
+	<script src="inc/protection.nut" type="server" />
+	<script src="inc/position.nut" type="server" />
+	<script src="inc/lottery.nut" type="server" />
+	<script src="inc/item.nut" type="server" />
+	<script src="inc/setfunctions.nut" type="server" />
+	<script src="inc/bank.nut" type="server" />
+	<script src="inc/work.nut" type="server" />
+	<script src="timers.nut" type="server" />
+	<script src="callbacks.nut" type="server" />
+</server>
