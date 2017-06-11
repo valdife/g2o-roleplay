@@ -1,6 +1,5 @@
 <server>
 	<script src="inc/functions.nut" type="client" />
-	<script src="inc/dialogbox.nut" type="client" />
 	<script src="inc/player.nut" type="client" />
 	<script src="inc/item.nut" type="client" />
 	<script src="inc/animations.nut" type="client" />
