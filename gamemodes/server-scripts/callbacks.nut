@@ -449,20 +449,27 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 		case "ahelp":
 			if(player[pid].adminIsLogged){
 				sendMessageToPlayer(pid, 128, 0, 0, " ");
-				sendMessageToPlayer(pid, 128, 0, 0, "/a, /tp, /tppos, /kick, /ban, /warn, /descdelete, /sethp");
+				sendMessageToPlayer(pid, 128, 0, 0, "/a, /all, /tp, /tppos, /kick, /ban, /warn, /descdelete, /sethp");
 				if(player[pid].admin>1) sendMessageToPlayer(pid, 128, 0, 0, "/setpn, /setstr, /setdex, /setwp");
-				if(player[pid].admin>2) sendMessageToPlayer(pid, 128, 0, 0, "/giveadmin, /giveitem, /removeitem");
+				if(player[pid].admin>2) sendMessageToPlayer(pid, 128, 0, 0, "/giveadmin, /giveitem, /removeitem, /setserverdescription");
 				sendMessageToPlayer(pid, 128, 0, 0, " ");
 			}
 		break;
 
 		case "a":
 			if(player[pid].adminIsLogged){
-				if(params){
+				if(params.len()>0 && params.len()<180){
 					for(local i = 0; i<getMaxSlots(); ++i){
 						if(player[i].adminIsLogged) sendMessageToPlayer(i, 128, 0, 0, format("(%d) %s: %s", pid, getPlayerName(pid), params));
 					}
 				}else sendMessageToPlayer(pid, 128, 0, 0, "Tip: /a (text)");
+			}
+		break;
+
+		case "all":
+			if(player[pid].adminIsLogged){
+				if(params.len()>0 && params.len()<180) sendMessageToAll(pid, 207, 41, 66, format("Supporter (%d) %s: %s", pid, getPlayerName(pid), params));
+				else sendMessageToPlayer(pid, 128, 0, 0, "Tip: /all (text)");
 			}
 		break;
 
@@ -666,6 +673,15 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
 			}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /removeitem (id) (amount) (instance)");
 		}
+		break;
+
+		case "setserverdescription":
+			if(player[pid].adminIsLogged && player[pid].admin==3){
+				if(params && params.len()<180){
+					sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono opis serwera. Tekst: %s", params));
+					setServerDescription(params);
+				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setserverdescription (text)");
+			}
 		break;
 
 		/*
