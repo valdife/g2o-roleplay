@@ -666,7 +666,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				if(args){
 					if(player[args[0]].isLogged){
 						sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono zrêcznoœæ. Gracz: (%d) %s, liczba: %d.", args[0], getPlayerName(args[0]), args[1]));
-						sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci zrêcznoœæ na %d.", pid, getPlayerName(pid), args[1]));
+						sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci zrêcznoœæ na %d.", pid, getPlayerName(pid), args[1]));
 						setPlayerDexterity(args[0], args[1]);
 					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
 				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setdex (id) (amount)");
@@ -679,8 +679,8 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				if(args && args[1]>-1 && args[1]<4){
 					if(player[args[0]].isLogged){
 						sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono umiejêtnoœæ walki broni¹. Gracz: (%d) %s, umiejêtnoœæ: %d, liczba: %d.", args[0],
-						getPlayerName(args[0]), args[1]), args[2]);
-						sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci umiejêtnoœæ walki broni¹ nr %d na %d.", pid, getPlayerName(pid), args[1]), args[2]);
+						getPlayerName(args[0]), args[1], args[2]));
+						sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci umiejêtnoœæ walki broni¹ nr %d na %d.", pid, getPlayerName(pid), args[1], args[2]));
 						setPlayerSkillWeapon(args[0], args[1], args[2]);
 					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
 				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setwp (id) (nr) (amount)");
