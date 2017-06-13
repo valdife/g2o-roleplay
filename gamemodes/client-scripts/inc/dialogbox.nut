@@ -120,6 +120,5 @@ function dialog::show(id, ...){
 			local compiledScript = compilestring(func);
 			compiledScript();
 		break;
-
 	}
 }

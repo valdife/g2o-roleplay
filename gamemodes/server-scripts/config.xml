@@ -10,6 +10,7 @@
 	<script src="inc/setfunctions.nut" type="server" />
 	<script src="inc/bank.nut" type="server" />
 	<script src="inc/work.nut" type="server" />
+	<script src="inc/trade.nut" type="server" />
 	<script src="timers.nut" type="server" />
 	<script src="callbacks.nut" type="server" />
 </server>

@@ -16,6 +16,7 @@ addEventHandler("onInit", function(){
 		item.init(i);
 		work.init(i);
 		protection.init(i);
+		trade.init(i);
 		bank.init(i);
 	}
 	position.init();
@@ -36,6 +37,7 @@ addEventHandler("onPlayerDisconnect", function(pid, reason){
 		bank.destroy(pid);
 		work.destroy(pid);
 		protection.destroy(pid);
+		trade.destroy(pid, 0);
 	}
 });
 
@@ -370,6 +372,57 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				}
 			}
 			else sendMessageToPlayer(pid, 198, 206, 206, ">W tym miejscu nie mo¿na pracowaæ.");
+		break;
+
+		case "trade":
+			if(params=="accept"){
+				if(trade[pid].player!=-1 && trade[pid].mode==0){
+					if(item.hasPlace(pid)){
+						if(item.has(pid, "ITMI_GOLD")>=trade[trade[pid].player].price){
+							if(item.hasPlace(trade[pid].player) || trade[trade[pid].player].price==0){
+								if(item.has(pid, trade[trade[pid].player].item)>=trade[trade[pid].player].amount){
+									sendMessageToPlayer(trade[pid].player, 194, 178, 128, "Handel udany.");
+									sendMessageToPlayer(pid, 194, 178, 128, "Handel udany.");
+									if(trade[trade[pid].player].price>0){
+										removeItem(pid, Items.id("ITMI_GOLD"), trade[trade[pid].player].price);
+										giveItem(trade[pid].player, Items.id("ITMI_GOLD"), trade[trade[pid].player].price);
+									}
+									item.remove(trade[pid].player, trade[trade[pid].player].instance, trade[trade[pid].player].amount);
+									item.give(pid, trade[trade[pid].player].instance, trade[trade[pid].player].amount)
+									trade.destroy(pid, 1);
+								}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz nie posiada ju¿ przedmiotu.");
+							}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz nie posiada miejsca w ekwipunku na przyjêcie z³ota.");
+						}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
+					}else sendMessageToPlayer(pid, 198, 206, 206, ">Twój ekwipunek jest przepe³niony.");
+				}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie otrzymano ¿adnej oferty.");
+			}else if(params=="stop"){
+				trade.destroy(pid, 0);
+			}else{
+				local args = sscanf("dddd", params);
+				if(args){
+					if(player[args[0]].isLogged && args[0]!=pid){
+						local pos = getPlayerPosition(pid), pos2 = getPlayerPosition(args[0]);
+						if(getDistance3d(pos.x, pos.y. pos.z, pos2.x. pos2.y, pos2.z)<600){
+							if(item[args[0]].instance.len()>=args[1]){
+								if(item[args[0]].amount>=args[2]){
+									if(trade[args[0]].mode==-1){
+										if(trade[pid].mode==-1){
+											sendMessageToPlayer(pid, 194, 178, 128, format("Zaoferowano (%d) %s przedmiot %s w iloœci %d szt. za cenê %d. szt. z³.", args[0],
+											getPlayerName(args[0]), item[pid].instance[args[2]], args[3], args[4]));
+											sendMessageToPlayer(pid, ">U¿yj /trade stop, by anulowaæ ofertê.");
+											sendMessageToPlayer(args[0], 194, 178, 128, format("(%d) %s oferuje Ci przedmiot %s w iloœci %d szt. za cenê %d szt. z³.", pid,
+											getPlayerName(pid), item[pid].instance[args[2]], args[3], args[4]));
+											sendMessageToPlayer(args[0], ">U¿yj /trade accept, by akceptowaæ lub /trade stop, by odrzuciæ ofertê.");
+											trade.refresh(pid, item[pid].instance[args[1]], item[pid].amount[args[2]], args[0], args[3], 1);
+											trade[args[0]].player = pid;
+										}else sendMessageToPlayer(pid, 198, 206, 206, ">Handlujesz ju¿ z kimœ.");
+									}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz obecnie z kimœ handluje.");
+								}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz ¿¹danego przedmiotu w takiej liczbie.");
+							}else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owy slot.");
+						}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz znajduje siê za daleko.");
+					}else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owe ID.");
+				}else sendMessageToPlayer(pid, 198, 206, 206, ">Tip: /trade (id) (slot) (amount) (price)");
+		}
 		break;
 
 		/*
