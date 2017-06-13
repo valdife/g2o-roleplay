@@ -572,8 +572,8 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				if(args){
 					if(isPlayerConnected(args[0])){
 						sendMessageToPlayer(pid, 128, 0, 0, format("Wyrzucono gracza. Gracz: (%d) %s, powód: %s.", args[0], getPlayerName(args[0]), args[1]));
-						sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s nada³ Ci ostrze¿enie. Powód: %s", pid, getPlayerName(pid), args[1]));
-						player[args[0]].active = 0; kick(args[0]);
+						sendMessageToAll(207, 41, 66, format("Supporter (%d) %s wyrzuci³ %s. Powód: %s", pid, getPlayerName(pid), getPlayerName(args[0]), args[1]));
+						kick(args[0], args[1]);
 					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
 				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /kick (id) (reason)");
 			}
