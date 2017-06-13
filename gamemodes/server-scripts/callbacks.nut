@@ -599,7 +599,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 
 		case "descdelete":
 			if(player[pid].adminIsLogged){
-				local args = sscanf("ds", params);
+				local args = sscanf("d", params);
 				if(args){
 					if(player[args[0]].isLogged){
 						sendMessageToPlayer(pid, 128, 0, 0, format("Usuniêto opis gracza. Gracz: (%d) %s.", args[0], getPlayerName(args[0])));
@@ -683,7 +683,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 						sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono umiejêtnoœæ walki broni¹. Gracz: (%d) %s, umiejêtnoœæ: %d, liczba: %d.", args[0],
 						getPlayerName(args[0]), args[1]), args[2]);
 						sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci umiejêtnoœæ walki broni¹ nr %d na %d.", pid, getPlayerName(pid), args[1]), args[2]);
-						setPlayerDexterity(args[0], args[1]);
+						setPlayerSkillWeapon(args[0], args[1], args[2]);
 					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
 				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setwp (id) (nr) (amount)");
 			}
