@@ -403,20 +403,22 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 					if(player[args[0]].isLogged && args[0]!=pid){
 						local pos = getPlayerPosition(pid), pos2 = getPlayerPosition(args[0]);
 						if(getDistance3d(pos.x, pos.y. pos.z, pos2.x. pos2.y, pos2.z)<600){
-							if(item[args[0]].instance.len()>=args[1]){
-								if(item[args[0]].amount>=args[2]){
-									if(trade[args[0]].mode==-1){
-										if(trade[pid].mode==-1){
-											sendMessageToPlayer(pid, 194, 178, 128, format("Zaoferowano (%d) %s przedmiot %s w iloœci %d szt. za cenê %d. szt. z³.", args[0],
-											getPlayerName(args[0]), item[pid].instance[args[2]], args[3], args[4]));
-											sendMessageToPlayer(pid, ">U¿yj /trade stop, by anulowaæ ofertê.");
-											sendMessageToPlayer(args[0], 194, 178, 128, format("(%d) %s oferuje Ci przedmiot %s w iloœci %d szt. za cenê %d szt. z³.", pid,
-											getPlayerName(pid), item[pid].instance[args[2]], args[3], args[4]));
-											sendMessageToPlayer(args[0], ">U¿yj /trade accept, by akceptowaæ lub /trade stop, by odrzuciæ ofertê.");
-											trade.refresh(pid, item[pid].instance[args[1]], item[pid].amount[args[2]], args[0], args[3], 1);
-											trade[args[0]].player = pid;
-										}else sendMessageToPlayer(pid, 198, 206, 206, ">Handlujesz ju¿ z kimœ.");
-									}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz obecnie z kimœ handluje.");
+							if(item[args[0]].instance.len()>=args[1] && args[1]>-1){
+								if(item[args[0]].amount>=args[2] && args[2]>0){
+									if(args[3]>-1){
+										if(trade[args[0]].mode==-1){
+											if(trade[pid].mode==-1){
+												sendMessageToPlayer(pid, 194, 178, 128, format("Zaoferowano (%d) %s przedmiot %s w iloœci %d szt. za cenê %d. szt. z³.", args[0],
+												getPlayerName(args[0]), item[pid].instance[args[2]], args[3], args[4]));
+												sendMessageToPlayer(pid, ">U¿yj /trade stop, by anulowaæ ofertê.");
+												sendMessageToPlayer(args[0], 194, 178, 128, format("(%d) %s oferuje Ci przedmiot %s w iloœci %d szt. za cenê %d szt. z³.", pid,
+												getPlayerName(pid), item[pid].instance[args[2]], args[3], args[4]));
+												sendMessageToPlayer(args[0], ">U¿yj /trade accept, by akceptowaæ lub /trade stop, by odrzuciæ ofertê.");
+												trade.refresh(pid, item[pid].instance[args[1]], item[pid].amount[args[2]], args[0], args[3], 1);
+												trade[args[0]].player = pid;
+											}else sendMessageToPlayer(pid, 198, 206, 206, ">Handlujesz ju¿ z kimœ.");
+										}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz obecnie z kimœ handluje.");
+									}else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owa cena.");
 								}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz ¿¹danego przedmiotu w takiej liczbie.");
 							}else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owy slot.");
 						}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz znajduje siê za daleko.");
