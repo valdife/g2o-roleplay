@@ -3,11 +3,11 @@ local timer60s = setTimer(function(){
 		if(player[i].isLogged){
 			player[i].minuter++;
 			if(player[i].minuter>=60){
+				sendMessageToPlayer(i, 194, 178, 128, "Otrzymano 2 PN i 20 sztuk z³ota za przegranie pe³nej godziny.");
 				player[i].minuter=0;
 				player[i].online++;
 				player[i].pn += 2;;
 				item.give(i, "ITMI_GOLD", 20);
-				sendMessageToPlayer(i, 194, 178, 128, "Otrzymano 2 PN i 20 sztuk z³ota za przegranie pe³nej godziny.");
 			}
 		}
 
@@ -44,7 +44,7 @@ local timer5s = setTimer(function(){
 			protection[i].flood = 0;
 			if(trade[i].mode){
 				local pos = getPlayerPosition(i), pos2 = getPlayerPosition(trade[i].player);
-				if(getDistance3d(pos.x, pos.y. pos.z, pos2.x. pos2.y, pos2.z)>600) trade.destroy(i, 0);
+				if(getDistance3d(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z)>600) trade.destroy(i, 0);
 			}
 		}
 	}

@@ -1,9 +1,5 @@
-local _setPlayerVisual = setPlayerVisual;
-local _setPlayerHealth = setPlayerHealth;
-local _setPlayerMaxHealth = setPlayerMaxHealth;
-local _setPlayerStrength = setPlayerStrength;
-local _setPlayerDexterity = setPlayerDexterity;
-local _setPlayerSkillWeapon = setPlayerSkillWeapon;
+local _setPlayerVisual = setPlayerVisual, _setPlayerHealth = setPlayerHealth, _setPlayerMaxHealth = setPlayerMaxHealth, _setPlayerStrength = setPlayerStrength,
+_setPlayerDexterity = setPlayerDexterity, _setPlayerSkillWeapon = setPlayerSkillWeapon;
 
 function setPlayerVisual(pid, bodyModel, bodyTxt, headModel, headTxt){
   player[pid].visual[0] = bodyModel;

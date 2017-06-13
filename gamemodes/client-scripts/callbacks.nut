@@ -9,6 +9,8 @@ addEventHandler("onInit", function(){
 	helloShow();
 	setPlayerPosition(heroId, -1158, -522, -730);
 	setPlayerAngle(heroId, 90);
+
+	enableEvent_Render(true);
 });
 
 addEventHandler("onCommand", function(cmd, params){
