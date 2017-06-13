@@ -345,7 +345,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 					}else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owy slot.");
 				}else{
 					sendMessageToPlayer(pid, 198, 206, 206, ">U¿yj /blacktrader (slot) (amount)");
-					sendMessageToPlayer(pid, 198, 206, 206, "By upewniæ siê co do slotu, mo¿esz u¿yæ komendy /slot.");
+					sendMessageToPlayer(pid, 194, 178, 128, "Sloty liczone s¹ od 0. By upewniæ siê co do slotu, mo¿esz u¿yæ komendy /slot.");
 					sendMessageToPlayer(pid, 194, 178, 128, "Paser nie bierze pod uwagê wartoœci przedmiotu i za ka¿dy zap³aci Ci 1 szt. z³.");
 				}
 			}else sendMessageToPlayer(pid, 198, 206, 206, ">W okolicy nie widaæ pasera.");
@@ -424,7 +424,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 					}else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owe ID.");
 				}else{
 					sendMessageToPlayer(pid, 198, 206, 206, ">Tip: /trade (id) (slot) (amount) (price)");
-					sendMessageToPlayer(pid, 198, 206, 206, "By upewniæ siê co do slotu, mo¿esz u¿yæ komendy /slot.");
+					sendMessageToPlayer(pid, 194, 178, 128, "Sloty liczone s¹ od 0. By upewniæ siê co do slotu, mo¿esz u¿yæ komendy /slot.");
 				}
 		}
 		break;
@@ -440,7 +440,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 		case "slot":
 			local args = sscanf("d", params);
 			if(args){
-				if(item[pid].instance.len()>=args[0]) sendMessageToPlayer(pid, 194, 178, 128, format("Slot nr %d: %s", args[0], item[pid].instance[args[0]]));
+				if(item[pid].instance.len()>args[0]) sendMessageToPlayer(pid, 194, 178, 128, format("Slot nr %d: %s", args[0], item[pid].instance[args[0]]));
 				else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owy slot.");
 			}else sendMessageToPlayer(pid, 198, 206, 206, ">Tip: /slot (nr)");
 		break;
