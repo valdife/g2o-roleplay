@@ -471,7 +471,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				sendMessageToPlayer(pid, 207, 41, 66, "Raport zosta³ wys³any.");
 				local string = format("Raport od (%d) %s: %s", pid, getPlayerName(pid), params);
 				for(local i = 0; i<getMaxSlots(); ++i){
-					if(player[i].adminIsLogged) sendMessageToPlayer(i, 238, 130, 238, string);
+					if(player[i].adminIsLogged) sendMessageToPlayer(i, 128, 0, 0, string);
 				}
 				reportLog.enter(format("%s: %s", getPlayerName(pid), params));
 			}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /report (text)");
@@ -528,7 +528,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 
 		case "tp":
 			if(player[pid].adminIsLogged){
-				local args = sscanf("dddd", params);
+				local args = sscanf("dd", params);
 				if(args){
 					if(player[args[0]].isLogged){
 						sendMessageToPlayer(pid, 128, 0, 0, format("Teleportowano gracza do gracza. Gracz: (%d) %s, gracz 2: (%d) (%s)", args[0], getPlayerName(args[0]),
