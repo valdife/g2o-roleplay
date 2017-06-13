@@ -586,7 +586,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				if(args){
 					if(player[args[0]].isLogged){
 						sendMessageToPlayer(pid, 128, 0, 0, format("Ostrze¿ono gracza. Gracz: (%d) %s, powód: %s.", args[0], getPlayerName(args[0]), args[1]));
-						sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s nada³ Ci ostrze¿enie. Powód: %s", pid, getPlayerName(pid), args[1]));
+						sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s nada³ Ci ostrze¿enie. Powód: %s", pid, getPlayerName(pid), args[1]));
 						sendMessageToAll(207, 41, 66, format("Supporter (%d) %s ostrzeg³ (%d) %s. Powód: %s", pid, getPlayerName(pid), args[0], getPlayerName(args[0]), args[1]));
 						local pos = getPlayerPosition(pid);
 						setPlayerPosition(args[0], pos.x, pos.y+300, pos.z);
@@ -614,7 +614,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				if(args){
 					if(player[args[0]].isLogged){
 						sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono punkty trafieñ. Gracz: (%d) %s, liczba: %d.", args[0], getPlayerName(args[0]), args[1]));
-						sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci punkty trafieñ na %d.", pid, getPlayerName(pid), args[1]));
+						sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci punkty trafieñ na %d.", pid, getPlayerName(pid), args[1]));
 						setPlayerHealth(args[0], args[1]);
 					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
 				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /sethp (id) (amount)");
@@ -627,7 +627,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				if(args){
 					if(player[args[0]].isLogged){
 						sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono maksymalne punkty trafieñ. Gracz: (%d) %s, liczba: %d.", args[0], getPlayerName(args[0]), args[1]));
-						sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci maksymalne punkty trafieñ na %d.", pid, getPlayerName(pid), args[1]));
+						sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci maksymalne punkty trafieñ na %d.", pid, getPlayerName(pid), args[1]));
 						setPlayerMaxHealth(args[0], args[1]);
 					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
 				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setmaxhp (id) (amount)");
@@ -640,8 +640,8 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				if(args){
 					if(player[args[0]].isLogged){
 						sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono PN. Gracz: (%d) %s, liczba: %d.", args[0], getPlayerName(args[0]), args[1]));
-						sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci PN na %d.", pid, getPlayerName(pid), args[1]));
-						player[pid].pn = args[1];
+						sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci PN na %d.", pid, getPlayerName(pid), args[1]));
+						player[args[0]].pn = args[1];
 					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
 				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setpn (id) (amount)");
 			}
@@ -653,7 +653,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				if(args){
 					if(player[args[0]].isLogged){
 						sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono si³ê. Gracz: (%d) %s, liczba: %d.", args[0], getPlayerName(args[0]), args[1]));
-						sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci si³ê na %d.", pid, getPlayerName(pid), args[1]));
+						sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci si³ê na %d.", pid, getPlayerName(pid), args[1]));
 						setPlayerStrength(args[0], args[1]);
 					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
 				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setstr (id) (amount)");
