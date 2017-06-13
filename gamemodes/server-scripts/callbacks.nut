@@ -687,7 +687,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 
 		case "setwp":
 			if(player[pid].adminIsLogged && player[pid].admin>1){
-				local args = sscanf("dd", params);
+				local args = sscanf("ddd", params);
 				if(args && args[1]>-1 && args[1]<4){
 					if(player[args[0]].isLogged){
 						sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono umiejêtnoœæ walki broni¹. Gracz: (%d) %s, umiejêtnoœæ: %d, liczba: %d.", args[0],
