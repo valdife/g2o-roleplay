@@ -18,12 +18,13 @@ local timer60s = setTimer(function(){
 					if(player[i].isLogged){
 						if(lottery.players[winner]==getPlayerName(i)){
 							if(item.hasPlace(i)){
+								player.narrator(i, "otrzymuje z³oto z wygranej loterii.")
 								if(lottery.budget==10){
+									sendMessageToPlayer(i, 194, 178, 128, "Otrzymano 13 szt. z³. z wygranej loterii.");
 									item.give(i, "ITMI_GOLD", 13);
-									sendMessageToPlayer(i, 184, 129, 238, format("#Pos³aniec przyniós³ Ci %d szt. z³. z wygranej loterii.", 13));
 								}else {
+									sendMessageToPlayer(i, 194, 178, 128, format("Otrzymano %d szt. z³. z wygranej loterii.", lottery.budget));
 									item.give(i, "ITMI_GOLD", lottery.budget);
-									sendMessageToPlayer(i, 184, 129, 238, format("#Pos³aniec przyniós³ Ci %d szt. z³. z wygranej loterii.", lottery.budget));
 								}
 							}else sendMessageToPlayer(i, 192, 192, 192, ">Nie masz miejsca w ekwipunku, wiêc nie mo¿esz odebraæ nagrody.");
 						}

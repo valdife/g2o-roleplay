@@ -166,14 +166,8 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				if(player[args[0]].isLogged && args[0]!=pid){
 					local pos = getPlayerPosition(pid), pos2 = getPlayerPosition(args[0]);
 					if(getDistance3d(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z)<300){
-						local format = format("#%s szepcze coœ na ucho %s.", getPlayerName(pid), getPlayerName(args[0]));
-						for(local i = 0; i<getMaxSlots(); ++i){
-							if(player[i].isLogged){
-								local pos2 = getPlayerPosition(i);
-								if(getDistance3d(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z)<800) sendMessageToPlayer(i, 238, 130, 238, format);
-							}
-						}
 						sendMessageToPlayer(args[0], 250, 250, 250, format("%s szepcze Ci na ucho: %s", getPlayerName(pid), convertMessageToIC(args[1])));
+						player.narrator(pid, format("szepcze coœ na ucho %s", getPlayerName(args[0])));
 						earLog.enter(format("%s do %s: %s", getPlayerName(pid), getPlayerName(args[0]), args[1]));
 					}else sendMessageToPlayer(pid, 192, 192, 192, ">Gracz jest za daleko.");
 				}else sendMessageToPlayer(pid, 192, 192, 192, ">Nieprawid³owe ID.");
@@ -267,6 +261,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 
 		case "learn":
 			if(position.get(pid, "learn")){
+				player.narrator(pid, "rozmawia z nauczycielem.");
 				sendMessageToPlayer(pid, 194, 178, 128, "Wszystkie umiejêtnoœci kosztuj¹ 1 PN za 1 punkt.");
 				callClientFunc(pid, "dialog.show", 2);
 			}
@@ -275,6 +270,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 		case "brothel":
 			if(position.get(pid, "brothel")){
 				if(item.has(pid, "ITMI_GOLD")>=150){
+					player.narrator(pid, "korzysta z us³ug domu publicznego.");
 					sendMessageToPlayer(pid, 194, 178, 128, "Uzupe³niono punkty trafieñ do maksymalnej wartoœci.");
 					removeItem(pid, Items.id("ITMI_GOLD"), 150);
 					callClientFunc(pid, "brothelShow");
@@ -288,6 +284,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				local args = sscanf("d", params);
 				if(args){
 					if(item.has(pid, "ITMI_GOLD")>=args[0]){
+						player.narrator(pid, "gra w ruletkê.");
 						local random;
 						for(local i = 0; i<3; ++i){
 							random = rand() % 3;
@@ -315,6 +312,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 					if(args[0]=="pay"){
 						if(lottery.players.find(getPlayerName(pid))==null){
 							if(item.has(pid, "ITMI_GOLD")>=10){
+								player.narrator(pid, "bierze udzia³ w loterii.");
 								sendMessageToPlayer(pid, 194, 178, 128, "Wp³acono na loteriê. Jeœli wygrasz, pos³aniec przyniesie Ci z³oto.");
 								item.remove(pid, "ITMI_GOLD", 10);
 								lottery.budget += 10;
@@ -337,6 +335,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				if(args){
 					if(item[pid].instance.len()>=args[0]){
 						if(item[pid].amount[args[0]]>=args[1]){
+							player.narrator(pid, "sprzedaje coœ paserowi.");
 							sendMessageToPlayer(pid, 194, 178, 128, "Paser da³ Ci sztukê z³ota za ten przedmiot.");
 							removeItem(pid, Items.id(item[pid].instance[args[0]]), args[1]);
 							giveItem(pid, Items.id("ITMI_GOLD"), args[1]);
@@ -353,6 +352,8 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 
 		case "bank":
 			if(position.get(pid, "bank")) callClientFunc(pid, "dialog.show", 8);
+			else return 0;
+			player.narrator(pid, "rozmawia z bankierem.");
 		break;
 
 		case "buy":
@@ -361,11 +362,14 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 			else if(position.get(pid, "cloth")) callClientFunc(pid, "dialog.show", 5);
 			else if(position.get(pid, "weapon")) callClientFunc(pid, "dialog.show", 6);
 			else if(position.get(pid, "fletcher")) callClientFunc(pid, "dialog.show", 7);
+			else return 0;
+			player.narrator(pid, "rozmawia z handlarzem.");
 		break;
 
 		case "work":
 			if(position.get(pid, "work")){
 				if(!work[pid].isWork){
+					player.narrator(pid, "pracuje.");
 					sendMessageToPlayer(pid, 194, 178, 128, "Rozpoczêto pracê. Trzymaj lewy ctrl do osi¹gniêcia 100%.");
 					sendMessageToPlayer(pid, 194, 178, 128, "Spadek do 0% oznacza przerwanie pracy.");
 					work[pid].isWork = true;
@@ -375,6 +379,26 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 			else sendMessageToPlayer(pid, 198, 206, 206, ">W tym miejscu nie mo¿na pracowaæ.");
 		break;
 
+		case "pay":
+			local args = sscanf("dd", params);
+			if(args){
+				if(player[args[0]].isLogged && args[0]!=pid){
+					local pos = getPlayerPosition(pid), pos2 = getPlayerPosition(args[0]);
+					if(getDistance3d(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z)<600){
+						if(item.has(pid, "ITMI_GOLD")>=args[1]){
+							if(item.hasPlace(args[1])){
+								player.narrator(pid, format("daje z³oto %s.", getPlayerName(args[0])));
+								sendMessageToPlayer(args[0], 194, 178, 128, format("(%d) %s podarowuje Ci %d szt. z³.", pid, getPlayerName(pid), args[1]));
+								sendMessageToPlayer(pid, 194, 178, 128, format("Podarowano %d szt. z³. (%d) %s.", args[1], args[0], getPlayerName(args[0])));
+								item.remove(args[0], "ITMI_GOLD", args[1]);
+								item.give(pid, "ITMI_GOLD", args[1]);
+							}else sendMessageToPlayer(pid, 198, 206, 206, ">Ekwipunek gracza jest przepe³niony.");
+						}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
+					}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz znajduje siê za daleko.");
+				}else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owe ID.");
+			}else sendMessageToPlayer(pid, 198, 206, 206, ">Tip: /pay (id) (amount)");
+		break;
+
 		case "trade":
 			if(params=="accept"){
 				if(trade[pid].player!=-1 && trade[pid].mode==0){
@@ -382,6 +406,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 						if(item.has(pid, "ITMI_GOLD")>=trade[trade[pid].player].price){
 							if(item.hasPlace(trade[pid].player) || trade[trade[pid].player].price==0){
 								if(item.has(trade[pid].player, trade[trade[pid].player].item)>=trade[trade[pid].player].amount){
+									player.narrator(pid, format("handluje z %s.", getPlayerName(trade[pid].player)));
 									sendMessageToPlayer(trade[pid].player, 194, 178, 128, "Handel udany.");
 									sendMessageToPlayer(pid, 194, 178, 128, "Handel udany.");
 									if(trade[trade[pid].player].price>0){

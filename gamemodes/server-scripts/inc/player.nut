@@ -152,3 +152,13 @@ function player::description(pid){
     sendMessageToPlayer(pid, 184, 129, 238, player[focus].description);
   }
 }
+
+function player::narrator(pid, string){
+  local pos = getPlayerPosition(pid), string = format("#%s %s", getPlayerName(pid), string);
+  for(local i = 0; i<getMaxSlots(); ++i){
+    if(player[i].isLogged){
+      local pos2 = getPlayerPosition(i);
+      if(getDistance3d(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z)<800) sendMessageToPlayer(i, 238, 130, 238, string);
+    }
+  }
+}
