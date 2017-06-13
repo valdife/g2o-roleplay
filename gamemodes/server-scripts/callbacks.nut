@@ -776,10 +776,10 @@ function onPlayerDialogBoxResponse(pid, id, position){
 					case 0: setPlayerMaxHealth(pid, player[pid].maxHealth+1); break;
 					case 1: setPlayerStrength(pid, player[pid].strength+1); break;
 					case 2: setPlayerDexterity(pid, player[pid].dexterity+1); break;
-					case 3: setPlayerSkillWeapon(pid, player[pid].skillWeapon[0]+1); break;
-					case 4: setPlayerSkillWeapon(pid, player[pid].skillWeapon[1]+1); break;
-					case 5: setPlayerSkillWeapon(pid, player[pid].skillWeapon[2]+1); break;
-					case 6: setPlayerSkillWeapon(pid, player[pid].skillWeapon[3]+1); break;
+					case 3: setPlayerSkillWeapon(pid, 0, player[pid].skillWeapon[0]+1); break;
+					case 4: setPlayerSkillWeapon(pid, 1, player[pid].skillWeapon[1]+1); break;
+					case 5: setPlayerSkillWeapon(pid, 2, player[pid].skillWeapon[2]+1); break;
+					case 6: setPlayerSkillWeapon(pid, 3, player[pid].skillWeapon[3]+1); break;
 					}
 				}else sendMessageToPlayer(pid, 192, 192, 192, ">Nie posiadasz ¿adnych punktów nauki.");
 			}else callClientFunc(pid, "dialog.destroy");
