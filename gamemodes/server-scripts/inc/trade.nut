@@ -28,4 +28,5 @@ function trade::destroy(pid, success){
     trade[trade[pid].player].player = 0;
     refresh(pid, "", 0, -1, 0, 0);
   }
+  else return 1;
 }

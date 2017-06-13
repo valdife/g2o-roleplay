@@ -394,9 +394,9 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 							}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz nie posiada miejsca w ekwipunku na przyjêcie z³ota.");
 						}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
 					}else sendMessageToPlayer(pid, 198, 206, 206, ">Twój ekwipunek jest przepe³niony.");
-				}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie otrzymano ¿adnej oferty.");
+				}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie prowadzisz z nikim handlu.");
 			}else if(params=="stop"){
-				trade.destroy(pid, 0);
+				if(trade.destroy(pid, 0)) sendMessageToPlayer(pid, 198, 206, 206, ">Nie prowadzisz z nikim handlu.");
 			}else{
 				local args = sscanf("dddd", params);
 				if(args){

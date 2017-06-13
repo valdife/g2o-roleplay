@@ -42,9 +42,9 @@ local timer5s = setTimer(function(){
 		if(player[i].isLogged){
 			item[i].flood = 0;
 			protection[i].flood = 0;
-			if(trade[pid].mode){
-				local pos = getPlayerPosition(pid), pos2 = getPlayerPosition(args[0]);
-				if(getDistance3d(pos.x, pos.y. pos.z, pos2.x. pos2.y, pos2.z)>600) trade.destroy(pid, 0);
+			if(trade[i].mode){
+				local pos = getPlayerPosition(i), pos2 = getPlayerPosition(trade[i].player);
+				if(getDistance3d(pos.x, pos.y. pos.z, pos2.x. pos2.y, pos2.z)>600) trade.destroy(i, 0);
 			}
 		}
 	}
