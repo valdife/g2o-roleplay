@@ -20,6 +20,15 @@ function convertMessageToIC(message){
   return message;
 }
 
+function breakSendMessageToPlayer(pid, r, g, b, message){
+  if(message.len()>90){
+    sendMessageToPlayer(pid, r, g, b, message.slice(0, 90)+"-");
+    if(message.len()<180) sendMessageToPlayer(pid, r, g, b, message.slice(90, message.len()));
+    else sendMessageToPlayer(pid, r, g, b, message.slice(90, 180));
+  }
+  else sendMessageToPlayer(pid, r, g, b, message);
+}
+
 function isEven(number){
   local calc = number % 2;
   if(calc==0) return true;

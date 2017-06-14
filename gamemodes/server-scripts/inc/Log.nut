@@ -10,7 +10,7 @@ class Log{
 				file.write(format("[%s] Created %s", get8601Date(), _name));
 				file.close();
 			}else error(file.errorMsg);
-		}else error(file.errorMsg);
+		}
 	}
 
 	function enter(string){
@@ -23,23 +23,6 @@ class Log{
 		}else error(file.errorMsg);
 	}
 
-	function archive(){
-		local file = io.file(_path, "r");
-		if(file.isOpen){
-			buffer = file.read(io_type.ALL);
-			file.close();
-			file = io.file(format("database/logs/archive/%s%d", _name, time()), "w");
-			if(file.isOpen){
-				file.write(buffer);
-				file.close();
-				file = io.file(_path, "w");
-				if(file.isOpen){
-					file.write(format("[%s] Created %s", get8601Date(), _name));
-					file.close();
-				}else error(file.errorMsg);
-			}else error(file.errorMsg);
-		}else error(file.errorMsg);
-	}
 	_name = null;
 	_path = null;
 }

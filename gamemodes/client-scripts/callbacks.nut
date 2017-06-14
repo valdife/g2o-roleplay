@@ -79,11 +79,9 @@ addEventHandler("onKey", function(key){
 				chatInputSetText("/b ");
 				disableControls(false);
 			}
-		}
-		else if(key==KEY_O){
+		}else if(key==KEY_O){
 			callServerFunc("player.description", heroId);
-		}
-		else if(key==KEY_C){
+		}else if(key==KEY_C){
 			callServerFunc("player.showStats", heroId);
 		}
 	}
@@ -91,9 +89,7 @@ addEventHandler("onKey", function(key){
 
 addEventHandler("onUseItem", function(instance, amount, hand){
 	itemSave();
-	if(instance=="ITFO_ADDON_SCHLAFHAMMER"){
-		lou();
-	}
+	if(instance=="ITFO_ADDON_SCHLAFHAMMER") lou();
 });
 
 addEventHandler("onTakeItem", function(instance, amount){
