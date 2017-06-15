@@ -14,7 +14,6 @@ addEventHandler("onInit", function(){
 	for(local i = 0; i<getMaxSlots(); ++i){
 		player.init(i);
 		item.init(i);
-		work.init(i);
 		protection.init(i);
 		trade.init(i);
 		bank.init(i);
@@ -35,7 +34,6 @@ addEventHandler("onPlayerDisconnect", function(pid, reason){
 		player.destroy(pid);
 		item.destroy(pid);
 		bank.destroy(pid);
-		work.destroy(pid);
 		protection.destroy(pid);
 		trade.destroy(pid, 0);
 	}
@@ -368,11 +366,11 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 
 		case "work":
 			if(position.get(pid, "work")){
-				if(!work[pid].isWork){
+				if(!player[pid].isBusy){
 					player.narrator(pid, "pracuje.");
 					sendMessageToPlayer(pid, 194, 178, 128, "Rozpoczêto pracê. Trzymaj lewy ctrl do osi¹gniêcia 100%.");
 					sendMessageToPlayer(pid, 194, 178, 128, "Spadek do 0% oznacza przerwanie pracy.");
-					work[pid].isWork = true;
+					player[pid].isBusy = true;
 					callClientFunc(pid, "work.start");
 				}
 			}
@@ -455,14 +453,17 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 		break;
 
 		case "drunk":
-			if(position.get(pid, "drunk")){
-				if(item.has(pid, "ITMI_GOLD")>=1){
-					player.narrator(pid, "zak³ada siê z pijakami.");
-					callClientFunc(pid, "drunk.start");
+			if(!player[pid].isBusy){
+				if(position.get(pid, "drunk")){
+					if(item.has(pid, "ITMI_GOLD")>=2){
+						player.narrator(pid, "zak³ada siê z pijakami.");
+						callClientFunc(pid, "drunk.start");
+						player[pid].isBusy = true;
+					}
+					else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
 				}
-				else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
+				else sendMessageToPlayer(pid, 198, 206, 206, ">W tym miejscu nie widaæ pijaka.");
 			}
-			else sendMessageToPlayer(pid, 198, 206, 206, ">W tym miejscu nie widaæ pijaka.");
 		break;
 
 		/*

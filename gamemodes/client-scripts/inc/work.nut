@@ -5,8 +5,8 @@ local function workTimerFunction(){
   if(isKeyPressed(KEY_LCONTROL) && workProgress<100) workProgress++;
   else if(workProgress>0 && workProgress<100) workProgress--;
   else{
-    if(workProgress>=100) callServerFunc("work.end", heroId, true);
-    else callServerFunc("work.end", heroId, false);
+    if(workProgress>=100) callServerFunc("work", heroId, true);
+    else callServerFunc("work", heroId, false);
     killTimer(workTimer);
     gameDraw.destroy();
     setFreeze(false);
