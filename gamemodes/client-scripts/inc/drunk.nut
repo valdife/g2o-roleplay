@@ -18,7 +18,7 @@ local function drunkTimerFunction(){
       callServerFunc("drunk", heroId, true);
     }
     else{
-      Chat.print(194, 178, 128, "Nie uda³o siê wygraæ. Tracisz 2 szt. z³." + drunk.count);
+      Chat.print(194, 178, 128, "Nie uda³o siê wygraæ. Tracisz 2 szt. z³.");
       callServerFunc("drunk", heroId, false);
     }
     gameDraw.destroy();
