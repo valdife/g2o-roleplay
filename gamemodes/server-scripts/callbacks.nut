@@ -457,7 +457,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 		case "drunk":
 			if(position.get(pid, "drunk")){
 				if(item.has(pid, "ITMI_GOLD")>=1){
-					player.narrator("zak³ada siê z pijakami.");
+					player.narrator(pid, "zak³ada siê z pijakami.");
 					callClientFunc(pid, "drunk.start");
 				}
 				else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
