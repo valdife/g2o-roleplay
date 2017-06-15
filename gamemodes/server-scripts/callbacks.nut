@@ -20,11 +20,6 @@ addEventHandler("onInit", function(){
 	}
 	position.init();
 
- //! 33
- //.46
-	local test = "sz.";;
-	print(test[2])
-
 	local date = date();
 	setTime(date.hour, date.min);
 });
