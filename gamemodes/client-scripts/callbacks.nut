@@ -76,7 +76,6 @@ addEventHandler("onKey", function(key){
 
 	if(drunk.active){
 		if(getKeyLetter(key)==drunk.letter) drunk.count++;
-		drunk.active = false;
 		return;
 	}
 

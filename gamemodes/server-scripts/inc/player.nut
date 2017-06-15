@@ -2,6 +2,11 @@ player <- {};
 
 function player::init(pid){
   player[pid] <- {};
+  
+  /*
+    To save start
+  */  
+    
   player[pid].isLogged <- false;
   player[pid].password <- null;
   player[pid].active <- 1;
@@ -21,7 +26,10 @@ function player::init(pid){
   player[pid].admin <- 0;
   player[pid].adminPassword <- "empty";
 
-  //
+  /*
+    To save end
+  */  
+
   player[pid].isBusy <- false;
   player[pid].adminIsLogged <- false;
   player[pid].adminListen <- false;
@@ -37,6 +45,11 @@ function player::destroy(pid){
     player[pid].online, player[pid].pn, player[pid].health, player[pid].maxHealth, player[pid].strength, player[pid].dexterity, player[pid].skillWeapon[0],
     player[pid].skillWeapon[1], player[pid].skillWeapon[2], player[pid].skillWeapon[3], player[pid].fraction, player[pid].admin, player[pid].adminPassword));
   }
+
+  /*
+    To save start
+  */  
+  
   player[pid].isLogged = false;
   player[pid].password = null;
   player[pid].active = 1;
@@ -55,8 +68,11 @@ function player::destroy(pid){
   player[pid].fraction = 0;
   player[pid].admin = 0;
   player[pid].adminPassword = "empty";
-
-  //
+  
+  /*
+    To save end
+  */  
+  
   player[pid].isBusy = false;
   player[pid].adminIsLogged = false;
   player[pid].adminListen = false;
@@ -66,10 +82,9 @@ function player::destroy(pid){
 function player::register(pid, nickname, password){
   if(nickname.len()<3 && nickname.len()>20 && strip(nickname)!="null") return 0;
   else if(password.len()<5 && password.len()>15) return 1;
-
   local file = io.file("database/accounts/" + nickname, "r");
   if(file.isOpen) return 2;
-
+  nickname = pickUpFirstChar(nickname);
   player[pid].password = sha512(password);
   file.close();
   file = io.file("database/accounts/" + nickname, "w");
@@ -98,6 +113,7 @@ function player::registerEnd(pid){
 function player::login(pid, nickname, password){
   if(nickname.len()<3 && nickname.len()>20) return 0;
   else if(password.len()<5 && password.len()>15) return 1;
+  nickname = pickUpFirstChar(nickname);
   local file = io.file("database/accounts/" + nickname, "r");
   if(!file.isOpen) return 2;
   local truePassword = file.read(io_type.LINE);

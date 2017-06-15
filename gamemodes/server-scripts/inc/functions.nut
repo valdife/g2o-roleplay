@@ -1,5 +1,12 @@
 function get8601Date(){local date = date(); return format("%d-%d-%dT%d:%d:%dZ", date.year, date.month, date.wday, date.hour, date.min, date.sec);}
 
+function pickUpFirstChar(string){
+  if(string.len()>1){
+    string = string.tolower();
+    return string.slice(0, 1).toupper() + string.slice(1, string.len());  
+  }else return string.toupper();
+}
+
 function convertMessageToIC(message){
   local isEmoticons, startIndex = 0, find, emoticons = [[":)", "#uœmiecha siê#"], [":(", "#smuci siê#"]];
   do{
