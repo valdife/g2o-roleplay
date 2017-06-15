@@ -24,7 +24,6 @@ addEventHandler("onCommand", function(cmd, params){
 
 		case "fps":
 			Chat.print(194, 178, 128, getFpsRate());
-			drunk.start();
 		break;
 
 		case "position":

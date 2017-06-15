@@ -20,6 +20,11 @@ addEventHandler("onInit", function(){
 	}
 	position.init();
 
+ //! 33
+ //.46
+	local test = "sz.";;
+	print(test[2])
+
 	local date = date();
 	setTime(date.hour, date.min);
 });
@@ -133,7 +138,8 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 		case "s":
 		case "shout":
 			if(params.len()>0 && params.len()<161){
-				local pos = getPlayerPosition(pid);
+				local pos = getPlayerPosition(pid), len = params.len()-1;
+				if(params[len]!=33 && params[len]!=46) params += "!";
 				for(local i = 0; i<getMaxSlots(); ++i){
 					if(player[i].isLogged){
 						local pos2 = getPlayerPosition(i);
