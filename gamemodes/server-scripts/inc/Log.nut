@@ -14,11 +14,11 @@ class Log{
 	}
 
 	function enter(string){
+		print(string);
 		local file = io.file(_path, "r+")
 		if(file.isOpen){
 			file.read(io_type.ALL);
 			file.write(format("\n[%s] %s", get8601Date(), string));
-			print(string);
 			file.close();
 		}else error(file.errorMsg);
 	}

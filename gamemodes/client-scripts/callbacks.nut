@@ -4,6 +4,8 @@ addEventHandler("onInit", function(){
 	Chat.print(194, 178, 128, "Po zalogowaniu pamiêtaj o komendzie /help.");
 	disableKey(KEY_C, true);
 	disableKey(KEY_L, true);
+	disableKey(KEY_N, true);
+	disableKey(KEY_B, true);
 	setFreeze(true);
 	draw3dInit();
 	helloShow();
@@ -22,6 +24,7 @@ addEventHandler("onCommand", function(cmd, params){
 
 		case "fps":
 			Chat.print(194, 178, 128, getFpsRate());
+			drunk.start();
 		break;
 
 		case "position":
@@ -38,7 +41,7 @@ addEventHandler("onCommand", function(cmd, params){
 			Chat.print(213, 173, 66, "Czaty: /w, /s, /ear, /me, /do, /try, /pm, /b, /report");
 			Chat.print(213, 173, 66, "Inne: /trade, /pay, /slot, /bones, /description, /anims, /admins");
 			Chat.print(213, 173, 66, "Dostêpne emotikony na czacie: :), :(");
-			Chat.print(213, 173, 66, "Payday w postaci PN i paru sztuk z³ota rozdawany jest co godzinê gry.");
+			Chat.print(213, 173, 66, "Payday w postaci PN i 20 szt. z³. rozdawany jest co godzinê gry. Statystyki - klawisz C.");
 			Chat.print(213, 173, 66, "Gdy gracz posiada ró¿owy nick opisa³ swoj¹ postaæ. Aby odczytaæ - klawisz O.");
 			Chat.print(213, 173, 66, " ");
 		break;
@@ -70,6 +73,12 @@ addEventHandler("onKey", function(key){
 				callServerFunc("onPlayerDialogBoxResponse", heroId, dialog.active, dialog.position);
 			break;
 		}
+	}
+
+	if(drunk.active){
+		if(getKeyLetter(key)==drunk.letter) drunk.count++;
+		drunk.active = false;
+		return;
 	}
 
 	if(!chatInputIsOpen()){

@@ -58,4 +58,7 @@ function draw3dInit(){
 
   draw3d["blacktrader"] <- {};
   draw3dCreate("blacktrader", 4785, 9, -4334, "Podejrzany cz³owiek z wypchanym worem. ((/blacktrader))", 184, 129, 238);
+
+  draw3d["drunk"] <- {};
+  draw3dCreate("drunk", 8720, 314, 1486, "Lokalni pijacy zak³adaj¹ siê o to, kto wypije wiêcej Lou za 2 szt. z³. ((/drunk))", 184, 129, 238);
 }

@@ -23,6 +23,7 @@ function player::init(pid){
 
   //
   player[pid].adminIsLogged <- false;
+  player[pid].adminListen <- false;
   player[pid].flood <- 0;
 }
 
@@ -56,6 +57,7 @@ function player::destroy(pid){
 
   //
   player[pid].adminIsLogged = false;
+  player[pid].adminListen = false;
   player[pid].flood = 0;
 }
 
