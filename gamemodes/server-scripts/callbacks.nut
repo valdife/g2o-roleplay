@@ -389,8 +389,8 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 								player.narrator(pid, format("daje z³oto %s.", getPlayerName(args[0])));
 								sendMessageToPlayer(args[0], 194, 178, 128, format("(%d) %s podarowuje Ci %d szt. z³.", pid, getPlayerName(pid), args[1]));
 								sendMessageToPlayer(pid, 194, 178, 128, format("Podarowano %d szt. z³. (%d) %s.", args[1], args[0], getPlayerName(args[0])));
-								item.remove(args[0], "ITMI_GOLD", args[1]);
-								item.give(pid, "ITMI_GOLD", args[1]);
+								item.remove(pid, "ITMI_GOLD", args[1]);
+								item.give(args[0], "ITMI_GOLD", args[1]);
 							}else sendMessageToPlayer(pid, 198, 206, 206, ">Ekwipunek gracza jest przepe³niony.");
 						}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
 					}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz znajduje siê za daleko.");
@@ -432,7 +432,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 								if(item[pid].amount[args[1]]>=args[2] && args[2]>0){
 									if(trade[args[0]].player==-1){
 										if(trade[pid].player==-1){
-											sendMessageToPlayer(pid, 194, 178, 128, format("Zaoferowano (%d) %s przedmiot %s w iloœci %d szt. za cenê %d. szt. z³.", args[0],
+											sendMessageToPlayer(pid, 194, 178, 128, format("Zaoferowano (%d) %s przedmiot %s w iloœci %d szt. za cenê %d szt. z³.", args[0],
 											getPlayerName(args[0]), item[pid].instance[args[1]], args[2], args[3]));
 											sendMessageToPlayer(pid, 198, 206, 206, ">U¿yj /trade stop, by anulowaæ ofertê.");
 											sendMessageToPlayer(args[0], 194, 178, 128, format("(%d) %s oferuje Ci przedmiot %s w iloœci %d szt. za cenê %d szt. z³.", pid,

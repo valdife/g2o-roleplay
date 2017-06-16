@@ -1,10 +1,10 @@
 dialog <- {
-	active = null
-	texture = Texture(0, 0, 500, 500, "DLG_CONVERSATION.TGA")
-	draw = {}
-	text = {}
-	maxPosition = 6
-	drawPosition = 0
+	active = ,
+	texture = Texture(0, 0, 500, 500, "DLG_CONVERSATION.TGA"),
+	draw = {},
+	text = {},
+	maxPosition = 6,
+	drawPosition = 0,
 	position = 0
 }
 

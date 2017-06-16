@@ -1,8 +1,8 @@
 local brothel = {
-  timer = null
-  texture = null
+  timer = null,
+  texture = null,
   counter = 0
-};
+}
 
 local function brothelAlpha(){
   if(brothel.texture.getAlpha()==100){

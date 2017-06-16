@@ -44,5 +44,5 @@ function drunk::start(){
   Chat.print(194, 178, 128, "Powodzenia.");
   gameDraw.create("Klikaj pojawiaj¹ce siê na ekranie litery, by wygraæ");
   drunk.active = true;
-  drunkTimer = setTimer(drunkTimerFunction, 1000, 2000);
+  drunkTimer = setTimer(drunkTimerFunction, 2000, 5000);
 }
