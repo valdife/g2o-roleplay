@@ -3,7 +3,8 @@ local timer60s = setTimer(function(){
 		if(player[i].isLogged){
 			player[i].minuter++;
 			if(player[i].minuter>=60){
-				sendMessageToPlayer(i, 194, 178, 128, "Otrzymano 2 PN i 20 sztuk z³ota za przegranie pe³nej godziny.");
+				sendMessageToPlayer(i, 194, 178, 128, "Otrzymano 2 PN za przegranie pe³nej godziny.");
+				if(player[i].citizen) sendMessageToPlayer(i, 194, 178, 128, "Jako obywatel miasta otrzymujesz 20 szt. z³. od panuj¹cych w Khorinis.");
 				player[i].minuter=0;
 				player[i].online++;
 				player[i].pn += 2;;

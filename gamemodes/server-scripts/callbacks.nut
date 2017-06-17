@@ -258,6 +258,16 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 			Activity commands start
 		*/
 
+		case "citizen":
+			if(position.get(pid, "citizen")){
+				if(!player[pid].citizen){
+					player.narrator(pid, "rejestruje siê jako obywatel miasta.");
+					sendMessageToPlayer(pid, 194, 178, 128, "Co godzinê gry przyznawane Ci bêdzie 20 szt. z³.");
+					player[pid].citizen = 1;
+				}else sendMessageToPlayer(pid, 198, 206, 206, ">Z akt wynika, ¿e posiadasz ju¿ obywatelstwo.");
+			}else sendMessageToPlayer(pid, 198, 206, 206, ">Jesteœ w nieodpowiednim miejscu.");
+		break;	
+		
 		case "learn":
 			if(position.get(pid, "learn")){
 				player.narrator(pid, "rozmawia z nauczycielem.");

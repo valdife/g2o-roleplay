@@ -61,4 +61,8 @@ function draw3dInit(){
 
   draw3d["drunk"] <- {};
   draw3dCreate("drunk", 8720, 314, 1486, "Lokalni pijacy zak³adaj¹ siê o to, kto wypije wiêcej Lou za 2 szt. z³. ((/drunk))", 184, 129, 238);
+
+  draw3d["citizen"] <- {};
+  draw3dCreate("citizen", 3335, 848, 6409, "W tym miejscu mo¿esz zarejestrowaæ siê jako obywatel miasta ((/citizen))", 184, 129, 238);
+  
 }

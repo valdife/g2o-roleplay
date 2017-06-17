@@ -1,5 +1,5 @@
 dialog <- {
-	active = ,
+	active = null,
 	texture = Texture(0, 0, 500, 500, "DLG_CONVERSATION.TGA"),
 	draw = {},
 	text = {},

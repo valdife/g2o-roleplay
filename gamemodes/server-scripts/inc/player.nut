@@ -22,6 +22,7 @@ function player::init(pid){
   player[pid].strength <- 10;
   player[pid].dexterity <- 10;
   player[pid].skillWeapon <- [10, 10, 10, 10];
+  player[pid].citizen <- 0;
   player[pid].fraction <- 0;
   player[pid].admin <- 0;
   player[pid].adminPassword <- "empty";
@@ -40,10 +41,10 @@ function player::destroy(pid){
   local file = io.file("database/accounts/" + getPlayerName(pid), "w");
   if(file.isOpen){
     local pos = getPlayerPosition(pid), visual = getPlayerVisual(pid);
-    file.write(format("%s\n%d\n%d\n%d\n%d:%d:%d\n%s:%d:%s:%d\n%s\n%d\n%d\n%d\n%d\n%d\n%d\n%d\n%d:%d:%d:%d\n%d\n%d\n%s", player[pid].password, player[pid].active, player[pid].sex,
+    file.write(format("%s\n%d\n%d\n%d\n%d:%d:%d\n%s:%d:%s:%d\n%s\n%d\n%d\n%d\n%d\n%d\n%d\n%d\n%d:%d:%d:%d\n%d\n%d\n%d\n%s", player[pid].password, player[pid].active, player[pid].sex,
     player[pid].race, pos.x, pos.y, pos.z, player[pid].visual[0], player[pid].visual[1], player[pid].visual[2], player[pid].visual[3], player[pid].description, player[pid].minuter,
     player[pid].online, player[pid].pn, player[pid].health, player[pid].maxHealth, player[pid].strength, player[pid].dexterity, player[pid].skillWeapon[0],
-    player[pid].skillWeapon[1], player[pid].skillWeapon[2], player[pid].skillWeapon[3], player[pid].fraction, player[pid].admin, player[pid].adminPassword));
+    player[pid].skillWeapon[1], player[pid].skillWeapon[2], player[pid].skillWeapon[3], player[pid].citizen, player[pid].fraction, player[pid].admin, player[pid].adminPassword));
   }
 
   /*
@@ -65,6 +66,7 @@ function player::destroy(pid){
   player[pid].strength  = 10;
   player[pid].dexterity = 10;
   player[pid].skillWeapon = [10, 10, 10, 10];
+  player[pid].citizen = 0;
   player[pid].fraction = 0;
   player[pid].admin = 0;
   player[pid].adminPassword = "empty";
@@ -135,6 +137,7 @@ function player::login(pid, nickname, password){
   player[pid].strength = file.read(io_type.LINE).tointeger();
   player[pid].dexterity = file.read(io_type.LINE).tointeger();
   local skillWeapon = split(file.read(io_type.LINE), ":");
+  player[pid].citizen = file.read(io_type.LINE).tointeger();
   player[pid].fraction = file.read(io_type.LINE).tointeger();
   player[pid].admin = file.read(io_type.LINE).tointeger();
   player[pid].adminPassword = file.read(io_type.LINE);
