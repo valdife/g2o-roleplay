@@ -15,5 +15,5 @@
 	<!-- Ids -->
 	<mds src="mds.xml" />
 
-	<modification enabled=false />
+	<modification enabled=true />
 </server>
