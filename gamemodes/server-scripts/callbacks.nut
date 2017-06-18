@@ -562,7 +562,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 		case "ahelp":
 			if(player[pid].adminIsLogged){
 				sendMessageToPlayer(pid, 128, 0, 0, " ");
-				sendMessageToPlayer(pid, 128, 0, 0, "/a, /all, /tp, /tppos, /kick, /ban, /warn, /descdelete, /sethp");
+				sendMessageToPlayer(pid, 128, 0, 0, "/a, /all, /tp, /tppos, /kick, /ban, /block, /warn, /descdelete, /sethp");
 				if(player[pid].admin>1) sendMessageToPlayer(pid, 128, 0, 0, "/setpn, /setstr, /setdex, /setwp");
 				if(player[pid].admin>2) sendMessageToPlayer(pid, 128, 0, 0, "/giveadmin, /giveitem, /removeitem, /setserverdescription");
 				sendMessageToPlayer(pid, 128, 0, 0, " ");
@@ -637,6 +637,19 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 						player[args[0]].active = 0; ban(args[0], args[1], args[2]);
 					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
 				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /ban (id) (minutes) (reason)");
+			}
+		break;
+		
+		case "block":
+			if(player[pid].adminIsLogged){
+				local args = sscanf("ds", params);
+				if(args){
+					if(player[args[0]].isLogged){
+						sendMessageToPlayer(pid, 128, 0, 0, format("Zablokowano gracza. Gracz: (%d) %s, minut: %d, powód: %s.", args[0], getPlayerName(args[0]), args[1]));
+						sendMessageToAll(207, 41, 66, format("Supporter (%d) %s zablokowa³ %s. Powód: %s", pid, getPlayerName(pid), getPlayerName(args[0]), args[1]));
+						player[args[0]].active = 0; kick(args[0], args[1]);
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /block (id) (reason)");
 			}
 		break;
 

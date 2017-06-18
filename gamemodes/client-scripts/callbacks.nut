@@ -40,8 +40,8 @@ addEventHandler("onCommand", function(cmd, params){
 			Chat.print(213, 173, 66, "Czaty: /w, /s, /ear, /me, /do, /try, /pm, /b, /report");
 			Chat.print(213, 173, 66, "Inne: /trade, /pay, /slot, /bones, /description, /anims, /admins");
 			Chat.print(213, 173, 66, "Dostêpne emotikony na czacie: :), :(");
-			Chat.print(213, 173, 66, "Payday - PN i ew. 20 szt. z³. rozdawany jest co godzinê gry. Statystyki - klawisz C.");
 			Chat.print(213, 173, 66, "Gdy gracz posiada ró¿owy nick opisa³ swoj¹ postaæ. Aby odczytaæ - klawisz O.");
+			Chat.print(213, 173, 66, "Payday - PN i 20 szt. z³. (dla obywateli) rozdawany jest co godzinê gry. Statystyki - C.");
 			Chat.print(213, 173, 66, " ");
 		break;
 
