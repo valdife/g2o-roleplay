@@ -472,7 +472,35 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				else sendMessageToPlayer(pid, 198, 206, 206, ">W tym miejscu nie widaæ pijaka.");
 			}
 		break;
-
+		
+		case "search":
+			local args = sscanf("d", params);
+			if(args){
+				if(player[args[0]].isLogged && args[0]!=pid){
+					local pos = getPlayerPosition(pid), pos2 = getPlayerPosition(args[0]);
+					if(player[pid].adminIsLogged || getDistance3d(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z)<800){
+						if(item[args[0]].instance.len()>0){
+							if(!player[pid].adminIsLogged) player.narrator(pid, format("przeszukuje %s", getPlayerName(args[0])));
+							local pos = 0;
+							while(pos<item[args[0]].instance.len()){
+								local msg = "";
+								while(1){
+									msg += format("(%d) %s, ", item[args[0]].amount[pos], item[args[0]].instance[pos]);
+									pos++;
+									if(pos>item[args[0]].instance.len()-1) break;
+									else{
+										local temp = msg + format("(%d) %s), ", item[args[0]].amount[pos], item[args[0]].instance[pos]);
+										if(temp.len()>90) break;
+									}
+								}
+								sendMessageToPlayer(pid, 194, 178, 128, msg.slice(0, msg.len()-2));
+							}
+						}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz nie posiada ¿adnych przedmiotów."); 
+					}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz znajduje siê za daleko.");
+				}else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owe ID."); 
+			}else sendMessageToPlayer(pid, 198, 206, 206, ">Tip: /search (id)"); 
+		break;
+		
 		/*
 			Activity commands end
 		*/
@@ -558,7 +586,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 		case "ahelp":
 			if(player[pid].adminIsLogged){
 				sendMessageToPlayer(pid, 128, 0, 0, " ");
-				sendMessageToPlayer(pid, 128, 0, 0, "/a, /all, /getip, /tp, /tppos, /kick, /ban, /block, /warn, /descdelete, /sethp");
+				sendMessageToPlayer(pid, 128, 0, 0, "/a, /all, /search, /getip, /tp, /tppos, /kick, /ban, /block, /warn, /descdelete, /sethp");
 				if(player[pid].admin>1) sendMessageToPlayer(pid, 128, 0, 0, "/setpn, /setstr, /setdex, /setwp");
 				if(player[pid].admin>2) sendMessageToPlayer(pid, 128, 0, 0, "/giveadmin, /giveitem, /removeitem, /setserverdescription");
 				sendMessageToPlayer(pid, 128, 0, 0, " ");
