@@ -67,11 +67,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 					if(register==0) sendMessageToPlayer(pid, 192, 192, 192, ">Nieprawid³owa d³ugoœæ nicku.");
 					else if(register==1) sendMessageToPlayer(pid, 192, 192, 192, ">Nieprawid³owa d³ugoœæ has³a.");
 					else if(register==2) sendMessageToPlayer(pid, 192, 192, 192, ">Proponowany nick jest zajêty.");
-					else{
-						sendMessageToPlayer(pid, 194, 178, 128, "Zarejestrowano konto. Wybierz p³eæ postaci.");
-						callClientFunc(pid, "dialog.show", 0);
-
-					}
+					else callClientFunc(pid, "dialog.show", 0);
 				}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /register (nick) (password)");
 			break;
 
@@ -562,7 +558,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 		case "ahelp":
 			if(player[pid].adminIsLogged){
 				sendMessageToPlayer(pid, 128, 0, 0, " ");
-				sendMessageToPlayer(pid, 128, 0, 0, "/a, /all, /tp, /tppos, /kick, /ban, /block, /warn, /descdelete, /sethp");
+				sendMessageToPlayer(pid, 128, 0, 0, "/a, /all, /getip, /tp, /tppos, /kick, /ban, /block, /warn, /descdelete, /sethp");
 				if(player[pid].admin>1) sendMessageToPlayer(pid, 128, 0, 0, "/setpn, /setstr, /setdex, /setwp");
 				if(player[pid].admin>2) sendMessageToPlayer(pid, 128, 0, 0, "/giveadmin, /giveitem, /removeitem, /setserverdescription");
 				sendMessageToPlayer(pid, 128, 0, 0, " ");
@@ -585,6 +581,18 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				else sendMessageToPlayer(pid, 128, 0, 0, "Tip: /all (text)");
 			}
 		break;
+		
+		case "getip":
+			if(player[pid].adminIsLogged){
+				local args = sscanf("d");
+				if(args){
+					if(isPlayerConnected(args[0])){
+						if(player[pid].admin==1) sendMessageToPlayer(pid, 128, 0, 0, censure(getPlayerIP(args[0])));
+						else sendMessageToPlayer(pid, 128, 0, 0, getPlayerIP(args[0]));
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+				}else sendMessageToPlayer(pid, 128, 0, 0, "Tip: /getip (id)");
+			}
+		break;	
 
 		case "tp":
 			if(player[pid].adminIsLogged){
@@ -836,6 +844,8 @@ function onPlayerDialogBoxResponse(pid, id, position){
 		switch(position){
 			case 0: player[pid].race=1; player.registerEnd(pid); break;
 			case 1: player[pid].race=2; player.registerEnd(pid); break;
+			case 2: player[pid].race=3; player.registerEnd(pid); break;
+			case 3: player[pid].race=4; player.registerEnd(pid); break;
 		}
 	}
 	else if(id==2){

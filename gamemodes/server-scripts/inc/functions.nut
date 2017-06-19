@@ -29,7 +29,7 @@ function convertMessageToIC(message){
 
 function breakSendMessageToPlayer(pid, r, g, b, message){
   if(message.len()>90){
-    sendMessageToPlayer(pid, r, g, b, message.slice(0, 90)+"-");
+	sendMessageToPlayer(pid, r, g, b, message.slice(0, 90)+"-");
     if(message.len()<180) sendMessageToPlayer(pid, r, g, b, message.slice(90, message.len()));
     else sendMessageToPlayer(pid, r, g, b, message.slice(90, 180));
   }
@@ -40,4 +40,14 @@ function isEven(number){
   local calc = number % 2;
   if(calc==0) return true;
   else return false;
+}
+
+function censure(string){
+  if(string.len()>1){
+	local half = string.len()/2;
+	string = string.slice(0, string.len()-half);
+	for(local i = 0; i<half; ++i){
+	  string += "#";
+	}
+  }else return string;
 }

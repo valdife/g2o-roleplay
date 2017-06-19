@@ -1,6 +1,7 @@
 player <- {};
 
 function player::registerEnd(){
+	itemSave();
 	dialog.destroy();
 	setPlayerPosition(heroId, -871, -571, 409);
 	Chat.print(194, 178, 128, " ");

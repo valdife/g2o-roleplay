@@ -84,8 +84,14 @@ function dialog::switcher(select){
 
 function dialog::show(id, ...){
 	switch(id){
-		case 0: create(0, "Mê¿czyzna", "Kobieta"); break;
-		case 1: create(1, "Bia³a", "Czarna"); break;
+		case 0: 
+			Chat.print(194, 178, 128, "Zarejestrowano konto. Wybierz p³eæ postaci.");
+			create(0, "Mê¿czyzna", "Kobieta"); 
+		break;
+		case 1:
+			Chat.print(194, 178, 128, "Wybierz kolor skóry.");
+			create(1, "Bia³y", "Bia³y opalony", "Latynoski", "Czarny"); 
+		break;
 		case 2: create(2, "Punkty trafieñ", "Si³a", "Zrêcznoœæ", "Broñ jednorêczna", "Broñ dwurêczna", "£ucznictwo",
 		"Kusznictwo", "Opuœæ"); break;
 		case 3: create(3, "Ryba 2 szt. z³.", "Chleb 3 szt. z³.", "Miód 5 szt. z³", "Ser 5 szt. z³.", "Opuœæ"); break;
