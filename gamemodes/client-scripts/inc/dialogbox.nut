@@ -95,8 +95,8 @@ function dialog::show(id, ...){
 		case 2: create(2, "Punkty trafieñ", "Si³a", "Zrêcznoœæ", "Broñ jednorêczna", "Broñ dwurêczna", "£ucznictwo",
 		"Kusznictwo", "Opuœæ"); break;
 		case 3: create(3, "Ryba 2 szt. z³.", "Chleb 3 szt. z³.", "Miód 5 szt. z³", "Ser 5 szt. z³.", "Opuœæ"); break;
-		case 4: create(4, "Mikstura szybkoœci 3 szt. z³.", "Esencja lecznicza 15 szt. z³.", "Eliksir leczniczy 25 szt. z³", "Podwójny M³ot 25 szt. z³" "Opuœæ"); break;
-		case 5: create(5, "Strój obywatela 100 szt. z³.", "Skórzany pancerz 220 szt. z³", "Pancerz Diega 600 szt. z³." "Opuœæ"); break;
+		case 4: create(4, "Mikstura szybkoœci 3 szt. z³.", "Esencja lecznicza 15 szt. z³.", "Eliksir leczniczy 25 szt. z³", "Podwójny M³ot 25 szt. z³", "Opuœæ"); break;
+		case 5: create(5, "Strój obywatela 100 szt. z³.", "Skórzany pancerz 220 szt. z³", "Pancerz Diega 600 szt. z³.", "Zbroja magnata 12000 szt. z³", "Zbroja z pancerzy pe³zaczy 13000 szt. z³", "Opuœæ"); break;
 		case 6: create(6, "Laga 12 szt. z³.", "Zardzewia³y topór 110 szt. z³.", "Nó¿ na wilki 170 szt. z³.", "Opuœæ"); break;
 		case 7: create(7, "25 strza³ 25 szt. z³.", "25 be³tów 25 szt. z³.", "Krótki ³uk 70 szt. z³.", "Kusza myœliwska 90 szt. z³.", "Opuœæ"); break;
 		case 8: create(8, "Zdeponuj przedmiot", "Odbierz przedmiot", "Opuœæ"); break;

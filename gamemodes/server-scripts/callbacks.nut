@@ -159,8 +159,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 			local args = sscanf("ds", params);
 			if(args && args[1].len()<161){
 				if(player[args[0]].isLogged && args[0]!=pid){
-					local pos = getPlayerPosition(pid), pos2 = getPlayerPosition(args[0]);
-					if(getDistance3d(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z)<300){
+					if(getDistanceBeetwenPlayers(pid, args[0])<300){
 						breakSendMessageToPlayer(args[0], 250, 250, 250, format("%s szepcze Ci na ucho: %s", getPlayerName(pid), convertMessageToIC(args[1])));
 						player.narrator(pid, format("szepcze coœ na ucho %s", getPlayerName(args[0])));
 						earLog.enter(format("%s do %s: %s", getPlayerName(pid), getPlayerName(args[0]), args[1]));
@@ -388,8 +387,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 			local args = sscanf("dd", params);
 			if(args){
 				if(player[args[0]].isLogged && args[0]!=pid){
-					local pos = getPlayerPosition(pid), pos2 = getPlayerPosition(args[0]);
-					if(getDistance3d(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z)<600){
+					if(getDistanceBeetwenPlayers(pid, args[0])<600){
 						if(item.has(pid, "ITMI_GOLD")>=args[1]){
 							if(item.hasPlace(args[1])){
 								player.narrator(pid, format("daje z³oto %s.", getPlayerName(args[0])));
@@ -432,8 +430,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				local args = sscanf("dddd", params);
 				if(args){
 					if(player[args[0]].isLogged && args[0]!=pid){
-						local pos = getPlayerPosition(pid), pos2 = getPlayerPosition(args[0]);
-						if(getDistance3d(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z)<600){
+						if(getDistanceBeetwenPlayers(pid, args[0])<600){
 							if(item[pid].instance.len()>=args[1] && args[1]>-1){
 								if(item[pid].amount[args[1]]>=args[2] && args[2]>0){
 									if(trade[args[0]].player==-1){
@@ -477,8 +474,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 			local args = sscanf("d", params);
 			if(args){
 				if(player[args[0]].isLogged && args[0]!=pid){
-					local pos = getPlayerPosition(pid), pos2 = getPlayerPosition(args[0]);
-					if(player[pid].adminIsLogged || getDistance3d(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z)<800){
+					if(player[pid].adminIsLogged || getDistanceBeetwenPlayers(pid, args[0])<600){
 						if(item[args[0]].instance.len()>0){
 							if(!player[pid].adminIsLogged) player.narrator(pid, format("przeszukuje %s", getPlayerName(args[0])));
 							local pos = 0;
@@ -518,8 +514,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 		break;
 
 		case "admins":
-			local id = [];
-			local lvl = [];
+			local id = [], lvl = [];
 			for(local i = 0; i<getMaxSlots(); ++i){
 				if(player[i].adminIsLogged){
 					id.push(i);
@@ -913,7 +908,9 @@ function onPlayerDialogBoxResponse(pid, id, position){
 				case 0: item.buy(pid, 100, "ITAR_VLK_L", 1); break;
 				case 1: item.buy(pid, 220, "ITAR_LEATHER_L", 1); break;
 				case 2: item.buy(pid, 600, "ITAR_DIEGO", 1); break;
-				case 3: callClientFunc(pid, "dialog.destroy");
+				case 3: item.buy(pid, 12000, "ITAR_OREBARON_ADDON", 1); break;
+				case 4: item.buy(pid, 13000, "ITAR_DJG_CRAWLER", 1); break;
+				case 5: callClientFunc(pid, "dialog.destroy");
 			}
 	}else if(id==6){
 			switch(position){

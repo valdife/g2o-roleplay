@@ -51,3 +51,8 @@ function censure(string){
 	}
   }else return string;
 }
+
+function getDistanceBeetwenPlayers(pid, rid){
+	local pos = getPlayerPosition(pid), pos2 = getPlayerPosition(rid);
+	return getDistance3d(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z);
+}

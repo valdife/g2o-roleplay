@@ -84,4 +84,11 @@
 		<instance>ITFO_ADDON_SCHLAFHAMMER</instance>
 	</item>	
 	
+	<item>
+		<instance>ITAR_OREBARON_ADDON</instance>
+	</item>	
+	
+	<item>
+		<instance>ITAR_DJG_CRAWLER</instance>
+	</item>	
 </items>	
