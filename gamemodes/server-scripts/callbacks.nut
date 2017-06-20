@@ -584,7 +584,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 			if(player[pid].adminIsLogged){
 				sendMessageToPlayer(pid, 128, 0, 0, " ");
 				sendMessageToPlayer(pid, 128, 0, 0, "/a, /all, /search, /getip, /tp, /tppos, /kick, /ban, /block, /warn, /descdelete, /sethp");
-				if(player[pid].admin>1) sendMessageToPlayer(pid, 128, 0, 0, "/setpn, /setstr, /setdex, /setwp");
+				if(player[pid].admin>1) sendMessageToPlayer(pid, 128, 0, 0, "/setlp, /setstr, /setdex, /setwp");
 				if(player[pid].admin>2) sendMessageToPlayer(pid, 128, 0, 0, "/giveadmin, /giveitem, /removeitem, /setserverdescription");
 				sendMessageToPlayer(pid, 128, 0, 0, " ");
 			}
@@ -628,7 +628,8 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 						args[1], getPlayerName(args[1])));
 						sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s teleportowa³ Ciê do (%d) %s.", pid, getPlayerName(pid), args[1],
 						getPlayerName(args[1])));
-						setPlayerPosition(args[0], args[1], args[2], args[3]);
+						local pos = getPlayerPosition(args[0]);
+						setPlayerPosition(args[0], pos.x, pos.y, pos.z);
 					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
 				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /tp (id) (id2)");
 			}
@@ -740,7 +741,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 			}
 		break;
 
-		case "setpn":
+		case "setlp":
 			if(player[pid].adminIsLogged && player[pid].admin>1){
 				local args = sscanf("dd", params);
 				if(args){
@@ -749,7 +750,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 						sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci PN na %d.", pid, getPlayerName(pid), args[1]));
 						player[args[0]].pn = args[1];
 					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
-				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setpn (id) (amount)");
+				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setlp (id) (amount)");
 			}
 		break;
 
