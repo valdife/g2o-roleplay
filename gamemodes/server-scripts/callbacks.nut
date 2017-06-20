@@ -920,7 +920,11 @@ function onPlayerDialogBoxResponse(pid, id, position){
 				case 0: item.buy(pid, 12, "ITMW_1H_BAU_MACE", 1); break;
 				case 1: item.buy(pid, 110, "ITMW_1H_MISC_AXE", 1); break;
 				case 2: item.buy(pid, 170, "ITMW_1H_SWORD_L_03", 1); break;
-				case 3: callClientFunc(pid, "dialog.destroy");
+				case 3: item.buy(pid, 800, "ITMW_2H_SWORD_M_01", 1); break;
+				case 4: item.buy(pid, 1200, "ITMW_SHORTSWORD5", 1); break;
+				case 5: item.buy(pid, 9500, "ITMW_ADDON_PIR2HAXE", 1); break;
+				case 6: item.buy(pid, 10000, "ITMW_ADDON_PIR1HSWORD", 1); break;
+				case 7: callClientFunc(pid, "dialog.destroy");
 			}
 	}else if(id==7){
 			switch(position){

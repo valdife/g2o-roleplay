@@ -91,4 +91,20 @@
 	<item>
 		<instance>ITAR_DJG_CRAWLER</instance>
 	</item>	
+	
+	<item>
+		<instance>ITMW_2H_SWORD_M_01</instance>
+	</item>	
+	
+	<item>
+		<instance>ITMW_SHORTSWORD5</instance>
+	</item>	
+	
+	<item>
+		<instance>ITMW_ADDON_PIR2HAXE</instance>
+	</item>	
+	
+	<item>
+		<instance>ITMW_ADDON_PIR1HSWORD</instance>
+	</item>	
 </items>	
