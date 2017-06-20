@@ -371,7 +371,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				else if(position.get(pid, "fletcher")) callClientFunc(pid, "dialog.show", 7);
 				else return 0;
 				player.narrator(pid, "rozmawia z handlarzem.");
-			}else sendMessageToPlayer(pid, 128, 0, 0, ">Kupowaæ mo¿na dopiero po przegraniu 1 godziny online.");
+			}else sendMessageToPlayer(pid, 198, 206, 206, ">Kupowaæ mo¿na dopiero po przegraniu 1 godziny online.");
 		break;
 
 		case "work":
