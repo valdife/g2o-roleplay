@@ -286,7 +286,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 		case "roulette":
 			if(position.get(pid, "roulette")){
 				local args = sscanf("d", params);
-				if(args){
+				if(args && args[0]>0){
 					if(item.has(pid, "ITMI_GOLD")>=args[0]){
 						player.narrator(pid, "gra w ruletkê.");
 						local random;
@@ -361,13 +361,15 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 		break;
 
 		case "buy":
-			if(position.get(pid, "food")) callClientFunc(pid, "dialog.show", 3);
-			else if(position.get(pid, "potion")) callClientFunc(pid, "dialog.show", 4);
-			else if(position.get(pid, "cloth")) callClientFunc(pid, "dialog.show", 5);
-			else if(position.get(pid, "weapon")) callClientFunc(pid, "dialog.show", 6);
-			else if(position.get(pid, "fletcher")) callClientFunc(pid, "dialog.show", 7);
-			else return 0;
-			player.narrator(pid, "rozmawia z handlarzem.");
+			if(player[pid].online>0){
+				if(position.get(pid, "food")) callClientFunc(pid, "dialog.show", 3);
+				else if(position.get(pid, "potion")) callClientFunc(pid, "dialog.show", 4);
+				else if(position.get(pid, "cloth")) callClientFunc(pid, "dialog.show", 5);
+				else if(position.get(pid, "weapon")) callClientFunc(pid, "dialog.show", 6);
+				else if(position.get(pid, "fletcher")) callClientFunc(pid, "dialog.show", 7);
+				else return 0;
+				player.narrator(pid, "rozmawia z handlarzem.");
+			}else sendMessageToPlayer(pid, 128, 0, 0, ">Kupowaæ mo¿na dopiero po przegraniu 1 godziny online.");
 		break;
 
 		case "work":
@@ -607,7 +609,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 		
 		case "getip":
 			if(player[pid].adminIsLogged){
-				local args = sscanf("d");
+				local args = sscanf("d", params);
 				if(args){
 					if(isPlayerConnected(args[0])){
 						if(player[pid].admin==1) sendMessageToPlayer(pid, 128, 0, 0, censure(getPlayerIP(args[0])));
