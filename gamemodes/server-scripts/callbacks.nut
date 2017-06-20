@@ -968,7 +968,7 @@ function onPlayerDialogBoxResponse(pid, id, position){
 	}else if(id==10){
 		if(position!=bank[pid].instance.len()){
 			if(position<=bank[pid].instance.len()){
-				if(item.hasPlace(pid){
+				if(item.hasPlace(pid)){
 					sendMessageToPlayer(pid, 194, 178, 128, "Odebrano przedmiot.");
 					giveItem(pid, Items.id(bank[pid].instance[position]), 1);
 					local index = bank[pid].instance.find(bank[pid].instance[position]);
