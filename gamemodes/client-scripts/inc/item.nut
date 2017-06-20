@@ -2,7 +2,7 @@ function itemSave(){
   local eq = getEq(), packet = "", i = 0;
   if(eq.len()>0){
     foreach(item in eq){
-      if(i<30) packet += format("%d:%d.", Items.id(item.instance.toupper()), item.amount);
+      if(i<15) packet += format("%d:%d.", Items.id(item.instance.toupper()), item.amount);
       else break;
       ++i;
     }

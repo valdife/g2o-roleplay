@@ -335,22 +335,24 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 
 		case "blacktrader":
 			if(position.get(pid, "blacktrader")){
+				if(item.hasPlace(pid)){
 				local args = sscanf("dd", params);
-				if(args){
-					if(item[pid].instance.len()>=args[0]){
-						if(item[pid].amount[args[0]]>=args[1]){
-							player.narrator(pid, "sprzedaje coœ paserowi.");
-							sendMessageToPlayer(pid, 194, 178, 128, "Paser da³ Ci sztukê z³ota za ten przedmiot.");
-							removeItem(pid, Items.id(item[pid].instance[args[0]]), args[1]);
-							giveItem(pid, Items.id("ITMI_GOLD"), args[1]);
-							callClientFunc(pid, "itemSave");
-						}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz ¿¹danego przedmiotu w takiej liczbie.");
-					}else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owy slot.");
-				}else{
-					sendMessageToPlayer(pid, 198, 206, 206, ">U¿yj /blacktrader (slot) (amount)");
-					sendMessageToPlayer(pid, 194, 178, 128, "Sloty liczone s¹ od 0. By upewniæ siê co do slotu, mo¿esz u¿yæ komendy /slot.");
-					sendMessageToPlayer(pid, 194, 178, 128, "Paser nie bierze pod uwagê wartoœci przedmiotu i za ka¿dy zap³aci Ci 1 szt. z³.");
-				}
+					if(args){
+						if(item[pid].instance.len()>=args[0]){
+							if(item[pid].amount[args[0]]>=args[1]){
+								player.narrator(pid, "sprzedaje coœ paserowi.");
+								sendMessageToPlayer(pid, 194, 178, 128, "Paser da³ Ci sztukê z³ota za ten przedmiot.");
+								removeItem(pid, Items.id(item[pid].instance[args[0]]), args[1]);
+								giveItem(pid, Items.id("ITMI_GOLD"), args[1]);
+								callClientFunc(pid, "itemSave");
+							}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz ¿¹danego przedmiotu w takiej liczbie.");
+						}else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owy slot.");
+					}else{
+						sendMessageToPlayer(pid, 198, 206, 206, ">U¿yj /blacktrader (slot) (amount)");
+						sendMessageToPlayer(pid, 194, 178, 128, "Sloty liczone s¹ od 0. By upewniæ siê co do slotu, mo¿esz u¿yæ komendy /slot.");
+						sendMessageToPlayer(pid, 194, 178, 128, "Paser nie bierze pod uwagê wartoœci przedmiotu i za ka¿dy zap³aci Ci 1 szt. z³.");
+					}
+				}else sendMessageToPlayer(pid, 198, 206, 206, ">Brak miejsca w ekwipunku.");
 			}else sendMessageToPlayer(pid, 198, 206, 206, ">W okolicy nie widaæ pasera.");
 		break;
 

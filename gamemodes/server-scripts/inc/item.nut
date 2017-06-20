@@ -62,7 +62,7 @@ function item::give(pid, ...){
 
 function item::remove(pid, ...){
   for(local i = 0; i<vargv.len(); i = i+2){
-    removeItem(pid, Items.id(vargv[i]), vargv[i+1]);
+    removeItem(pid, Items.id(vargv[i].toupper()), vargv[i+1]);
   }
   callClientFunc(pid, "itemSave");
 }
@@ -72,7 +72,7 @@ function item::receiver(pid, eq){
   itemClear(pid);
   if(eq){
     eq = split(eq, ".");
-    for(local i = 0; i<eq.len() && i<30; ++i){
+    for(local i = 0; i<eq.len() && i<15; ++i){
       local packet = split(eq[i], ":");
       item[pid].instance.push(Items.name(packet[0].tointeger()));
       item[pid].amount.push(packet[1].tointeger());
@@ -88,7 +88,8 @@ function item::has(pid, instance){
 }
 
 function item::hasPlace(pid){
-  if(item[pid].instance.len()<30) return true;
+  if(item[pid].instance.len()<15) return true;
+	else return false;
 }
 
 function item::buy(pid, price, instance, amount){
