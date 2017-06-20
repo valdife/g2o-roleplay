@@ -8,7 +8,8 @@ local timer60s = setTimer(function(){
 				player[i].minuter=0;
 				player[i].online++;
 				player[i].pn += 2;;
-				item.give(i, "ITMI_GOLD", 20);
+				if(item.hasPlace(i)) item.give(i, "ITMI_GOLD", 20);
+				else sendMessageToPlayer(i, 192, 192, 192, ">Brak miejsca w ekwipunku.");
 			}
 		}
 
@@ -27,7 +28,7 @@ local timer60s = setTimer(function(){
 									sendMessageToPlayer(i, 194, 178, 128, format("Otrzymano %d szt. z³. z wygranej loterii.", lottery.budget));
 									item.give(i, "ITMI_GOLD", lottery.budget);
 								}
-							}else sendMessageToPlayer(i, 192, 192, 192, ">Nie masz miejsca w ekwipunku, wiêc nie mo¿esz odebraæ nagrody.");
+							}else sendMessageToPlayer(i, 192, 192, 192, ">Brak miejsca w ekwipunku.");
 						}
 					}
 				}

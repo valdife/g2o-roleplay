@@ -52,7 +52,7 @@ function item::login(pid){
 }
 
 function item::give(pid, ...){
-  if(isEven(vargv.len())){
+  if(isEven(vargv.len()) && item.hasPlace(pid)){
     for(local i = 0; i<vargv.len(); i = i+2){
       giveItem(pid, Items.id(vargv[i].toupper()), vargv[i+1]);
     }

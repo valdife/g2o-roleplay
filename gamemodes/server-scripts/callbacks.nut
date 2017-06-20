@@ -335,9 +335,9 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 
 		case "blacktrader":
 			if(position.get(pid, "blacktrader")){
-				if(item.hasPlace(pid)){
 				local args = sscanf("dd", params);
-					if(args){
+				if(args){
+					if(item.hasPlace(pid)){
 						if(item[pid].instance.len()>=args[0]){
 							if(item[pid].amount[args[0]]>=args[1]){
 								player.narrator(pid, "sprzedaje coœ paserowi.");
@@ -347,12 +347,12 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 								callClientFunc(pid, "itemSave");
 							}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz ¿¹danego przedmiotu w takiej liczbie.");
 						}else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owy slot.");
-					}else{
-						sendMessageToPlayer(pid, 198, 206, 206, ">U¿yj /blacktrader (slot) (amount)");
-						sendMessageToPlayer(pid, 194, 178, 128, "Sloty liczone s¹ od 0. By upewniæ siê co do slotu, mo¿esz u¿yæ komendy /slot.");
-						sendMessageToPlayer(pid, 194, 178, 128, "Paser nie bierze pod uwagê wartoœci przedmiotu i za ka¿dy zap³aci Ci 1 szt. z³.");
-					}
-				}else sendMessageToPlayer(pid, 198, 206, 206, ">Brak miejsca w ekwipunku.");
+					}else sendMessageToPlayer(pid, 198, 206, 206, ">Brak miejsca w ekwipunku.");
+				}else{
+					sendMessageToPlayer(pid, 198, 206, 206, ">U¿yj /blacktrader (slot) (amount)");
+					sendMessageToPlayer(pid, 194, 178, 128, "Sloty liczone s¹ od 0. By upewniæ siê co do slotu, mo¿esz u¿yæ komendy /slot.");
+					sendMessageToPlayer(pid, 194, 178, 128, "Paser nie bierze pod uwagê wartoœci przedmiotu i za ka¿dy zap³aci Ci 1 szt. z³.");
+				}
 			}else sendMessageToPlayer(pid, 198, 206, 206, ">W okolicy nie widaæ pasera.");
 		break;
 
@@ -814,7 +814,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 			local args = sscanf("dds", params);
 			if(args){
 				if(player[args[0]].isLogged){
-					if(item.hasPlace(pid)){
+					if(item.hasPlace(args[0])){
 						sendMessageToPlayer(pid, 128, 0, 0, format("Podarowano przedmiot. Gracz: (%d) %s, instancja: %s, liczba: %d.", args[0], getPlayerName(args[0]), args[2], args[1]));
 						sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s podarowa³ Ci przedmiot/y %s w liczbie %d.", pid, getPlayerName(pid), args[2], args[1]));
 						item.give(args[0], args[2], args[1]);
@@ -968,17 +968,19 @@ function onPlayerDialogBoxResponse(pid, id, position){
 	}else if(id==10){
 		if(position!=bank[pid].instance.len()){
 			if(position<=bank[pid].instance.len()){
-				sendMessageToPlayer(pid, 194, 178, 128, "Odebrano przedmiot.");
-				giveItem(pid, Items.id(bank[pid].instance[position]), 1);
-				local index = bank[pid].instance.find(bank[pid].instance[position]);
-				if(index!=null){
-					if(bank[pid].amount[index]>1) bank[pid].amount[index]--;
-					else{
-						bank[pid].instance.remove(index);
-						bank[pid].amount.remove(index);
+				if(item.hasPlace(pid){
+					sendMessageToPlayer(pid, 194, 178, 128, "Odebrano przedmiot.");
+					giveItem(pid, Items.id(bank[pid].instance[position]), 1);
+					local index = bank[pid].instance.find(bank[pid].instance[position]);
+					if(index!=null){
+						if(bank[pid].amount[index]>1) bank[pid].amount[index]--;
+						else{
+							bank[pid].instance.remove(index);
+							bank[pid].amount.remove(index);
+						}
 					}
-				}
-				bank.depositPacketSend(pid);
+					bank.depositPacketSend(pid);
+				}else sendMessageToPlayer(pid, 192, 192, 192, ">Brak miejsca w ekwipunku.");
 			}else sendMessageToPlayer(pid, 192, 192, 192, ">Nie posiadasz wiêcej depozytu w banku.");
 		}else callClientFunc(pid, "dialog.destroy");
 	}
