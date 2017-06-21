@@ -347,7 +347,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 								callClientFunc(pid, "itemSave");
 							}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz ¿¹danego przedmiotu w takiej liczbie.");
 						}else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owy slot.");
-					}else sendMessageToPlayer(pid, 198, 206, 206, ">Brak miejsca w ekwipunku.");
+					}else sendMessageToPlayer(pid, 198, 206, 206, ">Brak miejsca w EQ.");
 				}else{
 					sendMessageToPlayer(pid, 198, 206, 206, ">U¿yj /blacktrader (slot) (amount)");
 					sendMessageToPlayer(pid, 194, 178, 128, "Sloty liczone s¹ od 0. By upewniæ siê co do slotu, mo¿esz u¿yæ komendy /slot.");
@@ -399,7 +399,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 								sendMessageToPlayer(pid, 194, 178, 128, format("Podarowano %d szt. z³. (%d) %s.", args[1], args[0], getPlayerName(args[0])));
 								item.remove(pid, "ITMI_GOLD", args[1]);
 								item.give(args[0], "ITMI_GOLD", args[1]);
-							}else sendMessageToPlayer(pid, 198, 206, 206, ">Ekwipunek gracza jest przepe³niony.");
+							}else sendMessageToPlayer(pid, 198, 206, 206, ">EQ gracza jest przepe³niony.");
 						}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
 					}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz znajduje siê za daleko.");
 				}else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owe ID.");
@@ -424,9 +424,9 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 									item.give(pid, trade[trade[pid].player].item, trade[trade[pid].player].amount);
 									trade.destroy(pid, 1);
 								}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz nie posiada ju¿ przedmiotu.");
-							}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz nie posiada miejsca w ekwipunku na przyjêcie z³ota.");
+							}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz nie posiada miejsca w EQ na przyjêcie z³ota.");
 						}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
-					}else sendMessageToPlayer(pid, 198, 206, 206, ">Twój ekwipunek jest przepe³niony.");
+					}else sendMessageToPlayer(pid, 198, 206, 206, ">Twój EQ jest przepe³niony.");
 				}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie prowadzisz z nikim handlu.");
 			}else if(params=="stop"){
 				if(trade.destroy(pid, 0)) sendMessageToPlayer(pid, 198, 206, 206, ">Nie prowadzisz z nikim handlu.");
@@ -513,7 +513,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 			local args = sscanf("d", params);
 			if(args){
 				if(item[pid].instance.len()>args[0]) sendMessageToPlayer(pid, 194, 178, 128, format("Slot nr %d: %s", args[0], item[pid].instance[args[0]]));
-				else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owy slot.");
+				else sendMessageToPlayer(pid, 198, 206, 206, ">Slot jest pusty.");
 			}else sendMessageToPlayer(pid, 198, 206, 206, ">Tip: /slot (nr)");
 		break;
 
@@ -818,7 +818,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 						sendMessageToPlayer(pid, 128, 0, 0, format("Podarowano przedmiot. Gracz: (%d) %s, instancja: %s, liczba: %d.", args[0], getPlayerName(args[0]), args[2], args[1]));
 						sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s podarowa³ Ci przedmiot/y %s w liczbie %d.", pid, getPlayerName(pid), args[2], args[1]));
 						item.give(args[0], args[2], args[1]);
-					}else sendMessageToPlayer(pid, 128, 0, 0, ">Gracz nie ma miejsca w ekwipunku.");
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Gracz nie ma miejsca w EQ.");
 				}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
 			}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /giveitem (id) (amount) (instance)");
 		}
@@ -940,7 +940,7 @@ function onPlayerDialogBoxResponse(pid, id, position){
 		switch(position){
 			case 0:
 				if(item[pid].instance.len()>0) callClientFunc(pid, "dialog.show", 9);
-				else sendMessageToPlayer(pid, 192, 192, 192, ">Nie posiadasz ¿adnego ekwipunku.");
+				else sendMessageToPlayer(pid, 192, 192, 192, ">Nie posiadasz ¿adnego EQ.");
 			break;
 			case 1:
 				local packet = bank.depositPacket(pid);
@@ -980,7 +980,7 @@ function onPlayerDialogBoxResponse(pid, id, position){
 						}
 					}
 					bank.depositPacketSend(pid);
-				}else sendMessageToPlayer(pid, 192, 192, 192, ">Brak miejsca w ekwipunku.");
+				}else sendMessageToPlayer(pid, 192, 192, 192, ">Brak miejsca w EQ.");
 			}else sendMessageToPlayer(pid, 192, 192, 192, ">Nie posiadasz wiêcej depozytu w banku.");
 		}else callClientFunc(pid, "dialog.destroy");
 	}

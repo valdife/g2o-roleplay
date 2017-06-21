@@ -9,7 +9,7 @@ local timer60s = setTimer(function(){
 				player[i].online++;
 				player[i].pn += 2;;
 				if(item.hasPlace(i)) item.give(i, "ITMI_GOLD", 20);
-				else sendMessageToPlayer(i, 192, 192, 192, ">Brak miejsca w ekwipunku.");
+				else sendMessageToPlayer(i, 192, 192, 192, ">Brak miejsca w EQ.");
 			}
 		}
 
@@ -28,7 +28,7 @@ local timer60s = setTimer(function(){
 									sendMessageToPlayer(i, 194, 178, 128, format("Otrzymano %d szt. z³. z wygranej loterii.", lottery.budget));
 									item.give(i, "ITMI_GOLD", lottery.budget);
 								}
-							}else sendMessageToPlayer(i, 192, 192, 192, ">Brak miejsca w ekwipunku.");
+							}else sendMessageToPlayer(i, 192, 192, 192, ">Brak miejsca w EQ.");
 						}
 					}
 				}
