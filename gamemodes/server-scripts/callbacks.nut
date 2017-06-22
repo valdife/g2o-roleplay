@@ -1109,6 +1109,7 @@ function onPlayerDialogBoxResponse(pid, id, position){
 			case 1: item.buy(pid, 12000, "ITMW_2H_PAL_SWORD", 1); break;
 			case 2: item.buy(pid, 20000, "ITAR_PAL_M", 1); break;
 			case 3: item.buy(pid, 35000, "ITAR_PAL_H", 1); break;
+			case 4: callClientFunc(pid, "dialog.destroy"); break;
 		}
 	}
 }
