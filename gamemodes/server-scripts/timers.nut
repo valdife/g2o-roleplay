@@ -6,24 +6,22 @@ local timer60s = setTimer(function(){
 				sendMessageToPlayer(i, 194, 178, 128, "Otrzymano 2 PN za przegranie pe³nej godziny.");
 				if(player[i].citizen){
 					sendMessageToPlayer(i, 194, 178, 128, "Jako obywatel miasta otrzymujesz 20 szt. z³. od panuj¹cych w Khorinis.");
-					if(item.hasPlace(i)) item.give(i, "ITMI_GOLD", 200);
+					if(item.hasPlace(i)) item.give(i, "ITMI_GOLD", 20);
 					else sendMessageToPlayer(i, 192, 192, 192, ">Brak miejsca w EQ.");
 				}	
 				if(player[i].fraction==0){
-					sendMessageToPlayer(i, 194, 178, 128, "Jako stra¿nik miejski otrzymujesz ¿o³d w postaci 200 szt. z³.");
+					sendMessageToPlayer(i, 194, 178, 128, "Jako stra¿nik miejski otrzymujesz ¿o³d w wysokoœci 200 szt. z³.");
 					if(item.hasPlace(i)) item.give(i, "ITMI_GOLD", 200);
 					else sendMessageToPlayer(i, 192, 192, 192, ">Brak miejsca w EQ.");
 				}	
 				else if(player[i].fraction==1){
-					sendMessageToPlayer(i, 194, 178, 128, "Jako paladyn otrzymujesz ¿o³d w postaci 400 szt. z³.");
+					sendMessageToPlayer(i, 194, 178, 128, "Jako paladyn otrzymujesz ¿o³d w wysokoœci 400 szt. z³.");
 					if(item.hasPlace(i)) item.give(i, "ITMI_GOLD", 400);
 					else sendMessageToPlayer(i, 192, 192, 192, ">Brak miejsca w EQ.");
 				}	
 				player[i].minuter=0;
 				player[i].online++;
 				player[i].pn += 2;;
-				if(item.hasPlace(i)) item.give(i, "ITMI_GOLD", 20);
-				else sendMessageToPlayer(i, 192, 192, 192, ">Brak miejsca w EQ.");
 			}
 		}
 
