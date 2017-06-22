@@ -10,7 +10,11 @@ addEventHandler("onInit", function(){
 	tryLog <- Log("try");
 	descriptionLog <- Log("description");
 	reportLog <- Log("report");
-
+	
+	fractions <- [];
+	fractions.push(Fraction("Stra¿ Miejska", 6395, 917, 7391));
+	fractions.push(Fraction("Zakon Paladynów", 14420, 1202, -203));
+		
 	for(local i = 0; i<getMaxSlots(); ++i){
 		player.init(i);
 		item.init(i);
@@ -373,7 +377,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				player.narrator(pid, "rozmawia z handlarzem.");
 			}else sendMessageToPlayer(pid, 198, 206, 206, ">Kupowaæ mo¿na dopiero po przegraniu 1 godziny online.");
 		break;
-
+		
 		case "work":
 			if(position.get(pid, "work")){
 				if(!player[pid].isBusy){
@@ -550,20 +554,95 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 		break;
 
 		case "report":
-			if(params.len()>0 && params.len()<180){
+			if(params.len()>0 && params.len()<161){
 				sendMessageToPlayer(pid, 207, 41, 66, "Raport zosta³ wys³any.");
 				local string = format("Raport od (%d) %s: %s", pid, getPlayerName(pid), params);
 				for(local i = 0; i<getMaxSlots(); ++i){
 					if(player[i].adminIsLogged) sendMessageToPlayer(i, 128, 0, 0, string);
 				}
 				reportLog.enter(format("%s: %s", getPlayerName(pid), params));
-			}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /report (text)");
+			}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /report (text 1-160)");
 		break;
 
 		/*
 			Other commands end
 		*/
 
+		/*
+			Fraction commands start
+		*/
+					
+		case "f":
+			if(player[pid].fraction>-1){
+				if(params.len()>0 && params.len()<161){
+					for(local i = 0; i<getMaxSlots(); ++i){
+						if(player[i].fraction==player[pid].fraction) sendMessageToPlayer(pid, 25, 165, 111, format("(( (%d) %s: %s ))", pid, getPlayerName(pid), params));
+					}	
+				}else sendMessageToPlayer(pid, 25, 165, 111, ">Tip: /f (text 1-160)");
+			}
+		break;	
+		
+		case "magazine":
+			if(player[pid].fraction>-1){
+				if(fractions[player[pid].fraction].magazinePosition(pid)){
+					if(player[pid].fraction==0) callClientFunc(pid, "dialog.show", 11);
+					else if(player[pid].fraction==1) callClientFunc(pid, "dialog.show", 12);
+					player.narrator(pid, "rozmawia z magazynierem.");
+				}else sendMessageToPlayer(pid, 25, 165, 111, ">Nie znajdujesz siê w magazynie swojej frakcji.");
+			}
+		break;	
+		
+		case "invite":
+			if(player[pid].fraction>-1){
+				if(fractions[player[pid].fraction]._leader==getPlayerName()){
+						local args = sscanf("d", params);
+						if(args){
+							if(player[args[0]].isLogged && args[0]!=pid){
+								if(player[args[0]].fraction==-1){
+									player[args[0]].fraction = player[pid].fraction;
+									sendMessageToPlayer(pid, 25, 165, 111, format("Dodano (%d) %s do frakcji.", args[0], getPlayerName(args[0])));
+									sendMessageToPlayer(args[0], 25, 165, 111, format("Gracz (%d) %s doda³ Ciê do frakcji (%d) %s.", pid, getPlayerName(pid), player[pid].fraction, fraction[[player[pid].fraction]]._name));
+								}else sendMessageToPlayer(pid, 25, 165, 111, ">Gracz nale¿y ju¿ do jakiejœ frakcji.");
+							}else sendMessageToPlayer(pid, 25, 165, 111, ">B³êdne ID.");
+						}else sendMessageToPlayer(pid, 25, 165, 111, ">Tip: /invite (id)");
+					}else sendMessageToPlayer(pid, 25, 165, 111, ">Nie jesteœ liderem frakcji.");
+				}
+		break;
+		
+		case "uninvite":
+			if(player[pid].fraction>-1){
+				if(fractions[player[pid].fraction]._leader==getPlayerName()){
+						local args = sscanf("d", params);
+						if(args){
+							if(player[args[0]].isLogged && args[0]!=pid){
+								if(player[args[0]].fraction==player[pid].fraction){
+									player[args[0]].fraction = -1;
+									sendMessageToPlayer(pid, 25, 165, 111, format("Wyproszono (%d) %s z frakcji.", args[0], getPlayerName(args[0])));
+									sendMessageToPlayer(args[0], 25, 165, 111, format("Gracz (%d) %s wyprosi³ Ciê z frakcji (%d) %s.", pid, getPlayerName(pid), player[pid].fraction, fraction[[player[pid].fraction]]._name));
+								}else sendMessageToPlayer(pid, 25, 165, 111, ">Gracz nie nale¿y do Twojej frakcji.");
+							}else sendMessageToPlayer(pid, 25, 165, 111, ">B³êdne ID.");
+						}else sendMessageToPlayer(pid, 25, 165, 111, ">Tip: /uninvite (id)");
+					}else sendMessageToPlayer(pid, 25, 165, 111, ">Nie jesteœ liderem frakcji.");
+				}
+		break;
+		
+		case "online":
+			if(player[pid].fraction>-1){
+				local count = 0;
+				for(local i = 0; i<getMaxSlots(); ++i){
+					if(player[i].isLogged && i!=pid){
+						sendMessageToPlayer(pid, 25, 165, 111, format("- (%d) %s", i, getPlayerName(i)));
+						count++;
+					}
+				}
+				if(!count) sendMessageToPlayer(pid, 25, 165, 111, "Oprócz Ciebie ¿aden cz³onek frakcji nie jest dostêpny.");
+			}
+		break;
+		
+		/*Fraction command end
+		
+		*/
+		
 		/*
 			Admin commands start
 		*/
@@ -587,7 +666,11 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				sendMessageToPlayer(pid, 128, 0, 0, " ");
 				sendMessageToPlayer(pid, 128, 0, 0, "/a, /all, /search, /getip, /tp, /tppos, /kick, /ban, /block, /warn, /descdelete, /sethp");
 				if(player[pid].admin>1) sendMessageToPlayer(pid, 128, 0, 0, "/setlp, /setstr, /setdex, /setwp");
-				if(player[pid].admin>2) sendMessageToPlayer(pid, 128, 0, 0, "/giveadmin, /giveitem, /removeitem, /setserverdescription");
+				if(player[pid].admin>2){
+					sendMessageToPlayer(pid, 128, 0, 0, "/giveadmin, /giveitem, /removeitem, /setserverdescription");
+					sendMessageToPlayer(pid, 128, 0, 0, "/setleader, /deleteleader");
+				}	
+					
 				sendMessageToPlayer(pid, 128, 0, 0, " ");
 			}
 		break;
@@ -845,7 +928,37 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setserverdescription (text)");
 			}
 		break;
+		
+		case "setleader":
+			if(player[pid].adminIsLogged && player[pid].admin==3){
+				local args = sscanf("dd", params);
+				if(args){
+					if(player[args[0]].isLogged){
+					if(args[1]<fractions.len()){
+							fractions[args[1]].setLeader(getPlayerName(args[0]));
+							player[args[0]].fraction = args[1];
+							sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono lidera frakcji. Gracz: (%d) %s, frakcja (%d) %s.", args[0], getPlayerName(args[0]), args[1], fractions[args[1]]._name));
+							sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s mianowa³ Ciê liderem frakcji %s.", pid, getPlayerName(pid), fractions[args[1]]._name));
+						}else sendMessageToPlayer(pid, 128, 0, 0, ">Nie istnieje frakcja o podanym ID.");
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">B³êdne ID.");
+				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setleader (id) (fraction id)");
+			}
+		break;
 
+		case "deleteleader":
+			if(player[pid].adminIsLogged && player[pid].admin==3){
+				local args = sscanf("d", params);
+				if(args){
+					if(player[args[0]].isLogged){
+					if(args[1]<fractions.len()){
+							sendMessageToPlayer(pid, 128, 0, 0, format("Usuniêto lidera. Frakcja (%d) %s", args[1], fractions[args[1]]._name));
+							fractions[args[1]].setLeader("");
+						}else sendMessageToPlayer(pid, 128, 0, 0, ">Nie istnieje frakcja o podanym ID.");
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">B³êdne ID.");
+				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /delete (fraction id)");
+			}
+		break;
+		
 		/*
 			Admin commands end
 		*/
@@ -983,5 +1096,19 @@ function onPlayerDialogBoxResponse(pid, id, position){
 				}else sendMessageToPlayer(pid, 192, 192, 192, ">Brak miejsca w EQ.");
 			}else sendMessageToPlayer(pid, 192, 192, 192, ">Nie posiadasz wiêcej depozytu w banku.");
 		}else callClientFunc(pid, "dialog.destroy");
+	}else if(id==11){
+		switch(position){
+			case 0: item.buy(pid, 100, "ITMW_SHORTSWORD1", 1); break;
+			case 1: item.buy(pid, 700, "ITAR_MIL_L", 1); break;
+			case 2: item.buy(pid, 13500, "ITAR_MIL_M", 1); break;
+			case 3: callClientFunc(pid, "dialog.destroy"); break;
+		}
+	}else if(id==12){
+		switch(position){
+			case 0: item.buy(pid, 9700, "ITMW_1H_PAL_SWORD", 1); break;
+			case 1: item.buy(pid, 12000, "ITMW_2H_PAL_SWORD", 1); break;
+			case 2: item.buy(pid, 20000, "ITAR_PAL_M", 1); break;
+			case 3: item.buy(pid, 35000, "ITAR_PAL_H", 1); break;
+		}
 	}
 }

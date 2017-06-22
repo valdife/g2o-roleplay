@@ -107,4 +107,32 @@
 	<item>
 		<instance>ITMW_ADDON_PIR1HSWORD</instance>
 	</item>	
+	
+	<item>
+		<instance>ITMW_SHORTSWORD1</instance>
+	</item>	
+	
+	<item>
+		<instance>ITAR_MIL_L</instance>
+	</item>	
+	
+	<item>
+		<instance>ITAR_MIL_M</instance>
+	</item>	
+	
+	<item>
+		<instance>ITMW_1H_PAL_SWORD</instance>
+	</item>	
+	
+	<item>
+		<instance>ITMW_2H_PAL_SWORD</instance>
+	</item>	
+	
+	<item>
+		<instance>ITAR_PAL_M</instance>
+	</item>	
+	
+	<item>
+		<instance>ITAR_PAL_H</instance>
+	</item>	
 </items>	

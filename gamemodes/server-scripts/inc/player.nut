@@ -23,7 +23,7 @@ function player::init(pid){
   player[pid].dexterity <- 10;
   player[pid].skillWeapon <- [10, 10, 10, 10];
   player[pid].citizen <- 0;
-  player[pid].fraction <- 0;
+  player[pid].fraction <- -1;
   player[pid].admin <- 0;
   player[pid].adminPassword <- "empty";
 
@@ -67,7 +67,7 @@ function player::destroy(pid){
   player[pid].dexterity = 10;
   player[pid].skillWeapon = [10, 10, 10, 10];
   player[pid].citizen = 0;
-  player[pid].fraction = 0;
+  player[pid].fraction = -1;
   player[pid].admin = 0;
   player[pid].adminPassword = "empty";
   

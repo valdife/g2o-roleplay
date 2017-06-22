@@ -126,5 +126,8 @@ function dialog::show(id, ...){
 			local compiledScript = compilestring(func);
 			compiledScript();
 		break;
+		case 11: create(11, "Krótki miecz stra¿y 100 szt. z³.", "Lekki pancerz stra¿y 700 szt. z³.", "Ciê¿ki pancerz stra¿y 13500 szt. z³.", "Opuœæ"); break;
+		case 12: create(12, "Miecz paladyna 9700 szt. z³.", "Miecz dwurêczny paladyna 12000 szt. z³.", "Pancerz rycerza 20000 szt. z³", "Pancerz paladyna 35000 szt. z³.", "Opuœæ"); break;
 	}
+	
 }

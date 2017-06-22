@@ -64,5 +64,8 @@ function draw3dInit(){
 
   //citizen
   draw3dCreate(3335, 848, 6409, "W tym miejscu mo¿esz zarejestrowaæ siê jako obywatel miasta ((/citizen))", 184, 129, 238);
-  
+	
+	//fraction shop
+	draw3dCreate(6395, 917, 7391, "W tym miejscu mo¿esz zdobyæ wyposa¿enie frakcyjne ((/magazine))" 184, 129, 238);
+	draw3dCreate(14420, 1202, -203, "W tym miejscu mo¿esz zdobyæ wyposa¿enie frakcyjne ((/magazine))", 184, 129, 238)
 }
