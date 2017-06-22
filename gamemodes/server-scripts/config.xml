@@ -12,7 +12,7 @@
 	<script src="inc/work.nut" type="server" />
 	<script src="inc/drunk.nut" type="server" />
 	<script src="inc/trade.nut" type="server" />
-	<script src="inc/fraction.nut" type="server" />
+	<script src="inc/Fraction.nut" type="server" />
 	<script src="timers.nut" type="server" />
 	<script src="callbacks.nut" type="server" />
 </server>
