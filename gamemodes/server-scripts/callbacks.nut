@@ -594,7 +594,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 		
 		case "invite":
 			if(player[pid].fraction>-1){
-				if(fractions[player[pid].fraction]._leader==getPlayerName()){
+				if(fractions[player[pid].fraction]._leader==getPlayerName(pid)){
 						local args = sscanf("d", params);
 						if(args){
 							if(player[args[0]].isLogged && args[0]!=pid){
@@ -611,7 +611,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 		
 		case "uninvite":
 			if(player[pid].fraction>-1){
-				if(fractions[player[pid].fraction]._leader==getPlayerName()){
+				if(fractions[player[pid].fraction]._leader==getPlayerName(pid)){
 						local args = sscanf("d", params);
 						if(args){
 							if(player[args[0]].isLogged && args[0]!=pid){
