@@ -12,8 +12,8 @@ addEventHandler("onInit", function(){
 	reportLog <- Log("report");
 	
 	fractions <- [];
-	fractions.push(Fraction("Stra¿ Miejska", 6395, 917, 7391));
-	fractions.push(Fraction("Zakon Paladynów", 14420, 1202, -203));
+	fractions.push(Fraction("Stra¿ Miejska", 150, 6395, 917, 7391));
+	fractions.push(Fraction("Zakon Paladynów", 300, 14420, 1202, -203));
 		
 	for(local i = 0; i<getMaxSlots(); ++i){
 		player.init(i);

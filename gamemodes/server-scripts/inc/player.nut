@@ -166,11 +166,14 @@ function player::showStats(pid){
     for(local i = 0 ; i<player[pid].skillWeapon.len(); ++i){
       lvl += player[pid].skillWeapon[i];
     }
+		local fraction;
+		if(player[pid].fraction==-1) fraction = "Brak";
+		else fraction = fractions[player[pid].fraction]._name;
     sendMessageToPlayer(pid, 213, 173, 66, " ");
-    sendMessageToPlayer(pid, 213, 173, 66, format("(Minuter: %d) (Level: %d) (PN: %d) (Maksymalne punkty trafieñ: %d) (Si³a: %d) (Zrêcznoœæ: %d)",
-    60-player[pid].minuter, lvl*0.01, player[pid].pn, player[pid].maxHealth, player[pid].strength, player[pid].dexterity));
-    sendMessageToPlayer(pid, 213, 173, 66, format("(Broñ jednorêczna: %d) (Broñ dwurêczna: %d) (Kusze: %d), (£ucznictwo: %d)",
-    player[pid].skillWeapon[0], player[pid].skillWeapon[1], player[pid].skillWeapon[2], player[pid].skillWeapon[3]));
+    sendMessageToPlayer(pid, 213, 173, 66, format("(Minuter: %d) (Level: %d) (Frakcja: %s) (PN: %d) (Maksymalne punkty trafieñ: %d) (Si³a: %d)",
+    60-player[pid].minuter, lvl*0.01, fraction, player[pid].pn, player[pid].maxHealth, player[pid].strength));
+    sendMessageToPlayer(pid, 213, 173, 66, format("(Zrêcznoœæ: %d) (Broñ jednorêczna: %d) (Broñ dwurêczna: %d) (Kusze: %d), (£ucznictwo: %d)",
+    player[pid].dexterity, player[pid].skillWeapon[0], player[pid].skillWeapon[1], player[pid].skillWeapon[2], player[pid].skillWeapon[3]));
     sendMessageToPlayer(pid, 213, 173, 66, " ");
   }
 }

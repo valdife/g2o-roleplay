@@ -4,19 +4,14 @@ local timer60s = setTimer(function(){
 			player[i].minuter++;
 			if(player[i].minuter>=60){
 				sendMessageToPlayer(i, 194, 178, 128, "Otrzymano 2 PN za przegranie pe³nej godziny.");
-				if(player[i].citizen){
+				if(player[i].fraction>-1){
+					sendMessageToPlayer(i, 194, 178, 128, format("Otrzymujesz %s szt. z³. od frakcji %s.", fractions[player[pid].fraction]._payday, fractions[player[pid].fraction]._name));
+					if(item.hasPlace(i)) item.give(i, "ITMI_GOLD", fractions[player[pid].fraction]._payday);
+					else sendMessageToPlayer(i, 192, 192, 192, ">Brak miejsca w EQ.");
+				}
+				else if(player[i].citizen){
 					sendMessageToPlayer(i, 194, 178, 128, "Jako obywatel miasta otrzymujesz 20 szt. z³. od panuj¹cych w Khorinis.");
 					if(item.hasPlace(i)) item.give(i, "ITMI_GOLD", 20);
-					else sendMessageToPlayer(i, 192, 192, 192, ">Brak miejsca w EQ.");
-				}	
-				if(player[i].fraction==0){
-					sendMessageToPlayer(i, 194, 178, 128, "Jako stra¿nik miejski otrzymujesz ¿o³d w wysokoœci 200 szt. z³.");
-					if(item.hasPlace(i)) item.give(i, "ITMI_GOLD", 200);
-					else sendMessageToPlayer(i, 192, 192, 192, ">Brak miejsca w EQ.");
-				}	
-				else if(player[i].fraction==1){
-					sendMessageToPlayer(i, 194, 178, 128, "Jako paladyn otrzymujesz ¿o³d w wysokoœci 400 szt. z³.");
-					if(item.hasPlace(i)) item.give(i, "ITMI_GOLD", 400);
 					else sendMessageToPlayer(i, 192, 192, 192, ">Brak miejsca w EQ.");
 				}	
 				player[i].minuter=0;
@@ -40,7 +35,7 @@ local timer60s = setTimer(function(){
 									sendMessageToPlayer(i, 194, 178, 128, format("Otrzymano %d szt. z³. z wygranej loterii.", lottery.budget));
 									item.give(i, "ITMI_GOLD", lottery.budget);
 								}
-							}else sendMessageToPlayer(i, 192, 192, 192, ">Brak miejsca w EQ.");
+							}else sendMessageToPlayer(i, 192, 192, 192, ">Brak miejsca w EQ. Wygrana z loterii nie zosta³a otrzymana.");
 						}
 					}
 				}

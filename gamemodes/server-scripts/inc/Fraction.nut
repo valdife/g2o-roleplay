@@ -1,6 +1,7 @@
 class Fraction{
-	constructor(name, magazineX, magazineY, magazineZ){
+	constructor(name, payday, magazineX, magazineY, magazineZ){
 		_name = name;	
+		_payday = payday;
 		_magazineX = magazineX;
 		_magazineY = magazineY;
 		_magazineZ = magazineZ;
@@ -14,6 +15,7 @@ class Fraction{
 	function setLeader(nick){
 		local file = io.file("database/fractions/" + _name, "w");
 		file.write(nick);
+		_leader = nick;
 	}
 	
 	function magazinePosition(pid){
@@ -23,8 +25,9 @@ class Fraction{
 	}
 	
 	_name = null;
-	_leader = null;
+	_payday = null;
 	_magazineX = null;
 	_magazineY = null;
 	_magazineZ = null;
+	_leader = null;
 }
