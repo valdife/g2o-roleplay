@@ -591,6 +591,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 		case "fexit":
 			if(player[pid].fraction>-1){
 				sendMessageToPlayer(pid, 25, 165, 111, "Opuszczono frakcjê.");
+				if(fractions[player[pid].fraction]._leader==getPlayerName(pid)) fractions[player[pid].fraction].setLeader("");
 				player[pid].fraction=-1;
 			}
 		break;	
