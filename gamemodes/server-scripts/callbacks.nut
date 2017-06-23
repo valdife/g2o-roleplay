@@ -570,7 +570,14 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 		/*
 			Fraction commands start
 		*/
-					
+		
+		case "fhelp":
+			if(player[pid].fraction>-1){
+				sendMessageToPlayer(pid, 25, 165, 111, "/f, /online, /fexit");
+				if(fractions[player[pid].fraction]._leader==getPlayerName(pid)) sendMessageToPlayer(pid, 25, 165, 111, "/invite, /uninvite");
+			}	
+		break;
+				
 		case "f":
 			if(player[pid].fraction>-1){
 				if(params.len()>0 && params.len()<161){
@@ -578,6 +585,13 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 						if(player[i].fraction==player[pid].fraction) sendMessageToPlayer(pid, 25, 165, 111, format("(( (%d) %s: %s ))", pid, getPlayerName(pid), params));
 					}	
 				}else sendMessageToPlayer(pid, 25, 165, 111, ">Tip: /f (text 1-160)");
+			}
+		break;	
+		
+		case "fexit":
+			if(player[pid].fraction>-1){
+				sendMessageToPlayer(pid, 25, 165, 111, "Opuszczono frakcjê.");
+				player[pid].fraction=-1;
 			}
 		break;	
 		
