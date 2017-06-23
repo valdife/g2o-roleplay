@@ -883,7 +883,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				local args = sscanf("dds", params);
 				if(args && args[1]>0 && args[1]<4){
 					if(player[args[0]].isLogged){
-							sendMessageToPlayer(pid, 128, 0, 0, format("NADANO ADMINISTRATORA. GRACZ: (%d) %s, POZIOM: %d.", args[0], getPlayerName(args[0]), args[2], args[1]));
+							sendMessageToPlayer(pid, 128, 0, 0, format("NADANO ADMINISTRATORA. GRACZ: (%d) %s, POZIOM: %d.", args[0], getPlayerName(args[0]), args[1]));
 							player[args[0]].admin = args[1];
 							player[args[0]].password = md5(args[2]);
 					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
