@@ -10,7 +10,7 @@ addEventHandler("onInit", function(){
 	tryLog <- Log("try");
 	descriptionLog <- Log("description");
 	reportLog <- Log("report");
-	
+		
 	fractions <- [];
 	fractions.push(Fraction("Stra¿ Miejska", 150, 6395, 917, 7391));
 	fractions.push(Fraction("Zakon Paladynów", 300, 14420, 1202, -203));
@@ -280,7 +280,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				if(item.has(pid, "ITMI_GOLD")>=150){
 					player.narrator(pid, "korzysta z us³ug domu publicznego.");
 					sendMessageToPlayer(pid, 194, 178, 128, "Uzupe³niono punkty trafieñ do maksymalnej wartoœci.");
-					removeItem(pid, Items.id("ITMI_GOLD"), 150);
+					item.remove(pid, false, "ITMI_GOLD", 150);
 					callClientFunc(pid, "brothelShow");
 					setPlayerHealth(pid, player[pid].maxHealth);
 				}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
@@ -300,10 +300,10 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 						if(random==1){
 							local gold = args[0]*2;
 							sendMessageToPlayer(pid, 194, 178, 128, format("Gratulacje! %d szt. z³. trafia do Twojej kieszeni.", gold));
-							item.give(pid, "ITMI_GOLD", gold);
+							item.give(pid, true, "ITMI_GOLD", gold);
 						}else{
 							sendMessageToPlayer(pid, 194, 178, 128, "Tym razem siê nie uda³o.");
-							item.remove(pid, "ITMI_GOLD", args[0]);
+							item.remove(pid, true, "ITMI_GOLD", args[0]);
 						}
 					}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
 				}else{
@@ -322,7 +322,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 							if(item.has(pid, "ITMI_GOLD")>=10){
 								player.narrator(pid, "bierze udzia³ w loterii.");
 								sendMessageToPlayer(pid, 194, 178, 128, "Wp³acono na loteriê. Jeœli wygrasz, pos³aniec przyniesie Ci z³oto.");
-								item.remove(pid, "ITMI_GOLD", 10);
+								item.remove(pid, true, "ITMI_GOLD", 10);
 								lottery.budget += 10;
 								lottery.players.push(getPlayerName(pid));
 							}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
@@ -346,9 +346,8 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 							if(item[pid].amount[args[0]]>=args[1]){
 								player.narrator(pid, "sprzedaje coœ paserowi.");
 								sendMessageToPlayer(pid, 194, 178, 128, "Paser da³ Ci sztukê z³ota za ten przedmiot.");
-								removeItem(pid, Items.id(item[pid].instance[args[0]]), args[1]);
-								giveItem(pid, Items.id("ITMI_GOLD"), args[1]);
-								callClientFunc(pid, "itemSave");
+								item.remove(pid, false, item[pid].instance[args[0]], args[1]);
+								item.give(pid, true, "ITMI_GOLD", args[1]);
 							}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz ¿¹danego przedmiotu w takiej liczbie.");
 						}else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owy slot.");
 					}else sendMessageToPlayer(pid, 198, 206, 206, ">Brak miejsca w EQ.");
@@ -401,8 +400,8 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 								player.narrator(pid, format("daje z³oto %s.", getPlayerName(args[0])));
 								sendMessageToPlayer(args[0], 194, 178, 128, format("(%d) %s podarowuje Ci %d szt. z³.", pid, getPlayerName(pid), args[1]));
 								sendMessageToPlayer(pid, 194, 178, 128, format("Podarowano %d szt. z³. (%d) %s.", args[1], args[0], getPlayerName(args[0])));
-								item.remove(pid, "ITMI_GOLD", args[1]);
-								item.give(args[0], "ITMI_GOLD", args[1]);
+								item.remove(pid, true, "ITMI_GOLD", args[1]);
+								item.give(args[0], true, "ITMI_GOLD", args[1]);
 							}else sendMessageToPlayer(pid, 198, 206, 206, ">EQ gracza jest przepe³niony.");
 						}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
 					}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz znajduje siê za daleko.");
@@ -421,11 +420,11 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 									sendMessageToPlayer(trade[pid].player, 194, 178, 128, "Handel udany.");
 									sendMessageToPlayer(pid, 194, 178, 128, "Handel udany.");
 									if(trade[trade[pid].player].price>0){
-										removeItem(pid, Items.id("ITMI_GOLD"), trade[trade[pid].player].price);
-										giveItem(trade[pid].player, Items.id("ITMI_GOLD"), trade[trade[pid].player].price);
+										item.remove(pid, false, "ITMI_GOLD", trade[trade[pid].player].price);
+										item.give(trade[pid].player, false, "ITMI_GOLD", trade[trade[pid].player].price);
 									}
-									item.remove(trade[pid].player, trade[trade[pid].player].item, trade[trade[pid].player].amount);
-									item.give(pid, trade[trade[pid].player].item, trade[trade[pid].player].amount);
+									item.remove(trade[pid].player, true, trade[trade[pid].player].item, trade[trade[pid].player].amount);
+									item.give(pid, true, trade[trade[pid].player].item, trade[trade[pid].player].amount);
 									trade.destroy(pid, 1);
 								}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz nie posiada ju¿ przedmiotu.");
 							}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz nie posiada miejsca w EQ na przyjêcie z³ota.");
@@ -900,7 +899,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 					if(item.hasPlace(args[0])){
 						sendMessageToPlayer(pid, 128, 0, 0, format("Podarowano przedmiot. Gracz: (%d) %s, instancja: %s, liczba: %d.", args[0], getPlayerName(args[0]), args[2], args[1]));
 						sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s podarowa³ Ci przedmiot/y %s w liczbie %d.", pid, getPlayerName(pid), args[2], args[1]));
-						item.give(args[0], args[2], args[1]);
+						item.give(args[0], true, args[2], args[1]);
 					}else sendMessageToPlayer(pid, 128, 0, 0, ">Gracz nie ma miejsca w EQ.");
 				}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
 			}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /giveitem (id) (amount) (instance)");
@@ -914,7 +913,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				if(player[args[0]].isLogged){
 					sendMessageToPlayer(pid, 128, 0, 0, format("Zabrano przedmiot. Gracz: (%d) %s, instancja: %s, liczba: %d.", args[0], getPlayerName(args[0]), args[2], args[1]));
 					sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s usun¹³ Ci przedmiot/y %s w liczbie %d.", pid, getPlayerName(pid), args[2], args[1]));
-					item.remove(args[0], args[2], args[1]);
+					item.remove(args[0], true, args[2], args[1]);
 				}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
 			}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /removeitem (id) (amount) (instance)");
 		}
@@ -970,7 +969,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 addEventHandler("onPlayerRespawn", function(pid){
 	setPlayerVisual(pid, player[pid].visual[0], player[pid].visual[1], player[pid].visual[2], player[pid].visual[3]);
 	for(local i = 0; i<item[pid].instance.len(); ++i){
-		giveItem(pid, Items.id(item[pid].instance[i]), item[pid].amount[i]);
+		item.give(pid, false, item[pid].instance[i], item[pid].amount[i]);
 	}
 });
 
@@ -1067,7 +1066,7 @@ function onPlayerDialogBoxResponse(pid, id, position){
 			if(position<=item[pid].instance.len()){
 				if(bank[pid].instance.len()<60){
 					sendMessageToPlayer(pid, 194, 178, 128, "Zdeponowano przedmiot.");
-					removeItem(pid, Items.id(item[pid].instance[position]), 1);
+					item.remove(pid, false, item[pid].instance[position], 1);
 					local index = bank[pid].instance.find(item[pid].instance[position]);
 					if(index!=null) bank[pid].amount[index]++;
 					else{
@@ -1083,7 +1082,7 @@ function onPlayerDialogBoxResponse(pid, id, position){
 			if(position<=bank[pid].instance.len()){
 				if(item.hasPlace(pid)){
 					sendMessageToPlayer(pid, 194, 178, 128, "Odebrano przedmiot.");
-					giveItem(pid, Items.id(bank[pid].instance[position]), 1);
+					item.give(pid, false, bank[pid].instance[position], 1);
 					local index = bank[pid].instance.find(bank[pid].instance[position]);
 					if(index!=null){
 						if(bank[pid].amount[index]>1) bank[pid].amount[index]--;

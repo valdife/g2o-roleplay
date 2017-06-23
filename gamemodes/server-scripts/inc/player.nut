@@ -102,7 +102,7 @@ function player::registerEnd(pid){
 		case 3: setPlayerVisual(pid, "hum_body_Naked0", 2, "Hum_Head_Psionic", 8); break;
 		case 4: setPlayerVisual(pid, "hum_body_Naked0", 3, "Hum_Head_Psionic", 136); break;
 	}
-    equipArmor(pid, Items.id("ITAR_FAKE_RANGER"));
+    item.eqpArmor(pid, false, "ITAR_FAKE_RANGER");
   }
   else if(player[pid].sex==2){
 	switch(player[pid].race){
@@ -111,7 +111,7 @@ function player::registerEnd(pid){
 		case 3: setPlayerVisual(pid, "Hum_Body_Babe0", 6, "Hum_Head_Babe", 141); break;
 		case 4: setPlayerVisual(pid, "Hum_Body_Babe0", 7, "Hum_Head_Babe", 142); break;
 	}
-    equipArmor(pid, Items.id("ITAR_VLKBABE_H"));
+    item.eqpArmor(pid, false, "ITAR_VLKBABE_H");
   }
   callClientFunc(pid, "player.registerEnd");
   player[pid].isLogged = true;

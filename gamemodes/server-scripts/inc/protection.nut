@@ -3,10 +3,41 @@ protection <- {};
 function protection::init(pid){
   protection[pid] <- {};
   protection[pid].flood <- 0;
+	protection[pid].itemInstance <- [];
+	protection[pid].itemAmount <- [];
 }
 
 function protection::destroy(pid){
   protection[pid].flood = 0;
+	protection[pid].itemInstance.clear();
+	protection[pid].itemAmount.clear();
+}
+
+function protection::giveItem(pid, instance, amount){
+	local find = protection[pid].itemInstance.find(instance);
+	if(find==null){
+		protection[pid].itemInstance.push(instance);
+		protection[pid].itemAmount.push(amount);
+	}	
+	else protection[pid].itemAmount[find] += amount;
+}
+
+function protection::removeItem(pid, instance, amount){
+	local find = protection[pid].itemInstance.find(instance);
+	if(protection[pid].itemAmount[find]-amount<1){
+		protection[pid].itemInstance.remove(find);
+		protection[pid].itemAmount.remove(find);
+	}	
+	else protection[pid].itemAmount[find] -= amount;
+}
+
+function protection::harmonyItem(pid, instance, amount){
+	local find = protection[pid].itemInstance.find(instance);
+	if(find!=null){
+		if(protection[pid].itemAmount[find]!=amount && protection[pid].itemAmount[find]<amount) return 0;
+		else protection[pid].itemAmount[find] = amount;
+	}else return 0;
+	return 1;
 }
 
 function protection::flood(pid){

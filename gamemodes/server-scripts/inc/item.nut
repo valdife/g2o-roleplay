@@ -42,29 +42,51 @@ function item::login(pid){
     local buffer, armor = file.read(io_type.LINE), melee = file.read(io_type.LINE), ranged = file.read(io_type.LINE);
     while(buffer = file.read(io_type.LINE)){
       buffer = split(buffer, ":");
-      giveItem(pid, Items.id(buffer[0]), buffer[1].tointeger());
+      item.give(pid, false, buffer[0], buffer[1].tointeger());
     }
-    if(armor!="null") removeItem(pid, Items.id(armor), 1); equipArmor(pid, Items.id(armor));
-    if(melee!="null") removeItem(pid, Items.id(melee), 1); equipMeleeWeapon(pid, Items.id(melee));
-    if(ranged!="null") removeItem(pid, Items.id(ranged), 1); equipRangedWeapon(pid, Items.id(ranged));
-    callClientFunc(pid, "itemSave");
+    if(armor!="null") item.remove(pid, false, armor, 1); item.eqpArmor(pid, false, armor);
+    if(melee!="null") item.remove(pid, false, melee, 1); item.eqpMeleeWeapon(pid, false, melee);
+    if(ranged!="null") item.remove(pid, false, ranged, 1); item.eqpRangedWeapon(pid, false, ranged);
+		callClientFunc(pid, "itemSave");
   }
 }
 
-function item::give(pid, ...){
+function item::give(pid, save, ...){
   if(isEven(vargv.len()) && item.hasPlace(pid)){
     for(local i = 0; i<vargv.len(); i = i+2){
-      giveItem(pid, Items.id(vargv[i].toupper()), vargv[i+1]);
+			local instance = vargv[i].toupper();
+			giveItem(pid, Items.id(instance), vargv[i+1]);
+			protection.giveItem(pid, instance, vargv[i+1]);
     }
-    callClientFunc(pid, "itemSave");
+    if(save) callClientFunc(pid, "itemSave");
   }
 }
 
-function item::remove(pid, ...){
+function item::remove(pid, save, ...){
   for(local i = 0; i<vargv.len(); i = i+2){
-    removeItem(pid, Items.id(vargv[i].toupper()), vargv[i+1]);
+		local instance = vargv[i].toupper();
+    removeItem(pid, Items.id(instance), vargv[i+1]);
+		protection.removeItem(pid, instance, vargv[i+1]);
   }
-  callClientFunc(pid, "itemSave");
+  if(save) callClientFunc(pid, "itemSave");
+}
+
+function item::eqpArmor(pid, save, instance){
+	equipArmor(pid, Items.id(instance));
+	protection.giveItem(pid, instance, 1);
+	if(save) callClientFunc(pid, "itemSave");
+}
+
+function item::eqpMeleeWeapon(pid, save, instance){
+	equipMeleeWeapon(pid, Items.id(instance));
+	protection.giveItem(pid, instance, 1);
+	if(save) callClientFunc(pid, "itemSave");
+}
+
+function item::eqpRangedWeapon(pid, save, instance){
+	equipRangedWeapon(pid, Items.id(instance));
+	protection.giveItem(pid, instance, 1);
+	if(save) callClientFunc(pid, "itemSave");
 }
 
 function item::receiver(pid, eq){
@@ -74,6 +96,10 @@ function item::receiver(pid, eq){
     eq = split(eq, ".");
     for(local i = 0; i<eq.len() && i<15; ++i){
       local packet = split(eq[i], ":");
+			if(!protection.harmonyItem(pid, Items.name(packet[0].tointeger()), packet[1].tointeger())){
+				kick(pid, "cheat");
+				return 0;
+			}
       item[pid].instance.push(Items.name(packet[0].tointeger()));
       item[pid].amount.push(packet[1].tointeger());
     }
@@ -96,9 +122,8 @@ function item::buy(pid, price, instance, amount){
   if(item.hasPlace(pid)){
     if(item.has(pid, "ITMI_GOLD")>=price){
       sendMessageToPlayer(pid, 194, 178, 128, "Zakupiono przedmiot.");
-      removeItem(pid, Items.id("ITMI_GOLD"), price);
-      giveItem(pid, Items.id(instance), amount);
-      callClientFunc(pid, "itemSave");
+      item.remove(pid, false, Items.id("ITMI_GOLD"), price);
+      item.give(pid, true, Items.id(instance), amount);
     }else sendMessageToPlayer(pid, 192, 192, 192, ">Brak z³ota.");
   }else sendMessageToPlayer(pid, 192, 192, 192, ">Brak miejsca w EQ.");
 }
