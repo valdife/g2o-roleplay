@@ -122,8 +122,8 @@ function item::buy(pid, price, instance, amount){
   if(item.hasPlace(pid)){
     if(item.has(pid, "ITMI_GOLD")>=price){
       sendMessageToPlayer(pid, 194, 178, 128, "Zakupiono przedmiot.");
-      item.remove(pid, false, Items.id("ITMI_GOLD"), price);
-      item.give(pid, true, Items.id(instance), amount);
+      item.remove(pid, false, "ITMI_GOLD", price);
+      item.give(pid, true, instance, amount);
     }else sendMessageToPlayer(pid, 192, 192, 192, ">Brak z³ota.");
   }else sendMessageToPlayer(pid, 192, 192, 192, ">Brak miejsca w EQ.");
 }
