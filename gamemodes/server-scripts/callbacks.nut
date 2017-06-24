@@ -14,6 +14,7 @@ addEventHandler("onInit", function(){
 	fractions <- [];
 	fractions.push(Fraction("Stra¿ Miejska", 150, 6395, 917, 7391));
 	fractions.push(Fraction("Zakon Paladynów", 300, 14420, 1202, -203));
+	fractions.push(Fraction("Najemnicy", 120, 71048, 3248, -9461));
 		
 	for(local i = 0; i<getMaxSlots(); ++i){
 		player.init(i);
@@ -601,6 +602,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				if(fractions[player[pid].fraction].magazinePosition(pid)){
 					if(player[pid].fraction==0) callClientFunc(pid, "dialog.show", 11);
 					else if(player[pid].fraction==1) callClientFunc(pid, "dialog.show", 12);
+					else if(player[pid].fraction==2) callClientFunc(pid, "dialog.show", 13);
 					player.narrator(pid, "rozmawia z magazynierem.");
 				}else sendMessageToPlayer(pid, 25, 165, 111, ">Nie znajdujesz siê w magazynie swojej frakcji.");
 			}
@@ -1124,6 +1126,13 @@ function onPlayerDialogBoxResponse(pid, id, position){
 			case 2: item.buy(pid, 20000, "ITAR_PAL_M", 1); break;
 			case 3: item.buy(pid, 35000, "ITAR_PAL_H", 1); break;
 			case 4: callClientFunc(pid, "dialog.destroy"); break;
+		}
+	}else if(id==13){
+		switch(position){
+			case 0: item.buy(pid, 650, "ITAR_SLD_L", 1); break;
+			case 1: item.buy(pid, 11000, "ITAR_SLD_M", 1); break;
+			case 2: item.buy(pid, 17000, "ITAR_SLD_H", 1); break;
+			case 3: callClientFunc(pid, "dialog.destroy"); break;
 		}
 	}
 }
