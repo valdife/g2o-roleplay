@@ -5,7 +5,7 @@ local timer60s = setTimer(function(){
 			if(player[i].minuter>=60){
 				sendMessageToPlayer(i, 194, 178, 128, "Otrzymano 2 PN za przegranie pe³nej godziny.");
 				if(player[i].fraction>-1){
-					sendMessageToPlayer(i, 194, 178, 128, format("Otrzymujesz %s szt. z³. od frakcji %s.", fractions[player[i].fraction]._payday, fractions[player[i].fraction]._name));
+					sendMessageToPlayer(i, 194, 178, 128, format("Otrzymujesz %d szt. z³. od frakcji %s.", fractions[player[i].fraction]._payday, fractions[player[i].fraction]._name));
 					if(item.hasPlace(i)) item.give(i, "ITMI_GOLD", fractions[player[i].fraction]._payday);
 					else sendMessageToPlayer(i, 192, 192, 192, ">Brak miejsca w EQ.");
 				}

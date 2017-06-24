@@ -134,5 +134,17 @@
 	
 	<item>
 		<instance>ITAR_PAL_H</instance>
+	</item>
+	
+	<item>
+		<instance>ITAR_SLD_L</instance>
+	</item>	
+	
+	<item>
+		<instance>ITAR_SLD_M</instance>
+	</item>	
+	
+	<item>
+		<instance>ITAR_SLD_H</instance>
 	</item>	
 </items>	
