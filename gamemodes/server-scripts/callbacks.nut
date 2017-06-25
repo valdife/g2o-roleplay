@@ -294,7 +294,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 					player.narrator(pid, "nabywa piwo.");
 					sendMessageToPlayer(pid, 194, 178, 128, "Zakupiono piwo.");
 					item.remove(pid, false, "ITMI_GOLD", 1);
-					item.give(pid, true, "ITFO_BEER");
+					item.give(pid, true, "ITFO_BEER", 1);
 				}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
 			}else sendMessageToPlayer(pid, 198, 206, 206, ">Tutaj nie dostaniesz piwa.");
 		break;	

@@ -24,5 +24,7 @@ function bankRefresh(nr, ...){
         dialog.draw[dialog.drawPosition].setColor(255, 255, 0);
       }
 
-    }
+	}
 }
+
+	
