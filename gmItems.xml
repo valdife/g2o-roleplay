@@ -147,4 +147,8 @@
 	<item>
 		<instance>ITAR_SLD_H</instance>
 	</item>	
+	
+	<item>
+		<instance>ITFO_BEER</instance>
+	</item>	
 </items>	

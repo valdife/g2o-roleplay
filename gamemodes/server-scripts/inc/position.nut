@@ -64,6 +64,9 @@ function position::init(){
 
   positions["citizen"] <- {};
   positionCreate("citizen", 3335, 848, 6409);
+	
+	positions["beer"] <- {};
+	positionCreate("beer", 5913, 473, 2654);
 }
 
 function position::get(pid, name){

@@ -288,6 +288,17 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 			}else sendMessageToPlayer(pid, 198, 206, 206, ">Jesteœ nie nieodpowiednim miejscu.");
 		break;
 
+		case "beer":
+			if(position.get(pid, "beer")){
+				if(item.has(pid, "ITMI_GOLD")>=1){
+					player.narrator(pid, "nabywa piwo.");
+					sendMessageToPlayer(pid, 194, 178, 128, "Zakupiono piwo.");
+					item.remove(pid, false, "ITMI_GOLD", 1);
+					item.give(pid, true, "ITFO_BEER");
+				}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
+			}else sendMessageToPlayer(pid, 198, 206, 206, ">Tutaj nie dostaniesz piwa.");
+		break;	
+		
 		case "roulette":
 			if(position.get(pid, "roulette")){
 				local args = sscanf("d", params);

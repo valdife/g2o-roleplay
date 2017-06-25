@@ -77,4 +77,7 @@ function draw3dInit(){
 	draw3dCreate(6395, 917, 7391, "W tym miejscu mo¿esz zdobyæ wyposa¿enie frakcyjne ((/magazine))" 184, 129, 238);
 	draw3dCreate(14420, 1202, -203, "W tym miejscu mo¿esz zdobyæ wyposa¿enie frakcyjne ((/magazine))", 184, 129, 238);
 	draw3dCreate(71048, 3248, -9461, "W tym miejscu mo¿esz zdobyæ wyposa¿enie frakcyjne ((/magazine))", 184, 129, 238);
+	
+	//beer
+	draw3dCreate(5913, 473, 2654, "Piwo za 1 szt. z³. ((/beer))", 184, 129, 238);
 }
