@@ -120,13 +120,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 
 			case "b":
 				if(params.len()>0 && params.len()<161){
-					local pos = getPlayerPosition(pid), string = format("(( (%d) %s: %s ))", pid, getPlayerName(pid), params);
-					for(local i = 0; i<getMaxSlots(); ++i){
-						if(player[i].isLogged){
-							local pos2 = getPlayerPosition(i);
-							if(getDistance3d(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z)<800) breakSendMessageToPlayer(i, 198, 206, 206, string);
-						}
-					}
+					localMessage(pid, 198, 206, 206, 800, format("(( (%d) %s: %s ))", pid, getPlayerName(pid), params));
 					bLog.enter(format("%s: %s", getPlayerName(pid), params));
 				}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /b (text 1-160)");
 			break;
@@ -134,14 +128,9 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 		case "s":
 		case "shout":
 			if(params.len()>0 && params.len()<161){
-				local pos = getPlayerPosition(pid), len = params.len()-1;
+				local len = params.len()-1;
 				if(params[len]!=33 && params[len]!=46) params += "!";
-				for(local i = 0; i<getMaxSlots(); ++i){
-					if(player[i].isLogged){
-						local pos2 = getPlayerPosition(i);
-						if(getDistance3d(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z)<1600) breakSendMessageToPlayer(i, 250, 250, 250, format("%s krzyczy: %s", getPlayerName(pid), convertMessageToIC(params)));
-					}
-				}
+				localMessage(pid, 250, 250, 250, 1600, format("%s krzyczy: %s", getPlayerName(pid), convertMessageToIC(params)));
 				sLog.enter(format("%s: %s", getPlayerName(pid), params));
 			}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /s(hout) (text 1-160)");;
 		break;
@@ -149,13 +138,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 		case "w":
 		case "whisper":
 			if(params.len()>0 && params.len()<161){
-				local pos = getPlayerPosition(pid);
-				for(local i = 0; i<getMaxSlots(); ++i){
-					if(player[i].isLogged){
-						local pos2 = getPlayerPosition(i);
-						if(getDistance3d(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z)<400) breakSendMessageToPlayer(i, 250, 250, 250, format("%s szepcze: %s", getPlayerName(pid), convertMessageToIC(params)));
-					}
-				}
+				localMessage(pid, 250, 250, 250, 400, format("%s szepcze: %s", getPlayerName(pid), convertMessageToIC(params)));
 				wLog.enter(format("%s: %s", getPlayerName(pid), params));
 			}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /w(hisper) (text 1-160)");
 		break;
@@ -175,57 +158,32 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 
 		case "me":
 			if(params.len()>0 && params.len()<161){
-				local pos = getPlayerPosition(pid), string = format("%s %s", getPlayerName(pid), params);
-				for(local i = 0; i<getMaxSlots(); ++i){
-					if(player[i].isLogged){
-						local pos2 = getPlayerPosition(i);
-						if(getDistance3d(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z)<800) sendMessageToPlayer(i, 238, 130, 238, string);
-					}
-				}
+				localMessage(pid, 238, 130, 238, 800, format("%s %s", getPlayerName(pid), params));
 				meLog.enter(format("%s: %s", getPlayerName(pid), params));
 			}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /me (text 1-160)");
 		break;
 
 		case "do":
 			if(params.len()>0 && params.len()<161){
-				local pos = getPlayerPosition(pid), string = format("%s (( (%d) %s ))", params, pid, getPlayerName(pid));
-				for(local i = 0; i<getMaxSlots(); ++i){
-					if(player[i].isLogged){
-						local pos2 = getPlayerPosition(i);
-						if(getDistance3d(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z)<800) breakSendMessageToPlayer(i, 184, 129, 238, string);
-					}
-				}
+				localMessage(pid, 184, 129, 238, 800, format("%s (( (%d) %s ))", params, pid, getPlayerName(pid)));
 				doLog.enter(format("%s: %s", getPlayerName(pid), params));
 			}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /do (text 1-160)");
 		break;
 
 		case "try":
 			if(params.len()>0 && params.len()<161){
-				local random = rand() % 2, pos = getPlayerPosition(pid), randomResult;
+				local random = rand(), randomResult;
 				if(random==1) randomResult = "z powodzeniem";
 				else randomResult = "z niepowodzeniem";
-				local string = format("#%s %s spróbowa³ %s", getPlayerName(pid), randomResult, params);
-				for(local i = 0; i<getMaxSlots(); ++i){
-					if(player[i].isLogged){
-						local pos2 = getPlayerPosition(i);
-						if(getDistance3d(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z)<800) breakSendMessageToPlayer(i, 238, 130, 238, string);
-					}
-				}
+				localMessage(pid, 238, 130, 238, 800, format("#%s %s spróbowa³ %s", getPlayerName(pid), randomResult, params));
 				tryLog.enter(format("%s: %s - %s", getPlayerName(pid), params, randomResult));
 			}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /try (text 1-160)");
 		break;
 
 		case "bones":
-				local args = sscanf("d", params);
-				if(args && args[0]>1 && args[0]<100){
-					local random = rand() % (args[0]+1), pos = getPlayerPosition(pid), string = format("Wylosowano %d z %d (( #(%d) %s ))", random, args[0], pid, getPlayerName(pid));
-					for(local i = 0; i<getMaxSlots(); ++i){
-						if(player[i].isLogged){
-							local pos2 = getPlayerPosition(i);
-							if(getDistance3d(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z)<800) sendMessageToPlayer(i, 184, 129, 238, string);
-						}
-					}
-				}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /bones (max 2-99)");
+			local args = sscanf("d", params);
+			if(args && args[0]>1 && args[0]<100) localMessage(pid, 238, 130, 238, 800, format("Wylosowano %d z %d (( #(%d) %s ))", rand() % (args[0]+1), args[0], pid, getPlayerName(pid)));
+			else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /bones (max 2-99)");
 		break;
 
 		/*

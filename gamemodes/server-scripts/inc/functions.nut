@@ -36,6 +36,16 @@ function breakSendMessageToPlayer(pid, r, g, b, message){
   else sendMessageToPlayer(pid, r, g, b, message);
 }
 
+function localMessage(pid, r, g, b, distance, message){
+	local pos = getPlayerPosition(pid);
+	for(local i = 0; i<getMaxSlots(); ++i){
+		if(player[i].isLogged){
+			local pos2 = getPlayerPosition(i);
+			if(getDistance3d(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z)<distance) breakSendMessageToPlayer(i, r, g, b, message);
+		}
+	}
+}
+
 function isEven(number){
   local calc = number % 2;
   if(calc==0) return true;
