@@ -125,828 +125,828 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /b (text 1-160)");
 			break;
 
-		case "s":
-		case "shout":
-			if(params.len()>0 && params.len()<161){
-				local len = params.len()-1;
-				if(params[len]!=33 && params[len]!=46) params += "!";
-				localMessage(pid, 250, 250, 250, 1600, format("%s krzyczy: %s", getPlayerName(pid), convertMessageToIC(params)));
-				sLog.enter(format("%s: %s", getPlayerName(pid), params));
-			}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /s(hout) (text 1-160)");;
-		break;
+			case "s":
+			case "shout":
+				if(params.len()>0 && params.len()<161){
+					local len = params.len()-1;
+					if(params[len]!=33 && params[len]!=46) params += "!";
+					localMessage(pid, 250, 250, 250, 1600, format("%s krzyczy: %s", getPlayerName(pid), convertMessageToIC(params)));
+					sLog.enter(format("%s: %s", getPlayerName(pid), params));
+				}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /s(hout) (text 1-160)");;
+			break;
 
-		case "w":
-		case "whisper":
-			if(params.len()>0 && params.len()<161){
-				localMessage(pid, 250, 250, 250, 400, format("%s szepcze: %s", getPlayerName(pid), convertMessageToIC(params)));
-				wLog.enter(format("%s: %s", getPlayerName(pid), params));
-			}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /w(hisper) (text 1-160)");
-		break;
+			case "w":
+			case "whisper":
+				if(params.len()>0 && params.len()<161){
+					localMessage(pid, 250, 250, 250, 400, format("%s szepcze: %s", getPlayerName(pid), convertMessageToIC(params)));
+					wLog.enter(format("%s: %s", getPlayerName(pid), params));
+				}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /w(hisper) (text 1-160)");
+			break;
 
-		case "ear":
-			local args = sscanf("ds", params);
-			if(args && args[1].len()<161){
-				if(player[args[0]].isLogged && args[0]!=pid){
-					if(getDistanceBeetwenPlayers(pid, args[0])<300){
-						breakSendMessageToPlayer(args[0], 250, 250, 250, format("%s szepcze Ci na ucho: %s", getPlayerName(pid), convertMessageToIC(args[1])));
-						player.narrator(pid, format("szepcze coœ na ucho %s", getPlayerName(args[0])));
-						earLog.enter(format("%s do %s: %s", getPlayerName(pid), getPlayerName(args[0]), args[1]));
-					}else sendMessageToPlayer(pid, 192, 192, 192, ">Gracz jest za daleko.");
-				}else sendMessageToPlayer(pid, 192, 192, 192, ">Nieprawid³owe ID.");
-			}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /ear (id) (text 1-160)");
-		break;
+			case "ear":
+				local args = sscanf("ds", params);
+				if(args && args[1].len()<161){
+					if(player[args[0]].isLogged && args[0]!=pid){
+						if(getDistanceBeetwenPlayers(pid, args[0])<300){
+							breakSendMessageToPlayer(args[0], 250, 250, 250, format("%s szepcze Ci na ucho: %s", getPlayerName(pid), convertMessageToIC(args[1])));
+							player.narrator(pid, format("szepcze coœ na ucho %s", getPlayerName(args[0])));
+							earLog.enter(format("%s do %s: %s", getPlayerName(pid), getPlayerName(args[0]), args[1]));
+						}else sendMessageToPlayer(pid, 192, 192, 192, ">Gracz jest za daleko.");
+					}else sendMessageToPlayer(pid, 192, 192, 192, ">Nieprawid³owe ID.");
+				}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /ear (id) (text 1-160)");
+			break;
 
-		case "me":
-			if(params.len()>0 && params.len()<161){
-				localMessage(pid, 238, 130, 238, 800, format("%s %s", getPlayerName(pid), params));
-				meLog.enter(format("%s: %s", getPlayerName(pid), params));
-			}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /me (text 1-160)");
-		break;
+			case "me":
+				if(params.len()>0 && params.len()<161){
+					localMessage(pid, 238, 130, 238, 800, format("%s %s", getPlayerName(pid), params));
+					meLog.enter(format("%s: %s", getPlayerName(pid), params));
+				}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /me (text 1-160)");
+			break;
 
-		case "do":
-			if(params.len()>0 && params.len()<161){
-				localMessage(pid, 184, 129, 238, 800, format("%s (( (%d) %s ))", params, pid, getPlayerName(pid)));
-				doLog.enter(format("%s: %s", getPlayerName(pid), params));
-			}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /do (text 1-160)");
-		break;
+			case "do":
+				if(params.len()>0 && params.len()<161){
+					localMessage(pid, 184, 129, 238, 800, format("%s (( (%d) %s ))", params, pid, getPlayerName(pid)));
+					doLog.enter(format("%s: %s", getPlayerName(pid), params));
+				}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /do (text 1-160)");
+			break;
 
-		case "try":
-			if(params.len()>0 && params.len()<161){
-				local random = rand(), randomResult;
-				if(random==1) randomResult = "z powodzeniem";
-				else randomResult = "z niepowodzeniem";
-				localMessage(pid, 238, 130, 238, 800, format("#%s %s spróbowa³ %s", getPlayerName(pid), randomResult, params));
-				tryLog.enter(format("%s: %s - %s", getPlayerName(pid), params, randomResult));
-			}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /try (text 1-160)");
-		break;
+			case "try":
+				if(params.len()>0 && params.len()<161){
+					local random = rand(), randomResult;
+					if(random==1) randomResult = "z powodzeniem";
+					else randomResult = "z niepowodzeniem";
+					localMessage(pid, 238, 130, 238, 800, format("#%s %s spróbowa³ %s", getPlayerName(pid), randomResult, params));
+					tryLog.enter(format("%s: %s - %s", getPlayerName(pid), params, randomResult));
+				}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /try (text 1-160)");
+			break;
 
-		case "bones":
-			local args = sscanf("d", params);
-			if(args && args[0]>1 && args[0]<100) localMessage(pid, 238, 130, 238, 800, format("Wylosowano %d z %d (( #(%d) %s ))", rand() % (args[0]+1), args[0], pid, getPlayerName(pid)));
-			else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /bones (max 2-99)");
-		break;
-
-		/*
-			Chat commands end
-		*/
-
-		/*
-			Settings commands start
-		*/
-
-		case "description":
-			if(params.len()>=1 && params.len()<81){
-				player[pid].description = params;
-				if(player[pid].description!="delete"){
-					sendMessageToPlayer(pid, 194, 178, 128, "Ustawiono opis.");
-					setPlayerColor(pid, 184, 129, 238);
-					descriptionLog.enter(format("%s: %s", getPlayerName(pid), params));
-				}else{
-					sendMessageToPlayer(pid, 194, 178, 128, "Usuniêto opis.");
-					setPlayerColor(pid, 250, 250, 250);
-				}
-			}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /description (text 1-80)");
-		break;
-
-		/*
-			Settings commands end
-		*/
-
-		/*
-			Activity commands start
-		*/
-
-		case "citizen":
-			if(position.get(pid, "citizen")){
-				if(!player[pid].citizen){
-					player.narrator(pid, "rejestruje siê jako obywatel miasta.");
-					sendMessageToPlayer(pid, 194, 178, 128, "Co godzinê gry przyznawane Ci bêdzie 20 szt. z³.");
-					player[pid].citizen = 1;
-				}else sendMessageToPlayer(pid, 198, 206, 206, ">Z akt wynika, ¿e posiadasz ju¿ obywatelstwo.");
-			}else sendMessageToPlayer(pid, 198, 206, 206, ">Jesteœ w nieodpowiednim miejscu.");
-		break;	
-		
-		case "learn":
-			if(position.get(pid, "learn")){
-				player.narrator(pid, "rozmawia z nauczycielem.");
-				sendMessageToPlayer(pid, 194, 178, 128, "Wszystkie umiejêtnoœci kosztuj¹ 1 PN za 1 punkt.");
-				callClientFunc(pid, "dialog.show", 2);
-			}
-		break;
-
-		case "brothel":
-			if(position.get(pid, "brothel")){
-				if(item.has(pid, "ITMI_GOLD")>=150){
-					player.narrator(pid, "korzysta z us³ug domu publicznego.");
-					sendMessageToPlayer(pid, 194, 178, 128, "Uzupe³niono punkty trafieñ do maksymalnej wartoœci.");
-					item.remove(pid, false, "ITMI_GOLD", 150);
-					callClientFunc(pid, "brothelShow");
-					setPlayerHealth(pid, player[pid].maxHealth);
-				}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
-			}else sendMessageToPlayer(pid, 198, 206, 206, ">Jesteœ nie nieodpowiednim miejscu.");
-		break;
-
-		case "beer":
-			if(position.get(pid, "beer")){
-				if(item.has(pid, "ITMI_GOLD")>=1){
-					player.narrator(pid, "nabywa piwo.");
-					sendMessageToPlayer(pid, 194, 178, 128, "Zakupiono piwo.");
-					item.remove(pid, false, "ITMI_GOLD", 1);
-					item.give(pid, true, "ITFO_BEER", 1);
-				}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
-			}else sendMessageToPlayer(pid, 198, 206, 206, ">Tutaj nie dostaniesz piwa.");
-		break;	
-		
-		case "roulette":
-			if(position.get(pid, "roulette")){
+			case "bones":
 				local args = sscanf("d", params);
-				if(args && args[0]>0){
-					if(item.has(pid, "ITMI_GOLD")>=args[0]){
-						player.narrator(pid, "gra w ruletkê.");
-						local random;
-						for(local i = 0; i<3; ++i){
-							random = rand() % 3;
-						}
-						if(random==1){
-							local gold = args[0]*2;
-							sendMessageToPlayer(pid, 194, 178, 128, format("Gratulacje! %d szt. z³. trafia do Twojej kieszeni.", gold));
-							item.give(pid, true, "ITMI_GOLD", gold);
-						}else{
-							sendMessageToPlayer(pid, 194, 178, 128, "Tym razem siê nie uda³o.");
-							item.remove(pid, true, "ITMI_GOLD", args[0]);
-						}
+				if(args && args[0]>1 && args[0]<100) localMessage(pid, 238, 130, 238, 800, format("Wylosowano %d z %d (( #(%d) %s ))", rand() % (args[0]+1), args[0], pid, getPlayerName(pid)));
+				else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /bones (max 2-99)");
+			break;
+
+			/*
+				Chat commands end
+			*/
+
+			/*
+				Settings commands start
+			*/
+
+			case "description":
+				if(params.len()>=1 && params.len()<81){
+					player[pid].description = params;
+					if(player[pid].description!="delete"){
+						sendMessageToPlayer(pid, 194, 178, 128, "Ustawiono opis.");
+						setPlayerColor(pid, 184, 129, 238);
+						descriptionLog.enter(format("%s: %s", getPlayerName(pid), params));
+					}else{
+						sendMessageToPlayer(pid, 194, 178, 128, "Usuniêto opis.");
+						setPlayerColor(pid, 250, 250, 250);
+					}
+				}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /description (text 1-80)");
+			break;
+
+			/*
+				Settings commands end
+			*/
+
+			/*
+				Activity commands start
+			*/
+
+			case "citizen":
+				if(position.get(pid, "citizen")){
+					if(!player[pid].citizen){
+						player.narrator(pid, "rejestruje siê jako obywatel miasta.");
+						sendMessageToPlayer(pid, 194, 178, 128, "Co godzinê gry przyznawane Ci bêdzie 20 szt. z³.");
+						player[pid].citizen = 1;
+					}else sendMessageToPlayer(pid, 198, 206, 206, ">Z akt wynika, ¿e posiadasz ju¿ obywatelstwo.");
+				}else sendMessageToPlayer(pid, 198, 206, 206, ">Jesteœ w nieodpowiednim miejscu.");
+			break;	
+			
+			case "learn":
+				if(position.get(pid, "learn")){
+					player.narrator(pid, "rozmawia z nauczycielem.");
+					sendMessageToPlayer(pid, 194, 178, 128, "Wszystkie umiejêtnoœci kosztuj¹ 1 PN za 1 punkt.");
+					callClientFunc(pid, "dialog.show", 2);
+				}
+			break;
+
+			case "brothel":
+				if(position.get(pid, "brothel")){
+					if(item.has(pid, "ITMI_GOLD")>=150){
+						player.narrator(pid, "korzysta z us³ug domu publicznego.");
+						sendMessageToPlayer(pid, 194, 178, 128, "Uzupe³niono punkty trafieñ do maksymalnej wartoœci.");
+						item.remove(pid, false, "ITMI_GOLD", 150);
+						callClientFunc(pid, "brothelShow");
+						setPlayerHealth(pid, player[pid].maxHealth);
 					}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
-				}else{
-					sendMessageToPlayer(pid, 198, 206, 206, ">U¿yj /roulette (gold), by zagraæ w ruletkê.");
-					sendMessageToPlayer(pid, 194, 178, 128, "Uwa¿aj, bo hazard wci¹ga.");
-				}
-			}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie znajdujesz siê przy ruletce.");
-		break;
+				}else sendMessageToPlayer(pid, 198, 206, 206, ">Jesteœ nie nieodpowiednim miejscu.");
+			break;
 
-		case "lottery":
-			if(position.get(pid, "lottery")){
-				local args = sscanf("s", params);
-				if(args){
-					if(args[0]=="pay"){
-						if(lottery.players.find(getPlayerName(pid))==null){
-							if(item.has(pid, "ITMI_GOLD")>=10){
-								player.narrator(pid, "bierze udzia³ w loterii.");
-								sendMessageToPlayer(pid, 194, 178, 128, "Wp³acono na loteriê. Jeœli wygrasz, pos³aniec przyniesie Ci z³oto.");
-								item.remove(pid, true, "ITMI_GOLD", 10);
-								lottery.budget += 10;
-								lottery.players.push(getPlayerName(pid));
-							}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
-						}else sendMessageToPlayer(pid, 198, 206, 206, ">Wp³acono ju¿ na obecn¹ loteriê.");
-					}else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owa opcja.");
-				}else{
-					local lotteryEnd = (lottery.time-time())/60;
-					if(lotteryEnd<=0) sendMessageToPlayer(pid, 198, 206, 206, ">U¿yj /lottery pay, by wzi¹æ udzia³. Loteria za chwilê siê zakoñczy.");
-					else sendMessageToPlayer(pid, 198, 206, 206, format(">U¿yj /lottery pay, by wzi¹æ udzia³. Loteria koñczy siê za %d min.", lotteryEnd));
-					sendMessageToPlayer(pid, 194, 178, 128, "Pamiêtaj, ¿e musisz znajdowaæ siê na serwerze, by odebraæ ewentualn¹ nagrodê.");
-				}
-			}else sendMessageToPlayer(pid, 198, 206, 206, ">W tym miejscu loterie nie s¹ organizowane.");
-		break;
+			case "beer":
+				if(position.get(pid, "beer")){
+					if(item.has(pid, "ITMI_GOLD")>=1){
+						player.narrator(pid, "nabywa piwo.");
+						sendMessageToPlayer(pid, 194, 178, 128, "Zakupiono piwo.");
+						item.remove(pid, false, "ITMI_GOLD", 1);
+						item.give(pid, true, "ITFO_BEER", 1);
+					}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
+				}else sendMessageToPlayer(pid, 198, 206, 206, ">Tutaj nie dostaniesz piwa.");
+			break;	
+			
+			case "roulette":
+				if(position.get(pid, "roulette")){
+					local args = sscanf("d", params);
+					if(args && args[0]>0){
+						if(item.has(pid, "ITMI_GOLD")>=args[0]){
+							player.narrator(pid, "gra w ruletkê.");
+							local random;
+							for(local i = 0; i<3; ++i){
+								random = rand() % 3;
+							}
+							if(random==1){
+								local gold = args[0]*2;
+								sendMessageToPlayer(pid, 194, 178, 128, format("Gratulacje! %d szt. z³. trafia do Twojej kieszeni.", gold));
+								item.give(pid, true, "ITMI_GOLD", gold);
+							}else{
+								sendMessageToPlayer(pid, 194, 178, 128, "Tym razem siê nie uda³o.");
+								item.remove(pid, true, "ITMI_GOLD", args[0]);
+							}
+						}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
+					}else{
+						sendMessageToPlayer(pid, 198, 206, 206, ">U¿yj /roulette (gold), by zagraæ w ruletkê.");
+						sendMessageToPlayer(pid, 194, 178, 128, "Uwa¿aj, bo hazard wci¹ga.");
+					}
+				}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie znajdujesz siê przy ruletce.");
+			break;
 
-		case "blacktrader":
-			if(position.get(pid, "blacktrader")){
-				local args = sscanf("dd", params);
-				if(args){
-					if(item.hasPlace(pid)){
-						if(item[pid].instance.len()>=args[0]){
-							if(item[pid].amount[args[0]]>=args[1]){
-								player.narrator(pid, "sprzedaje coœ paserowi.");
-								sendMessageToPlayer(pid, 194, 178, 128, "Paser da³ Ci sztukê z³ota za ten przedmiot.");
-								item.remove(pid, false, item[pid].instance[args[0]], args[1]);
-								item.give(pid, true, "ITMI_GOLD", args[1]);
-							}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz ¿¹danego przedmiotu w takiej liczbie.");
-						}else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owy slot.");
-					}else sendMessageToPlayer(pid, 198, 206, 206, ">Brak miejsca w EQ.");
-				}else{
-					sendMessageToPlayer(pid, 198, 206, 206, ">U¿yj /blacktrader (slot) (amount)");
-					sendMessageToPlayer(pid, 194, 178, 128, "Sloty liczone s¹ od 0. By upewniæ siê co do slotu, mo¿esz u¿yæ komendy /slot.");
-					sendMessageToPlayer(pid, 194, 178, 128, "Paser nie bierze pod uwagê wartoœci przedmiotu i za ka¿dy zap³aci Ci 1 szt. z³.");
-				}
-			}else sendMessageToPlayer(pid, 198, 206, 206, ">W okolicy nie widaæ pasera.");
-		break;
+			case "lottery":
+				if(position.get(pid, "lottery")){
+					local args = sscanf("s", params);
+					if(args){
+						if(args[0]=="pay"){
+							if(lottery.players.find(getPlayerName(pid))==null){
+								if(item.has(pid, "ITMI_GOLD")>=10){
+									player.narrator(pid, "bierze udzia³ w loterii.");
+									sendMessageToPlayer(pid, 194, 178, 128, "Wp³acono na loteriê. Jeœli wygrasz, pos³aniec przyniesie Ci z³oto.");
+									item.remove(pid, true, "ITMI_GOLD", 10);
+									lottery.budget += 10;
+									lottery.players.push(getPlayerName(pid));
+								}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
+							}else sendMessageToPlayer(pid, 198, 206, 206, ">Wp³acono ju¿ na obecn¹ loteriê.");
+						}else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owa opcja.");
+					}else{
+						local lotteryEnd = (lottery.time-time())/60;
+						if(lotteryEnd<=0) sendMessageToPlayer(pid, 198, 206, 206, ">U¿yj /lottery pay, by wzi¹æ udzia³. Loteria za chwilê siê zakoñczy.");
+						else sendMessageToPlayer(pid, 198, 206, 206, format(">U¿yj /lottery pay, by wzi¹æ udzia³. Loteria koñczy siê za %d min.", lotteryEnd));
+						sendMessageToPlayer(pid, 194, 178, 128, "Pamiêtaj, ¿e musisz znajdowaæ siê na serwerze, by odebraæ ewentualn¹ nagrodê.");
+					}
+				}else sendMessageToPlayer(pid, 198, 206, 206, ">W tym miejscu loterie nie s¹ organizowane.");
+			break;
 
-		case "bank":
-			if(position.get(pid, "bank")) callClientFunc(pid, "dialog.show", 8);
-			else return 0;
-			player.narrator(pid, "rozmawia z bankierem.");
-		break;
+			case "blacktrader":
+				if(position.get(pid, "blacktrader")){
+					local args = sscanf("dd", params);
+					if(args){
+						if(item.hasPlace(pid)){
+							if(item[pid].instance.len()>=args[0]){
+								if(item[pid].amount[args[0]]>=args[1]){
+									player.narrator(pid, "sprzedaje coœ paserowi.");
+									sendMessageToPlayer(pid, 194, 178, 128, "Paser da³ Ci sztukê z³ota za ten przedmiot.");
+									item.remove(pid, false, item[pid].instance[args[0]], args[1]);
+									item.give(pid, true, "ITMI_GOLD", args[1]);
+								}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz ¿¹danego przedmiotu w takiej liczbie.");
+							}else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owy slot.");
+						}else sendMessageToPlayer(pid, 198, 206, 206, ">Brak miejsca w EQ.");
+					}else{
+						sendMessageToPlayer(pid, 198, 206, 206, ">U¿yj /blacktrader (slot) (amount)");
+						sendMessageToPlayer(pid, 194, 178, 128, "Sloty liczone s¹ od 0. By upewniæ siê co do slotu, mo¿esz u¿yæ komendy /slot.");
+						sendMessageToPlayer(pid, 194, 178, 128, "Paser nie bierze pod uwagê wartoœci przedmiotu i za ka¿dy zap³aci Ci 1 szt. z³.");
+					}
+				}else sendMessageToPlayer(pid, 198, 206, 206, ">W okolicy nie widaæ pasera.");
+			break;
 
-		case "buy":
-			if(player[pid].online>0){
-				if(position.get(pid, "food")) callClientFunc(pid, "dialog.show", 3);
-				else if(position.get(pid, "potion")) callClientFunc(pid, "dialog.show", 4);
-				else if(position.get(pid, "cloth")) callClientFunc(pid, "dialog.show", 5);
-				else if(position.get(pid, "weapon")) callClientFunc(pid, "dialog.show", 6);
-				else if(position.get(pid, "fletcher")) callClientFunc(pid, "dialog.show", 7);
+			case "bank":
+				if(position.get(pid, "bank")) callClientFunc(pid, "dialog.show", 8);
 				else return 0;
-				player.narrator(pid, "rozmawia z handlarzem.");
-			}else sendMessageToPlayer(pid, 198, 206, 206, ">Kupowaæ mo¿na dopiero po przegraniu 1 godziny online.");
-		break;
-		
-		case "work":
-			if(position.get(pid, "work")){
-				if(!player[pid].isBusy){
-					player.narrator(pid, "pracuje.");
-					sendMessageToPlayer(pid, 194, 178, 128, "Rozpoczêto pracê. Trzymaj lewy ctrl do osi¹gniêcia 100%.");
-					sendMessageToPlayer(pid, 194, 178, 128, "Spadek do 0% oznacza przerwanie pracy.");
-					player[pid].isBusy = true;
-					callClientFunc(pid, "work.start");
+				player.narrator(pid, "rozmawia z bankierem.");
+			break;
+
+			case "buy":
+				if(player[pid].online>0){
+					if(position.get(pid, "food")) callClientFunc(pid, "dialog.show", 3);
+					else if(position.get(pid, "potion")) callClientFunc(pid, "dialog.show", 4);
+					else if(position.get(pid, "cloth")) callClientFunc(pid, "dialog.show", 5);
+					else if(position.get(pid, "weapon")) callClientFunc(pid, "dialog.show", 6);
+					else if(position.get(pid, "fletcher")) callClientFunc(pid, "dialog.show", 7);
+					else return 0;
+					player.narrator(pid, "rozmawia z handlarzem.");
+				}else sendMessageToPlayer(pid, 198, 206, 206, ">Kupowaæ mo¿na dopiero po przegraniu 1 godziny online.");
+			break;
+			
+			case "work":
+				if(position.get(pid, "work")){
+					if(!player[pid].isBusy){
+						player.narrator(pid, "pracuje.");
+						sendMessageToPlayer(pid, 194, 178, 128, "Rozpoczêto pracê. Trzymaj lewy ctrl do osi¹gniêcia 100%.");
+						sendMessageToPlayer(pid, 194, 178, 128, "Spadek do 0% oznacza przerwanie pracy.");
+						player[pid].isBusy = true;
+						callClientFunc(pid, "work.start");
+					}
 				}
-			}
-			else sendMessageToPlayer(pid, 198, 206, 206, ">W tym miejscu nie mo¿na pracowaæ.");
-		break;
+				else sendMessageToPlayer(pid, 198, 206, 206, ">W tym miejscu nie mo¿na pracowaæ.");
+			break;
 
-		case "pay":
-			local args = sscanf("dd", params);
-			if(args){
-				if(player[args[0]].isLogged && args[0]!=pid){
-					if(getDistanceBeetwenPlayers(pid, args[0])<600){
-						if(item.has(pid, "ITMI_GOLD")>=args[1]){
-							if(item.hasPlace(args[1])){
-								player.narrator(pid, format("daje z³oto %s.", getPlayerName(args[0])));
-								sendMessageToPlayer(args[0], 194, 178, 128, format("(%d) %s podarowuje Ci %d szt. z³.", pid, getPlayerName(pid), args[1]));
-								sendMessageToPlayer(pid, 194, 178, 128, format("Podarowano %d szt. z³. (%d) %s.", args[1], args[0], getPlayerName(args[0])));
-								item.remove(pid, true, "ITMI_GOLD", args[1]);
-								item.give(args[0], true, "ITMI_GOLD", args[1]);
-							}else sendMessageToPlayer(pid, 198, 206, 206, ">EQ gracza jest przepe³niony.");
-						}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
-					}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz znajduje siê za daleko.");
-				}else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owe ID.");
-			}else sendMessageToPlayer(pid, 198, 206, 206, ">Tip: /pay (id) (amount)");
-		break;
-
-		case "trade":
-			if(params=="accept"){
-				if(trade[pid].player!=-1 && trade[pid].mode==0){
-					if(item.hasPlace(pid)){
-						if(item.has(pid, "ITMI_GOLD")>=trade[trade[pid].player].price){
-							if(item.hasPlace(trade[pid].player) || trade[trade[pid].player].price==0){
-								if(item.has(trade[pid].player, trade[trade[pid].player].item)>=trade[trade[pid].player].amount){
-									player.narrator(pid, format("handluje z %s.", getPlayerName(trade[pid].player)));
-									sendMessageToPlayer(trade[pid].player, 194, 178, 128, "Handel udany.");
-									sendMessageToPlayer(pid, 194, 178, 128, "Handel udany.");
-									if(trade[trade[pid].player].price>0){
-										item.remove(pid, false, "ITMI_GOLD", trade[trade[pid].player].price);
-										item.give(trade[pid].player, false, "ITMI_GOLD", trade[trade[pid].player].price);
-									}
-									item.remove(trade[pid].player, true, trade[trade[pid].player].item, trade[trade[pid].player].amount);
-									item.give(pid, true, trade[trade[pid].player].item, trade[trade[pid].player].amount);
-									trade.destroy(pid, 1);
-								}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz nie posiada ju¿ przedmiotu.");
-							}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz nie posiada miejsca w EQ na przyjêcie z³ota.");
-						}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
-					}else sendMessageToPlayer(pid, 198, 206, 206, ">Twój EQ jest przepe³niony.");
-				}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie prowadzisz z nikim handlu.");
-			}else if(params=="stop"){
-				if(trade.destroy(pid, 0)) sendMessageToPlayer(pid, 198, 206, 206, ">Nie prowadzisz z nikim handlu.");
-			}else{
-				local args = sscanf("dddd", params);
+			case "pay":
+				local args = sscanf("dd", params);
 				if(args){
 					if(player[args[0]].isLogged && args[0]!=pid){
 						if(getDistanceBeetwenPlayers(pid, args[0])<600){
-							if(item[pid].instance.len()>=args[1] && args[1]>-1){
-								if(item[pid].amount[args[1]]>=args[2] && args[2]>0){
-									if(trade[args[0]].player==-1){
-										if(trade[pid].player==-1){
-											sendMessageToPlayer(pid, 194, 178, 128, format("Zaoferowano (%d) %s przedmiot %s w iloœci %d szt. za cenê %d szt. z³.", args[0],
-											getPlayerName(args[0]), item[pid].instance[args[1]], args[2], args[3]));
-											sendMessageToPlayer(pid, 198, 206, 206, ">U¿yj /trade stop, by anulowaæ ofertê.");
-											sendMessageToPlayer(args[0], 194, 178, 128, format("(%d) %s oferuje Ci przedmiot %s w iloœci %d szt. za cenê %d szt. z³.", pid,
-											getPlayerName(pid), item[pid].instance[args[1]], args[2], args[3]));
-											sendMessageToPlayer(args[0], 198, 206, 206, ">U¿yj /trade accept, by akceptowaæ lub /trade stop, by odrzuciæ ofertê.");
-											trade.refresh(pid, item[pid].instance[args[1]], args[2], args[0], args[3], 1);
-											trade[args[0]].player = pid;
-										}else sendMessageToPlayer(pid, 198, 206, 206, ">Handlujesz ju¿ z kimœ.");
-									}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz obecnie z kimœ handluje.");
-								}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz ¿¹danego przedmiotu w takiej liczbie.");
-							}else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owy slot.");
+							if(item.has(pid, "ITMI_GOLD")>=args[1]){
+								if(item.hasPlace(args[1])){
+									player.narrator(pid, format("daje z³oto %s.", getPlayerName(args[0])));
+									sendMessageToPlayer(args[0], 194, 178, 128, format("(%d) %s podarowuje Ci %d szt. z³.", pid, getPlayerName(pid), args[1]));
+									sendMessageToPlayer(pid, 194, 178, 128, format("Podarowano %d szt. z³. (%d) %s.", args[1], args[0], getPlayerName(args[0])));
+									item.remove(pid, true, "ITMI_GOLD", args[1]);
+									item.give(args[0], true, "ITMI_GOLD", args[1]);
+								}else sendMessageToPlayer(pid, 198, 206, 206, ">EQ gracza jest przepe³niony.");
+							}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
 						}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz znajduje siê za daleko.");
 					}else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owe ID.");
-				}else{
-					sendMessageToPlayer(pid, 198, 206, 206, ">Tip: /trade (id) (slot) (amount) (price)");
-					sendMessageToPlayer(pid, 194, 178, 128, "Sloty liczone s¹ od 0. By upewniæ siê co do slotu, mo¿esz u¿yæ komendy /slot.");
-				}
-		}
-		break;
+				}else sendMessageToPlayer(pid, 198, 206, 206, ">Tip: /pay (id) (amount)");
+			break;
 
-		case "drunk":
-			if(!player[pid].isBusy){
-				if(position.get(pid, "drunk")){
-					if(item.has(pid, "ITMI_GOLD")>=2){
-						player.narrator(pid, "zak³ada siê z pijakami.");
-						callClientFunc(pid, "drunk.start");
-						player[pid].isBusy = true;
+			case "trade":
+				if(params=="accept"){
+					if(trade[pid].player!=-1 && trade[pid].mode==0){
+						if(item.hasPlace(pid)){
+							if(item.has(pid, "ITMI_GOLD")>=trade[trade[pid].player].price){
+								if(item.hasPlace(trade[pid].player) || trade[trade[pid].player].price==0){
+									if(item.has(trade[pid].player, trade[trade[pid].player].item)>=trade[trade[pid].player].amount){
+										player.narrator(pid, format("handluje z %s.", getPlayerName(trade[pid].player)));
+										sendMessageToPlayer(trade[pid].player, 194, 178, 128, "Handel udany.");
+										sendMessageToPlayer(pid, 194, 178, 128, "Handel udany.");
+										if(trade[trade[pid].player].price>0){
+											item.remove(pid, false, "ITMI_GOLD", trade[trade[pid].player].price);
+											item.give(trade[pid].player, false, "ITMI_GOLD", trade[trade[pid].player].price);
+										}
+										item.remove(trade[pid].player, true, trade[trade[pid].player].item, trade[trade[pid].player].amount);
+										item.give(pid, true, trade[trade[pid].player].item, trade[trade[pid].player].amount);
+										trade.destroy(pid, 1);
+									}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz nie posiada ju¿ przedmiotu.");
+								}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz nie posiada miejsca w EQ na przyjêcie z³ota.");
+							}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
+						}else sendMessageToPlayer(pid, 198, 206, 206, ">Twój EQ jest przepe³niony.");
+					}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie prowadzisz z nikim handlu.");
+				}else if(params=="stop"){
+					if(trade.destroy(pid, 0)) sendMessageToPlayer(pid, 198, 206, 206, ">Nie prowadzisz z nikim handlu.");
+				}else{
+					local args = sscanf("dddd", params);
+					if(args){
+						if(player[args[0]].isLogged && args[0]!=pid){
+							if(getDistanceBeetwenPlayers(pid, args[0])<600){
+								if(item[pid].instance.len()>=args[1] && args[1]>-1){
+									if(item[pid].amount[args[1]]>=args[2] && args[2]>0){
+										if(trade[args[0]].player==-1){
+											if(trade[pid].player==-1){
+												sendMessageToPlayer(pid, 194, 178, 128, format("Zaoferowano (%d) %s przedmiot %s w iloœci %d szt. za cenê %d szt. z³.", args[0],
+												getPlayerName(args[0]), item[pid].instance[args[1]], args[2], args[3]));
+												sendMessageToPlayer(pid, 198, 206, 206, ">U¿yj /trade stop, by anulowaæ ofertê.");
+												sendMessageToPlayer(args[0], 194, 178, 128, format("(%d) %s oferuje Ci przedmiot %s w iloœci %d szt. za cenê %d szt. z³.", pid,
+												getPlayerName(pid), item[pid].instance[args[1]], args[2], args[3]));
+												sendMessageToPlayer(args[0], 198, 206, 206, ">U¿yj /trade accept, by akceptowaæ lub /trade stop, by odrzuciæ ofertê.");
+												trade.refresh(pid, item[pid].instance[args[1]], args[2], args[0], args[3], 1);
+												trade[args[0]].player = pid;
+											}else sendMessageToPlayer(pid, 198, 206, 206, ">Handlujesz ju¿ z kimœ.");
+										}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz obecnie z kimœ handluje.");
+									}else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz ¿¹danego przedmiotu w takiej liczbie.");
+								}else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owy slot.");
+							}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz znajduje siê za daleko.");
+						}else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owe ID.");
+					}else{
+						sendMessageToPlayer(pid, 198, 206, 206, ">Tip: /trade (id) (slot) (amount) (price)");
+						sendMessageToPlayer(pid, 194, 178, 128, "Sloty liczone s¹ od 0. By upewniæ siê co do slotu, mo¿esz u¿yæ komendy /slot.");
 					}
-					else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
-				}
-				else sendMessageToPlayer(pid, 198, 206, 206, ">W tym miejscu nie widaæ pijaka.");
 			}
-		break;
-		
-		case "search":
-			local args = sscanf("d", params);
-			if(args){
-				if(player[args[0]].isLogged && args[0]!=pid){
-					if(player[pid].adminIsLogged || getDistanceBeetwenPlayers(pid, args[0])<600){
-						if(item[args[0]].instance.len()>0){
-							if(!player[pid].adminIsLogged) player.narrator(pid, format("przeszukuje %s", getPlayerName(args[0])));
-							local pos = 0;
-							while(pos<item[args[0]].instance.len()){
-								local msg = "";
-								while(1){
-									msg += format("(%d) %s, ", item[args[0]].amount[pos], item[args[0]].instance[pos]);
-									pos++;
-									if(pos>item[args[0]].instance.len()-1) break;
-									else{
-										local temp = msg + format("(%d) %s), ", item[args[0]].amount[pos], item[args[0]].instance[pos]);
-										if(temp.len()>90) break;
+			break;
+
+			case "drunk":
+				if(!player[pid].isBusy){
+					if(position.get(pid, "drunk")){
+						if(item.has(pid, "ITMI_GOLD")>=2){
+							player.narrator(pid, "zak³ada siê z pijakami.");
+							callClientFunc(pid, "drunk.start");
+							player[pid].isBusy = true;
+						}
+						else sendMessageToPlayer(pid, 198, 206, 206, ">Nie posiadasz wystarczaj¹co z³ota.");
+					}
+					else sendMessageToPlayer(pid, 198, 206, 206, ">W tym miejscu nie widaæ pijaka.");
+				}
+			break;
+			
+			case "search":
+				local args = sscanf("d", params);
+				if(args){
+					if(player[args[0]].isLogged && args[0]!=pid){
+						if(player[pid].adminIsLogged || getDistanceBeetwenPlayers(pid, args[0])<600){
+							if(item[args[0]].instance.len()>0){
+								if(!player[pid].adminIsLogged) player.narrator(pid, format("przeszukuje %s", getPlayerName(args[0])));
+								local pos = 0;
+								while(pos<item[args[0]].instance.len()){
+									local msg = "";
+									while(1){
+										msg += format("(%d) %s, ", item[args[0]].amount[pos], item[args[0]].instance[pos]);
+										pos++;
+										if(pos>item[args[0]].instance.len()-1) break;
+										else{
+											local temp = msg + format("(%d) %s), ", item[args[0]].amount[pos], item[args[0]].instance[pos]);
+											if(temp.len()>90) break;
+										}
 									}
+									sendMessageToPlayer(pid, 194, 178, 128, msg.slice(0, msg.len()-2));
 								}
-								sendMessageToPlayer(pid, 194, 178, 128, msg.slice(0, msg.len()-2));
-							}
-						}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz nie posiada ¿adnych przedmiotów."); 
-					}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz znajduje siê za daleko.");
-				}else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owe ID."); 
-			}else sendMessageToPlayer(pid, 198, 206, 206, ">Tip: /search (id)"); 
-		break;
-		
-		/*
-			Activity commands end
-		*/
+							}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz nie posiada ¿adnych przedmiotów."); 
+						}else sendMessageToPlayer(pid, 198, 206, 206, ">Gracz znajduje siê za daleko.");
+					}else sendMessageToPlayer(pid, 198, 206, 206, ">Nieprawid³owe ID."); 
+				}else sendMessageToPlayer(pid, 198, 206, 206, ">Tip: /search (id)"); 
+			break;
+			
+			/*
+				Activity commands end
+			*/
 
-		/*
-			Other commands start
-		*/
+			/*
+				Other commands start
+			*/
 
-		case "slot":
-			local args = sscanf("d", params);
-			if(args){
-				if(item[pid].instance.len()>args[0]) sendMessageToPlayer(pid, 194, 178, 128, format("Slot nr %d: %s", args[0], item[pid].instance[args[0]]));
-				else sendMessageToPlayer(pid, 198, 206, 206, ">Slot jest pusty.");
-			}else sendMessageToPlayer(pid, 198, 206, 206, ">Tip: /slot (nr)");
-		break;
+			case "slot":
+				local args = sscanf("d", params);
+				if(args){
+					if(item[pid].instance.len()>args[0]) sendMessageToPlayer(pid, 194, 178, 128, format("Slot nr %d: %s", args[0], item[pid].instance[args[0]]));
+					else sendMessageToPlayer(pid, 198, 206, 206, ">Slot jest pusty.");
+				}else sendMessageToPlayer(pid, 198, 206, 206, ">Tip: /slot (nr)");
+			break;
 
-		case "admins":
-			local id = [], lvl = [];
-			for(local i = 0; i<getMaxSlots(); ++i){
-				if(player[i].adminIsLogged){
-					id.push(i);
-					lvl.push(player[i].admin);
-				}
-			}
-			if(id.len()>0){
-				local sort = true, len = id.len()-1;
-				while(sort){
-					local n = 0;
-					for(local i = 0; i<len; ++i){
-						if(lvl[i]>lvl[i+1]){
-							local temp = lvl[i];
-							lvl[i] = lvl[i+1];
-							lvl[i+1] = temp;
-
-							temp = id[i];
-							id[i] = id[i+1];
-							id[i+1] = temp;
-						}else n++;
-					}
-					if(n>=len) sort = false;
-				}
-				sendMessageToPlayer(pid, 207, 41, 66, "Dostêpni supporterzy:");
-				for(local i = 0; i<id.len(); ++i){
-					sendMessageToPlayer(pid, 207, 41, 66, format("(Level: %d) (%d) (%s)", lvl[i], id[i], getPlayerName(id[i])));
-				}
-			}else sendMessageToPlayer(pid, 207, 41, 66, "Brak dostêpnych supporterów.");
-		break;
-
-		case "report":
-			if(params.len()>0 && params.len()<161){
-				sendMessageToPlayer(pid, 207, 41, 66, "Raport zosta³ wys³any.");
-				local string = format("Raport od (%d) %s: %s", pid, getPlayerName(pid), params);
+			case "admins":
+				local id = [], lvl = [];
 				for(local i = 0; i<getMaxSlots(); ++i){
-					if(player[i].adminIsLogged) sendMessageToPlayer(i, 128, 0, 0, string);
+					if(player[i].adminIsLogged){
+						id.push(i);
+						lvl.push(player[i].admin);
+					}
 				}
-				reportLog.enter(format("%s: %s", getPlayerName(pid), params));
-			}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /report (text 1-160)");
-		break;
+				if(id.len()>0){
+					local sort = true, len = id.len()-1;
+					while(sort){
+						local n = 0;
+						for(local i = 0; i<len; ++i){
+							if(lvl[i]>lvl[i+1]){
+								local temp = lvl[i];
+								lvl[i] = lvl[i+1];
+								lvl[i+1] = temp;
 
-		/*
-			Other commands end
-		*/
+								temp = id[i];
+								id[i] = id[i+1];
+								id[i+1] = temp;
+							}else n++;
+						}
+						if(n>=len) sort = false;
+					}
+					sendMessageToPlayer(pid, 207, 41, 66, "Dostêpni supporterzy:");
+					for(local i = 0; i<id.len(); ++i){
+						sendMessageToPlayer(pid, 207, 41, 66, format("(Level: %d) (%d) (%s)", lvl[i], id[i], getPlayerName(id[i])));
+					}
+				}else sendMessageToPlayer(pid, 207, 41, 66, "Brak dostêpnych supporterów.");
+			break;
 
-		/*
-			Fraction commands start
-		*/
-		
-		case "fhelp":
-			if(player[pid].fraction>-1){
-				sendMessageToPlayer(pid, 25, 165, 111, "/f, /online, /fexit");
-				if(fractions[player[pid].fraction]._leader==getPlayerName(pid)) sendMessageToPlayer(pid, 25, 165, 111, "/invite, /uninvite");
-			}	
-		break;
-				
-		case "f":
-			if(player[pid].fraction>-1){
+			case "report":
 				if(params.len()>0 && params.len()<161){
+					sendMessageToPlayer(pid, 207, 41, 66, "Raport zosta³ wys³any.");
+					local string = format("Raport od (%d) %s: %s", pid, getPlayerName(pid), params);
 					for(local i = 0; i<getMaxSlots(); ++i){
-						if(player[i].fraction==player[pid].fraction) sendMessageToPlayer(pid, 25, 165, 111, format("(( (%d) %s: %s ))", pid, getPlayerName(pid), params));
-					}	
-				}else sendMessageToPlayer(pid, 25, 165, 111, ">Tip: /f (text 1-160)");
-			}
-		break;	
-		
-		case "fexit":
-			if(player[pid].fraction>-1){
-				sendMessageToPlayer(pid, 25, 165, 111, "Opuszczono frakcjê.");
-				if(fractions[player[pid].fraction]._leader==getPlayerName(pid)) fractions[player[pid].fraction].setLeader("");
-				player[pid].fraction=-1;
-			}
-		break;	
-		
-		case "magazine":
-			if(player[pid].fraction>-1){
-				if(fractions[player[pid].fraction].magazinePosition(pid)){
-					if(player[pid].fraction==0) callClientFunc(pid, "dialog.show", 11);
-					else if(player[pid].fraction==1) callClientFunc(pid, "dialog.show", 12);
-					else if(player[pid].fraction==2) callClientFunc(pid, "dialog.show", 13);
-					player.narrator(pid, "rozmawia z magazynierem.");
-				}else sendMessageToPlayer(pid, 25, 165, 111, ">Nie znajdujesz siê w magazynie swojej frakcji.");
-			}
-		break;	
-		
-		case "invite":
-			if(player[pid].fraction>-1){
-				if(fractions[player[pid].fraction]._leader==getPlayerName(pid)){
-						local args = sscanf("d", params);
-						if(args){
-							if(player[args[0]].isLogged && args[0]!=pid){
-								if(player[args[0]].fraction==-1){
-									player[args[0]].fraction = player[pid].fraction;
-									sendMessageToPlayer(pid, 25, 165, 111, format("Dodano (%d) %s do frakcji.", args[0], getPlayerName(args[0])));
-									sendMessageToPlayer(args[0], 25, 165, 111, format("Gracz (%d) %s doda³ Ciê do frakcji (%d) %s.", pid, getPlayerName(pid), player[pid].fraction, fraction[[player[pid].fraction]]._name));
-								}else sendMessageToPlayer(pid, 25, 165, 111, ">Gracz nale¿y ju¿ do jakiejœ frakcji.");
-							}else sendMessageToPlayer(pid, 25, 165, 111, ">B³êdne ID.");
-						}else sendMessageToPlayer(pid, 25, 165, 111, ">Tip: /invite (id)");
-					}else sendMessageToPlayer(pid, 25, 165, 111, ">Nie jesteœ liderem frakcji.");
-				}
-		break;
-		
-		case "uninvite":
-			if(player[pid].fraction>-1){
-				if(fractions[player[pid].fraction]._leader==getPlayerName(pid)){
-						local args = sscanf("d", params);
-						if(args){
-							if(player[args[0]].isLogged && args[0]!=pid){
-								if(player[args[0]].fraction==player[pid].fraction){
-									player[args[0]].fraction = -1;
-									sendMessageToPlayer(pid, 25, 165, 111, format("Wyproszono (%d) %s z frakcji.", args[0], getPlayerName(args[0])));
-									sendMessageToPlayer(args[0], 25, 165, 111, format("Gracz (%d) %s wyprosi³ Ciê z frakcji (%d) %s.", pid, getPlayerName(pid), player[pid].fraction, fraction[[player[pid].fraction]]._name));
-								}else sendMessageToPlayer(pid, 25, 165, 111, ">Gracz nie nale¿y do Twojej frakcji.");
-							}else sendMessageToPlayer(pid, 25, 165, 111, ">B³êdne ID.");
-						}else sendMessageToPlayer(pid, 25, 165, 111, ">Tip: /uninvite (id)");
-					}else sendMessageToPlayer(pid, 25, 165, 111, ">Nie jesteœ liderem frakcji.");
-				}
-		break;
-		
-		case "online":
-			if(player[pid].fraction>-1){
-				local count = 0;
-				for(local i = 0; i<getMaxSlots(); ++i){
-					if(player[i].isLogged && i!=pid){
-						sendMessageToPlayer(pid, 25, 165, 111, format("- (%d) %s", i, getPlayerName(i)));
-						count++;
+						if(player[i].adminIsLogged) sendMessageToPlayer(i, 128, 0, 0, string);
 					}
-				}
-				if(!count) sendMessageToPlayer(pid, 25, 165, 111, "Oprócz Ciebie ¿aden cz³onek frakcji nie jest dostêpny.");
-			}
-		break;
-		
-		/*Fraction command end
-		
-		*/
-		
-		/*
-			Admin commands start
-		*/
+					reportLog.enter(format("%s: %s", getPlayerName(pid), params));
+				}else sendMessageToPlayer(pid, 192, 192, 192, ">Tip: /report (text 1-160)");
+			break;
 
-		case "alogin":
-			if(player[pid].admin>0){
-				if(!player[pid].adminIsLogged){
-					if(player[pid].adminPassword==md5(params)){
-						sendMessageToPlayer(pid, 128, 0, 0, "Zalogowano.");
-						player[pid].adminIsLogged = true;
-					}
-				}else{
-					sendMessageToPlayer(pid, 128, 0, 0, "Wylogowano.");
-					player[pid].adminIsLogged = false;
-				}
-			}
-		break;
+			/*
+				Other commands end
+			*/
 
-		case "ahelp":
-			if(player[pid].adminIsLogged){
-				sendMessageToPlayer(pid, 128, 0, 0, " ");
-				sendMessageToPlayer(pid, 128, 0, 0, "/a, /all, /search, /getip, /tp, /tppos, /kick, /ban, /block, /warn, /descdelete, /sethp");
-				if(player[pid].admin>1) sendMessageToPlayer(pid, 128, 0, 0, "/setlp, /setstr, /setdex, /setwp");
-				if(player[pid].admin>2){
-					sendMessageToPlayer(pid, 128, 0, 0, "/giveadmin, /giveitem, /removeitem, /setserverdescription");
-					sendMessageToPlayer(pid, 128, 0, 0, "/setleader, /deleteleader");
+			/*
+				Fraction commands start
+			*/
+			
+			case "fhelp":
+				if(player[pid].fraction>-1){
+					sendMessageToPlayer(pid, 25, 165, 111, "/f, /online, /fexit");
+					if(fractions[player[pid].fraction]._leader==getPlayerName(pid)) sendMessageToPlayer(pid, 25, 165, 111, "/invite, /uninvite");
 				}	
+			break;
 					
-				sendMessageToPlayer(pid, 128, 0, 0, " ");
-			}
-		break;
-
-		case "a":
-			if(player[pid].adminIsLogged){
-				if(params.len()>0 && params.len()<180){
-					for(local i = 0; i<getMaxSlots(); ++i){
-						if(player[i].adminIsLogged) sendMessageToPlayer(i, 128, 0, 0, format("(%d) %s: %s", pid, getPlayerName(pid), params));
+			case "f":
+				if(player[pid].fraction>-1){
+					if(params.len()>0 && params.len()<161){
+						for(local i = 0; i<getMaxSlots(); ++i){
+							if(player[i].fraction==player[pid].fraction) sendMessageToPlayer(pid, 25, 165, 111, format("(( (%d) %s: %s ))", pid, getPlayerName(pid), params));
+						}	
+					}else sendMessageToPlayer(pid, 25, 165, 111, ">Tip: /f (text 1-160)");
+				}
+			break;	
+			
+			case "fexit":
+				if(player[pid].fraction>-1){
+					sendMessageToPlayer(pid, 25, 165, 111, "Opuszczono frakcjê.");
+					if(fractions[player[pid].fraction]._leader==getPlayerName(pid)) fractions[player[pid].fraction].setLeader("");
+					player[pid].fraction=-1;
+				}
+			break;	
+			
+			case "magazine":
+				if(player[pid].fraction>-1){
+					if(fractions[player[pid].fraction].magazinePosition(pid)){
+						if(player[pid].fraction==0) callClientFunc(pid, "dialog.show", 11);
+						else if(player[pid].fraction==1) callClientFunc(pid, "dialog.show", 12);
+						else if(player[pid].fraction==2) callClientFunc(pid, "dialog.show", 13);
+						player.narrator(pid, "rozmawia z magazynierem.");
+					}else sendMessageToPlayer(pid, 25, 165, 111, ">Nie znajdujesz siê w magazynie swojej frakcji.");
+				}
+			break;	
+			
+			case "invite":
+				if(player[pid].fraction>-1){
+					if(fractions[player[pid].fraction]._leader==getPlayerName(pid)){
+							local args = sscanf("d", params);
+							if(args){
+								if(player[args[0]].isLogged && args[0]!=pid){
+									if(player[args[0]].fraction==-1){
+										player[args[0]].fraction = player[pid].fraction;
+										sendMessageToPlayer(pid, 25, 165, 111, format("Dodano (%d) %s do frakcji.", args[0], getPlayerName(args[0])));
+										sendMessageToPlayer(args[0], 25, 165, 111, format("Gracz (%d) %s doda³ Ciê do frakcji (%d) %s.", pid, getPlayerName(pid), player[pid].fraction, fraction[[player[pid].fraction]]._name));
+									}else sendMessageToPlayer(pid, 25, 165, 111, ">Gracz nale¿y ju¿ do jakiejœ frakcji.");
+								}else sendMessageToPlayer(pid, 25, 165, 111, ">B³êdne ID.");
+							}else sendMessageToPlayer(pid, 25, 165, 111, ">Tip: /invite (id)");
+						}else sendMessageToPlayer(pid, 25, 165, 111, ">Nie jesteœ liderem frakcji.");
 					}
-				}else sendMessageToPlayer(pid, 128, 0, 0, "Tip: /a (text)");
-			}
-		break;
+			break;
+			
+			case "uninvite":
+				if(player[pid].fraction>-1){
+					if(fractions[player[pid].fraction]._leader==getPlayerName(pid)){
+							local args = sscanf("d", params);
+							if(args){
+								if(player[args[0]].isLogged && args[0]!=pid){
+									if(player[args[0]].fraction==player[pid].fraction){
+										player[args[0]].fraction = -1;
+										sendMessageToPlayer(pid, 25, 165, 111, format("Wyproszono (%d) %s z frakcji.", args[0], getPlayerName(args[0])));
+										sendMessageToPlayer(args[0], 25, 165, 111, format("Gracz (%d) %s wyprosi³ Ciê z frakcji (%d) %s.", pid, getPlayerName(pid), player[pid].fraction, fraction[[player[pid].fraction]]._name));
+									}else sendMessageToPlayer(pid, 25, 165, 111, ">Gracz nie nale¿y do Twojej frakcji.");
+								}else sendMessageToPlayer(pid, 25, 165, 111, ">B³êdne ID.");
+							}else sendMessageToPlayer(pid, 25, 165, 111, ">Tip: /uninvite (id)");
+						}else sendMessageToPlayer(pid, 25, 165, 111, ">Nie jesteœ liderem frakcji.");
+					}
+			break;
+			
+			case "online":
+				if(player[pid].fraction>-1){
+					local count = 0;
+					for(local i = 0; i<getMaxSlots(); ++i){
+						if(player[i].isLogged && i!=pid){
+							sendMessageToPlayer(pid, 25, 165, 111, format("- (%d) %s", i, getPlayerName(i)));
+							count++;
+						}
+					}
+					if(!count) sendMessageToPlayer(pid, 25, 165, 111, "Oprócz Ciebie ¿aden cz³onek frakcji nie jest dostêpny.");
+				}
+			break;
+			
+			/*Fraction command end
+			
+			*/
+			
+			/*
+				Admin commands start
+			*/
 
-		case "all":
-			if(player[pid].adminIsLogged){
-				if(params.len()>0 && params.len()<180) sendMessageToAll(pid, 207, 41, 66, format("Supporter (%d) %s: %s", pid, getPlayerName(pid), params));
-				else sendMessageToPlayer(pid, 128, 0, 0, "Tip: /all (text)");
-			}
-		break;
-		
-		case "getip":
-			if(player[pid].adminIsLogged){
-				local args = sscanf("d", params);
-				if(args){
-					if(isPlayerConnected(args[0])){
-						if(player[pid].admin==1) sendMessageToPlayer(pid, 128, 0, 0, censure(getPlayerIP(args[0])));
-						else sendMessageToPlayer(pid, 128, 0, 0, getPlayerIP(args[0]));
-					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
-				}else sendMessageToPlayer(pid, 128, 0, 0, "Tip: /getip (id)");
-			}
-		break;	
+			case "alogin":
+				if(player[pid].admin>0){
+					if(!player[pid].adminIsLogged){
+						if(player[pid].adminPassword==md5(params)){
+							sendMessageToPlayer(pid, 128, 0, 0, "Zalogowano.");
+							player[pid].adminIsLogged = true;
+						}
+					}else{
+						sendMessageToPlayer(pid, 128, 0, 0, "Wylogowano.");
+						player[pid].adminIsLogged = false;
+					}
+				}
+			break;
 
-		case "tp":
-			if(player[pid].adminIsLogged){
-				local args = sscanf("dd", params);
-				if(args){
-					if(player[args[0]].isLogged){
-						sendMessageToPlayer(pid, 128, 0, 0, format("Teleportowano gracza do gracza. Gracz: (%d) %s, gracz 2: (%d) (%s)", args[0], getPlayerName(args[0]),
-						args[1], getPlayerName(args[1])));
-						sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s teleportowa³ Ciê do (%d) %s.", pid, getPlayerName(pid), args[1],
-						getPlayerName(args[1])));
-						local pos = getPlayerPosition(args[0]);
-						setPlayerPosition(args[0], pos.x, pos.y, pos.z);
-					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
-				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /tp (id) (id2)");
-			}
-		break;
+			case "ahelp":
+				if(player[pid].adminIsLogged){
+					sendMessageToPlayer(pid, 128, 0, 0, " ");
+					sendMessageToPlayer(pid, 128, 0, 0, "/a, /all, /search, /getip, /tp, /tppos, /kick, /ban, /block, /warn, /descdelete, /sethp");
+					if(player[pid].admin>1) sendMessageToPlayer(pid, 128, 0, 0, "/setlp, /setstr, /setdex, /setwp");
+					if(player[pid].admin>2){
+						sendMessageToPlayer(pid, 128, 0, 0, "/giveadmin, /giveitem, /removeitem, /setserverdescription");
+						sendMessageToPlayer(pid, 128, 0, 0, "/setleader, /deleteleader");
+					}	
+						
+					sendMessageToPlayer(pid, 128, 0, 0, " ");
+				}
+			break;
 
-		case "tppos":
-			if(player[pid].adminIsLogged){
-				local args = sscanf("dddd", params);
-				if(args){
-					if(player[args[0]].isLogged){
-						sendMessageToPlayer(pid, 128, 0, 0, format("Teleportowno gracza. Gracz: (%d) %s.", args[0], getPlayerName(args[0])));
-						sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s teleportowa³ Ciê na inn¹ pozycjê.", pid, getPlayerName(pid)));
-						setPlayerPosition(args[0], args[1], args[2], args[3]);
-					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
-				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /tppos (id) (x) (y) (z)");
-			}
-		break;
+			case "a":
+				if(player[pid].adminIsLogged){
+					if(params.len()>0 && params.len()<180){
+						for(local i = 0; i<getMaxSlots(); ++i){
+							if(player[i].adminIsLogged) sendMessageToPlayer(i, 128, 0, 0, format("(%d) %s: %s", pid, getPlayerName(pid), params));
+						}
+					}else sendMessageToPlayer(pid, 128, 0, 0, "Tip: /a (text)");
+				}
+			break;
 
-		case "kick":
-			if(player[pid].adminIsLogged){
-				local args = sscanf("ds", params);
-				if(args){
-					if(isPlayerConnected(args[0])){
-						sendMessageToPlayer(pid, 128, 0, 0, format("Wyrzucono gracza. Gracz: (%d) %s, powód: %s.", args[0], getPlayerName(args[0]), args[1]));
-						sendMessageToAll(207, 41, 66, format("Supporter (%d) %s wyrzuci³ %s. Powód: %s", pid, getPlayerName(pid), getPlayerName(args[0]), args[1]));
-						kick(args[0], args[1]);
-					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
-				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /kick (id) (reason)");
-			}
-		break;
+			case "all":
+				if(player[pid].adminIsLogged){
+					if(params.len()>0 && params.len()<180) sendMessageToAll(pid, 207, 41, 66, format("Supporter (%d) %s: %s", pid, getPlayerName(pid), params));
+					else sendMessageToPlayer(pid, 128, 0, 0, "Tip: /all (text)");
+				}
+			break;
+			
+			case "getip":
+				if(player[pid].adminIsLogged){
+					local args = sscanf("d", params);
+					if(args){
+						if(isPlayerConnected(args[0])){
+							if(player[pid].admin==1) sendMessageToPlayer(pid, 128, 0, 0, censure(getPlayerIP(args[0])));
+							else sendMessageToPlayer(pid, 128, 0, 0, getPlayerIP(args[0]));
+						}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+					}else sendMessageToPlayer(pid, 128, 0, 0, "Tip: /getip (id)");
+				}
+			break;	
 
-		case "ban":
-			if(player[pid].adminIsLogged){
-				local args = sscanf("dds", params);
-				if(args && args[1]>0){
-					if(isPlayerConnected(args[0])){
-						sendMessageToPlayer(pid, 128, 0, 0, format("Zbanowano gracza. Gracz: (%d) %s, minut: %d, powód: %s.", args[0], getPlayerName(args[0]), args[1], args[2]));
-						sendMessageToAll(207, 41, 66, format("Supporter (%d) %s zbanowa³ %s. Powód: %s", pid, getPlayerName(pid), getPlayerName(args[0]), args[1]));
-						player[args[0]].active = 0; ban(args[0], args[1], args[2]);
-					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
-				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /ban (id) (minutes) (reason)");
-			}
-		break;
-		
-		case "block":
-			if(player[pid].adminIsLogged){
-				local args = sscanf("ds", params);
-				if(args){
-					if(player[args[0]].isLogged){
-						sendMessageToPlayer(pid, 128, 0, 0, format("Zablokowano gracza. Gracz: (%d) %s, minut: %d, powód: %s.", args[0], getPlayerName(args[0]), args[1]));
-						sendMessageToAll(207, 41, 66, format("Supporter (%d) %s zablokowa³ %s. Powód: %s", pid, getPlayerName(pid), getPlayerName(args[0]), args[1]));
-						player[args[0]].active = 0; kick(args[0], args[1]);
-					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
-				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /block (id) (reason)");
-			}
-		break;
+			case "tp":
+				if(player[pid].adminIsLogged){
+					local args = sscanf("dd", params);
+					if(args){
+						if(player[args[0]].isLogged){
+							sendMessageToPlayer(pid, 128, 0, 0, format("Teleportowano gracza do gracza. Gracz: (%d) %s, gracz 2: (%d) (%s)", args[0], getPlayerName(args[0]),
+							args[1], getPlayerName(args[1])));
+							sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s teleportowa³ Ciê do (%d) %s.", pid, getPlayerName(pid), args[1],
+							getPlayerName(args[1])));
+							local pos = getPlayerPosition(args[0]);
+							setPlayerPosition(args[0], pos.x, pos.y, pos.z);
+						}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /tp (id) (id2)");
+				}
+			break;
 
-		case "warn":
-			if(player[pid].adminIsLogged){
-				local args = sscanf("ds", params);
-				if(args){
-					if(player[args[0]].isLogged){
-						sendMessageToPlayer(pid, 128, 0, 0, format("Ostrze¿ono gracza. Gracz: (%d) %s, powód: %s.", args[0], getPlayerName(args[0]), args[1]));
-						sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s nada³ Ci ostrze¿enie. Powód: %s", pid, getPlayerName(pid), args[1]));
-						sendMessageToAll(207, 41, 66, format("Supporter (%d) %s ostrzeg³ (%d) %s. Powód: %s", pid, getPlayerName(pid), args[0], getPlayerName(args[0]), args[1]));
-						local pos = getPlayerPosition(pid);
-						setPlayerPosition(args[0], pos.x, pos.y+300, pos.z);
-					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
-				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /warn (id) (reason)");
-			}
-		break;
+			case "tppos":
+				if(player[pid].adminIsLogged){
+					local args = sscanf("dddd", params);
+					if(args){
+						if(player[args[0]].isLogged){
+							sendMessageToPlayer(pid, 128, 0, 0, format("Teleportowno gracza. Gracz: (%d) %s.", args[0], getPlayerName(args[0])));
+							sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s teleportowa³ Ciê na inn¹ pozycjê.", pid, getPlayerName(pid)));
+							setPlayerPosition(args[0], args[1], args[2], args[3]);
+						}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /tppos (id) (x) (y) (z)");
+				}
+			break;
 
-		case "descdelete":
-			if(player[pid].adminIsLogged){
-				local args = sscanf("d", params);
-				if(args){
-					if(player[args[0]].isLogged){
-						sendMessageToPlayer(pid, 128, 0, 0, format("Usuniêto opis gracza. Gracz: (%d) %s.", args[0], getPlayerName(args[0])));
-						sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s usun¹³ Twój opis.", pid, getPlayerName(pid)));
-						player[args[0]].description = "delete"; setPlayerColor(args[0], 250, 250, 250);
-					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
-				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /descdelete (id)");
-			}
-		break;
+			case "kick":
+				if(player[pid].adminIsLogged){
+					local args = sscanf("ds", params);
+					if(args){
+						if(isPlayerConnected(args[0])){
+							sendMessageToPlayer(pid, 128, 0, 0, format("Wyrzucono gracza. Gracz: (%d) %s, powód: %s.", args[0], getPlayerName(args[0]), args[1]));
+							sendMessageToAll(207, 41, 66, format("Supporter (%d) %s wyrzuci³ %s. Powód: %s", pid, getPlayerName(pid), getPlayerName(args[0]), args[1]));
+							kick(args[0], args[1]);
+						}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /kick (id) (reason)");
+				}
+			break;
 
-		case "sethp":
-			if(player[pid].adminIsLogged){
-				local args = sscanf("dd", params);
-				if(args){
-					if(player[args[0]].isLogged){
-						sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono punkty trafieñ. Gracz: (%d) %s, liczba: %d.", args[0], getPlayerName(args[0]), args[1]));
-						sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci punkty trafieñ na %d.", pid, getPlayerName(pid), args[1]));
-						setPlayerHealth(args[0], args[1]);
-					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
-				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /sethp (id) (amount)");
-			}
-		break;
+			case "ban":
+				if(player[pid].adminIsLogged){
+					local args = sscanf("dds", params);
+					if(args && args[1]>0){
+						if(isPlayerConnected(args[0])){
+							sendMessageToPlayer(pid, 128, 0, 0, format("Zbanowano gracza. Gracz: (%d) %s, minut: %d, powód: %s.", args[0], getPlayerName(args[0]), args[1], args[2]));
+							sendMessageToAll(207, 41, 66, format("Supporter (%d) %s zbanowa³ %s. Powód: %s", pid, getPlayerName(pid), getPlayerName(args[0]), args[1]));
+							player[args[0]].active = 0; ban(args[0], args[1], args[2]);
+						}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /ban (id) (minutes) (reason)");
+				}
+			break;
+			
+			case "block":
+				if(player[pid].adminIsLogged){
+					local args = sscanf("ds", params);
+					if(args){
+						if(player[args[0]].isLogged){
+							sendMessageToPlayer(pid, 128, 0, 0, format("Zablokowano gracza. Gracz: (%d) %s, minut: %d, powód: %s.", args[0], getPlayerName(args[0]), args[1]));
+							sendMessageToAll(207, 41, 66, format("Supporter (%d) %s zablokowa³ %s. Powód: %s", pid, getPlayerName(pid), getPlayerName(args[0]), args[1]));
+							player[args[0]].active = 0; kick(args[0], args[1]);
+						}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /block (id) (reason)");
+				}
+			break;
 
-		case "setmaxhp":
-			if(player[pid].adminIsLogged && player[pid].admin>1){
-				local args = sscanf("dd", params);
-				if(args){
-					if(player[args[0]].isLogged){
-						sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono maksymalne punkty trafieñ. Gracz: (%d) %s, liczba: %d.", args[0], getPlayerName(args[0]), args[1]));
-						sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci maksymalne punkty trafieñ na %d.", pid, getPlayerName(pid), args[1]));
-						setPlayerMaxHealth(args[0], args[1]);
-					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
-				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setmaxhp (id) (amount)");
-			}
-		break;
+			case "warn":
+				if(player[pid].adminIsLogged){
+					local args = sscanf("ds", params);
+					if(args){
+						if(player[args[0]].isLogged){
+							sendMessageToPlayer(pid, 128, 0, 0, format("Ostrze¿ono gracza. Gracz: (%d) %s, powód: %s.", args[0], getPlayerName(args[0]), args[1]));
+							sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s nada³ Ci ostrze¿enie. Powód: %s", pid, getPlayerName(pid), args[1]));
+							sendMessageToAll(207, 41, 66, format("Supporter (%d) %s ostrzeg³ (%d) %s. Powód: %s", pid, getPlayerName(pid), args[0], getPlayerName(args[0]), args[1]));
+							local pos = getPlayerPosition(pid);
+							setPlayerPosition(args[0], pos.x, pos.y+300, pos.z);
+						}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /warn (id) (reason)");
+				}
+			break;
 
-		case "setlp":
-			if(player[pid].adminIsLogged && player[pid].admin>1){
-				local args = sscanf("dd", params);
-				if(args){
-					if(player[args[0]].isLogged){
-						sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono PN. Gracz: (%d) %s, liczba: %d.", args[0], getPlayerName(args[0]), args[1]));
-						sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci PN na %d.", pid, getPlayerName(pid), args[1]));
-						player[args[0]].pn = args[1];
-					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
-				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setlp (id) (amount)");
-			}
-		break;
+			case "descdelete":
+				if(player[pid].adminIsLogged){
+					local args = sscanf("d", params);
+					if(args){
+						if(player[args[0]].isLogged){
+							sendMessageToPlayer(pid, 128, 0, 0, format("Usuniêto opis gracza. Gracz: (%d) %s.", args[0], getPlayerName(args[0])));
+							sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s usun¹³ Twój opis.", pid, getPlayerName(pid)));
+							player[args[0]].description = "delete"; setPlayerColor(args[0], 250, 250, 250);
+						}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /descdelete (id)");
+				}
+			break;
 
-		case "setstr":
-			if(player[pid].adminIsLogged && player[pid].admin>1){
-				local args = sscanf("dd", params);
-				if(args){
-					if(player[args[0]].isLogged){
-						sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono si³ê. Gracz: (%d) %s, liczba: %d.", args[0], getPlayerName(args[0]), args[1]));
-						sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci si³ê na %d.", pid, getPlayerName(pid), args[1]));
-						setPlayerStrength(args[0], args[1]);
-					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
-				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setstr (id) (amount)");
-			}
-		break;
+			case "sethp":
+				if(player[pid].adminIsLogged){
+					local args = sscanf("dd", params);
+					if(args){
+						if(player[args[0]].isLogged){
+							sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono punkty trafieñ. Gracz: (%d) %s, liczba: %d.", args[0], getPlayerName(args[0]), args[1]));
+							sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci punkty trafieñ na %d.", pid, getPlayerName(pid), args[1]));
+							setPlayerHealth(args[0], args[1]);
+						}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /sethp (id) (amount)");
+				}
+			break;
 
-		case "setdex":
-			if(player[pid].adminIsLogged && player[pid].admin>1){
-				local args = sscanf("dd", params);
-				if(args){
-					if(player[args[0]].isLogged){
-						sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono zrêcznoœæ. Gracz: (%d) %s, liczba: %d.", args[0], getPlayerName(args[0]), args[1]));
-						sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci zrêcznoœæ na %d.", pid, getPlayerName(pid), args[1]));
-						setPlayerDexterity(args[0], args[1]);
-					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
-				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setdex (id) (amount)");
-			}
-		break;
+			case "setmaxhp":
+				if(player[pid].adminIsLogged && player[pid].admin>1){
+					local args = sscanf("dd", params);
+					if(args){
+						if(player[args[0]].isLogged){
+							sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono maksymalne punkty trafieñ. Gracz: (%d) %s, liczba: %d.", args[0], getPlayerName(args[0]), args[1]));
+							sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci maksymalne punkty trafieñ na %d.", pid, getPlayerName(pid), args[1]));
+							setPlayerMaxHealth(args[0], args[1]);
+						}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setmaxhp (id) (amount)");
+				}
+			break;
 
-		case "setwp":
-			if(player[pid].adminIsLogged && player[pid].admin>1){
-				local args = sscanf("ddd", params);
-				if(args && args[1]>-1 && args[1]<4){
-					if(player[args[0]].isLogged){
-						sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono umiejêtnoœæ walki broni¹. Gracz: (%d) %s, umiejêtnoœæ: %d, liczba: %d.", args[0],
-						getPlayerName(args[0]), args[1], args[2]));
-						sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci umiejêtnoœæ walki broni¹ nr %d na %d.", pid, getPlayerName(pid), args[1], args[2]));
-						setPlayerSkillWeapon(args[0], args[1], args[2]);
-					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
-				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setwp (id) (nr) (amount)");
-			}
-		break;
+			case "setlp":
+				if(player[pid].adminIsLogged && player[pid].admin>1){
+					local args = sscanf("dd", params);
+					if(args){
+						if(player[args[0]].isLogged){
+							sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono PN. Gracz: (%d) %s, liczba: %d.", args[0], getPlayerName(args[0]), args[1]));
+							sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci PN na %d.", pid, getPlayerName(pid), args[1]));
+							player[args[0]].pn = args[1];
+						}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setlp (id) (amount)");
+				}
+			break;
 
-		case "giveadmin":
-			if(player[pid].adminIsLogged && player[pid].admin==3){
-				local args = sscanf("dds", params);
-				if(args && args[1]>0 && args[1]<4){
-					if(player[args[0]].isLogged){
+			case "setstr":
+				if(player[pid].adminIsLogged && player[pid].admin>1){
+					local args = sscanf("dd", params);
+					if(args){
+						if(player[args[0]].isLogged){
+							sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono si³ê. Gracz: (%d) %s, liczba: %d.", args[0], getPlayerName(args[0]), args[1]));
+							sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci si³ê na %d.", pid, getPlayerName(pid), args[1]));
+							setPlayerStrength(args[0], args[1]);
+						}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setstr (id) (amount)");
+				}
+			break;
+
+			case "setdex":
+				if(player[pid].adminIsLogged && player[pid].admin>1){
+					local args = sscanf("dd", params);
+					if(args){
+						if(player[args[0]].isLogged){
+							sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono zrêcznoœæ. Gracz: (%d) %s, liczba: %d.", args[0], getPlayerName(args[0]), args[1]));
+							sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci zrêcznoœæ na %d.", pid, getPlayerName(pid), args[1]));
+							setPlayerDexterity(args[0], args[1]);
+						}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setdex (id) (amount)");
+				}
+			break;
+
+			case "setwp":
+				if(player[pid].adminIsLogged && player[pid].admin>1){
+					local args = sscanf("ddd", params);
+					if(args && args[1]>-1 && args[1]<4){
+						if(player[args[0]].isLogged){
+							sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono umiejêtnoœæ walki broni¹. Gracz: (%d) %s, umiejêtnoœæ: %d, liczba: %d.", args[0],
+							getPlayerName(args[0]), args[1], args[2]));
+							sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s zmieni³ Ci umiejêtnoœæ walki broni¹ nr %d na %d.", pid, getPlayerName(pid), args[1], args[2]));
+							setPlayerSkillWeapon(args[0], args[1], args[2]);
+						}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setwp (id) (nr) (amount)");
+				}
+			break;
+
+			case "giveadmin":
+				if(player[pid].adminIsLogged && player[pid].admin==3){
+					local args = sscanf("dds", params);
+					if(args && args[1]>0 && args[1]<4){
+						if(player[args[0]].isLogged){
 							sendMessageToPlayer(pid, 128, 0, 0, format("NADANO ADMINISTRATORA. GRACZ: (%d) %s, POZIOM: %d.", args[0], getPlayerName(args[0]), args[1]));
 							player[args[0]].admin = args[1];
 							player[args[0]].password = md5(args[2]);
+						}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /giveadmin (id) (level 1-3) (password)");
+				}
+			break;
+
+			case "giveitem":
+				if(player[pid].adminIsLogged && player[pid].admin==3){
+				local args = sscanf("dds", params);
+				if(args){
+					if(player[args[0]].isLogged){
+						if(item.hasPlace(args[0])){
+							sendMessageToPlayer(pid, 128, 0, 0, format("Podarowano przedmiot. Gracz: (%d) %s, instancja: %s, liczba: %d.", args[0], getPlayerName(args[0]), args[2], args[1]));
+							sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s podarowa³ Ci przedmiot/y %s w liczbie %d.", pid, getPlayerName(pid), args[2], args[1]));
+							item.give(args[0], true, args[2], args[1]);
+						}else sendMessageToPlayer(pid, 128, 0, 0, ">Gracz nie ma miejsca w EQ.");
 					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
-				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /giveadmin (id) (level 1-3) (password)");
+				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /giveitem (id) (amount) (instance)");
 			}
-		break;
+			break;
 
-		case "giveitem":
-			if(player[pid].adminIsLogged && player[pid].admin==3){
-			local args = sscanf("dds", params);
-			if(args){
-				if(player[args[0]].isLogged){
-					if(item.hasPlace(args[0])){
-						sendMessageToPlayer(pid, 128, 0, 0, format("Podarowano przedmiot. Gracz: (%d) %s, instancja: %s, liczba: %d.", args[0], getPlayerName(args[0]), args[2], args[1]));
-						sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s podarowa³ Ci przedmiot/y %s w liczbie %d.", pid, getPlayerName(pid), args[2], args[1]));
-						item.give(args[0], true, args[2], args[1]);
-					}else sendMessageToPlayer(pid, 128, 0, 0, ">Gracz nie ma miejsca w EQ.");
-				}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
-			}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /giveitem (id) (amount) (instance)");
-		}
-		break;
-
-		case "removeitem":
-			if(player[pid].adminIsLogged && player[pid].admin==3){
-			local args = sscanf("dds", params);
-			if(args){
-				if(player[args[0]].isLogged){
-					sendMessageToPlayer(pid, 128, 0, 0, format("Zabrano przedmiot. Gracz: (%d) %s, instancja: %s, liczba: %d.", args[0], getPlayerName(args[0]), args[2], args[1]));
-					sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s usun¹³ Ci przedmiot/y %s w liczbie %d.", pid, getPlayerName(pid), args[2], args[1]));
-					item.remove(args[0], true, args[2], args[1]);
-				}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
-			}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /removeitem (id) (amount) (instance)");
-		}
-		break;
-
-		case "setserverdescription":
-			if(player[pid].adminIsLogged && player[pid].admin==3){
-				if(params && params.len()<180){
-					sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono opis serwera. Tekst: %s", params));
-					setServerDescription(params);
-				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setserverdescription (text)");
-			}
-		break;
-		
-		case "setleader":
-			if(player[pid].adminIsLogged && player[pid].admin==3){
-				local args = sscanf("dd", params);
+			case "removeitem":
+				if(player[pid].adminIsLogged && player[pid].admin==3){
+				local args = sscanf("dds", params);
 				if(args){
 					if(player[args[0]].isLogged){
-					if(args[1]<fractions.len()){
-							fractions[args[1]].setLeader(getPlayerName(args[0]));
-							player[args[0]].fraction = args[1];
-							sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono lidera frakcji. Gracz: (%d) %s, frakcja (%d) %s.", args[0], getPlayerName(args[0]), args[1], fractions[args[1]]._name));
-							sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s mianowa³ Ciê liderem frakcji %s.", pid, getPlayerName(pid), fractions[args[1]]._name));
-						}else sendMessageToPlayer(pid, 128, 0, 0, ">Nie istnieje frakcja o podanym ID.");
-					}else sendMessageToPlayer(pid, 128, 0, 0, ">B³êdne ID.");
-				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setleader (id) (fraction id)");
+						sendMessageToPlayer(pid, 128, 0, 0, format("Zabrano przedmiot. Gracz: (%d) %s, instancja: %s, liczba: %d.", args[0], getPlayerName(args[0]), args[2], args[1]));
+						sendMessageToPlayer(pid, 207, 41, 66, format("Supporter (%d) %s usun¹³ Ci przedmiot/y %s w liczbie %d.", pid, getPlayerName(pid), args[2], args[1]));
+						item.remove(args[0], true, args[2], args[1]);
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Nieprawid³owe ID.");
+				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /removeitem (id) (amount) (instance)");
 			}
-		break;
+			break;
 
-		case "deleteleader":
-			if(player[pid].adminIsLogged && player[pid].admin==3){
-				local args = sscanf("d", params);
-				if(args){
-					if(player[args[0]].isLogged){
-					if(args[1]<fractions.len()){
-							sendMessageToPlayer(pid, 128, 0, 0, format("Usuniêto lidera. Frakcja (%d) %s", args[1], fractions[args[1]]._name));
-							fractions[args[1]].setLeader("");
-						}else sendMessageToPlayer(pid, 128, 0, 0, ">Nie istnieje frakcja o podanym ID.");
-					}else sendMessageToPlayer(pid, 128, 0, 0, ">B³êdne ID.");
-				}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /delete (fraction id)");
-			}
-		break;
-		
-		/*
-			Admin commands end
-		*/
+			case "setserverdescription":
+				if(player[pid].adminIsLogged && player[pid].admin==3){
+					if(params && params.len()<180){
+						sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono opis serwera. Tekst: %s", params));
+						setServerDescription(params);
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setserverdescription (text)");
+				}
+			break;
+			
+			case "setleader":
+				if(player[pid].adminIsLogged && player[pid].admin==3){
+					local args = sscanf("dd", params);
+					if(args){
+						if(player[args[0]].isLogged){
+						if(args[1]<fractions.len()){
+								fractions[args[1]].setLeader(getPlayerName(args[0]));
+								player[args[0]].fraction = args[1];
+								sendMessageToPlayer(pid, 128, 0, 0, format("Zmieniono lidera frakcji. Gracz: (%d) %s, frakcja (%d) %s.", args[0], getPlayerName(args[0]), args[1], fractions[args[1]]._name));
+								sendMessageToPlayer(args[0], 207, 41, 66, format("Supporter (%d) %s mianowa³ Ciê liderem frakcji %s.", pid, getPlayerName(pid), fractions[args[1]]._name));
+							}else sendMessageToPlayer(pid, 128, 0, 0, ">Nie istnieje frakcja o podanym ID.");
+						}else sendMessageToPlayer(pid, 128, 0, 0, ">B³êdne ID.");
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /setleader (id) (fraction id)");
+				}
+			break;
+
+			case "deleteleader":
+				if(player[pid].adminIsLogged && player[pid].admin==3){
+					local args = sscanf("d", params);
+					if(args){
+						if(player[args[0]].isLogged){
+						if(args[1]<fractions.len()){
+								sendMessageToPlayer(pid, 128, 0, 0, format("Usuniêto lidera. Frakcja (%d) %s", args[1], fractions[args[1]]._name));
+								fractions[args[1]].setLeader("");
+							}else sendMessageToPlayer(pid, 128, 0, 0, ">Nie istnieje frakcja o podanym ID.");
+						}else sendMessageToPlayer(pid, 128, 0, 0, ">B³êdne ID.");
+					}else sendMessageToPlayer(pid, 128, 0, 0, ">Tip: /delete (fraction id)");
+				}
+			break;
+			
+			/*
+				Admin commands end
+			*/
 
 		}
 	}
@@ -987,9 +987,9 @@ function onPlayerDialogBoxResponse(pid, id, position){
 					case 4: setPlayerSkillWeapon(pid, 1, player[pid].skillWeapon[1]+1); break;
 					case 5: setPlayerSkillWeapon(pid, 2, player[pid].skillWeapon[2]+1); break;
 					case 6: setPlayerSkillWeapon(pid, 3, player[pid].skillWeapon[3]+1); break;
-					}
-				}else sendMessageToPlayer(pid, 192, 192, 192, ">Nie posiadasz ¿adnych punktów nauki.");
-			}else callClientFunc(pid, "dialog.destroy");
+				}
+			}else sendMessageToPlayer(pid, 192, 192, 192, ">Nie posiadasz ¿adnych punktów nauki.");
+		}else callClientFunc(pid, "dialog.destroy");
 	}else if(id==3){
 			switch(position){
 				case 0: item.buy(pid, 2, "ITFO_FISH", 1); break;
