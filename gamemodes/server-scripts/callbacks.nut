@@ -552,7 +552,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				if(player[pid].fraction>-1){
 					if(params.len()>0 && params.len()<161){
 						for(local i = 0; i<getMaxSlots(); ++i){
-							if(player[i].fraction==player[pid].fraction) sendMessageToPlayer(pid, 25, 165, 111, format("(( (%d) %s: %s ))", pid, getPlayerName(pid), params));
+							if(player[i].fraction==player[pid].fraction) sendMessageToPlayer(i, 25, 165, 111, format("(( (%d) %s: %s ))", pid, getPlayerName(pid), params));
 						}	
 					}else sendMessageToPlayer(pid, 25, 165, 111, ">Tip: /f (text 1-160)");
 				}
@@ -587,6 +587,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 										player[args[0]].fraction = player[pid].fraction;
 										sendMessageToPlayer(pid, 25, 165, 111, format("Dodano (%d) %s do frakcji.", args[0], getPlayerName(args[0])));
 										sendMessageToPlayer(args[0], 25, 165, 111, format("Gracz (%d) %s doda³ Ciê do frakcji (%d) %s.", pid, getPlayerName(pid), player[pid].fraction, fraction[[player[pid].fraction]]._name));
+										sendMessageToPlayer(args[0], 25, 165, 111, "Pod /fhelp znajdziesz nowe komendy.");
 									}else sendMessageToPlayer(pid, 25, 165, 111, ">Gracz nale¿y ju¿ do jakiejœ frakcji.");
 								}else sendMessageToPlayer(pid, 25, 165, 111, ">B³êdne ID.");
 							}else sendMessageToPlayer(pid, 25, 165, 111, ">Tip: /invite (id)");
@@ -615,7 +616,7 @@ addEventHandler("onPlayerCommand", function(pid, cmd, params){
 				if(player[pid].fraction>-1){
 					local count = 0;
 					for(local i = 0; i<getMaxSlots(); ++i){
-						if(player[i].isLogged && i!=pid){
+						if(player[i].fraction==player[pid].fraction && i!=pid){
 							sendMessageToPlayer(pid, 25, 165, 111, format("- (%d) %s", i, getPlayerName(i)));
 							count++;
 						}
